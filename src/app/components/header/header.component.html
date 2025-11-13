@@ -1,0 +1,31 @@
+<!-- Navigation Header -->
+<header class="header">
+    <div class="container">
+        <nav class="nav">
+            <!-- Logo -->
+            <h1 class="logo">Challenges</h1>
+
+            <!-- Hamburger Menu Button (Mobile) -->
+            <button type="button" class="hamburger" [class.active]="isMenuOpen" (click)="toggleMenu()"
+                aria-label="Toggle navigation menu" [attr.aria-expanded]="isMenuOpen">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+
+            <!-- Navigation Menu -->
+            <ul class="nav-menu" [class.active]="isMenuOpen">
+                <li>
+                    <a routerLink="/challenges" routerLinkActive="active" (click)="closeMenu()">
+                        Challenges
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="/progress" routerLinkActive="active" (click)="closeMenu()">
+                        Progress
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>

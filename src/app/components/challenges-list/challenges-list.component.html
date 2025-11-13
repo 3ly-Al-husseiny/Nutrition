@@ -1,0 +1,99 @@
+<!-- Challenges List Component -->
+<app-header></app-header>
+
+<!-- Available Challenges Section -->
+<section class="challenges-section">
+    <div class="container">
+        <h3 class="section-title">🎯 Available Challenges</h3>
+        <p class="section-subtitle">Choose challenges that fit your goals and start building healthy habits</p>
+
+        <!-- Loading State -->
+        <div *ngIf="isLoading" class="empty-message">
+            Loading challenges...
+        </div>
+
+        <!-- No Available Challenges -->
+        <div *ngIf="!isLoading && availableChallenges.length === 0" class="empty-message">
+            🎉 Wow! You've joined all available challenges! Keep up the great work!
+        </div>
+
+        <!-- Challenges Grid -->
+        <div *ngIf="!isLoading && availableChallenges.length > 0" class="challenges-grid">
+            <div *ngFor="let challenge of availableChallenges" class="challenge-card">
+                <!-- Challenge Icon -->
+                <div class="challenge-icon">{{ challenge.icon }}</div>
+
+                <!-- Challenge Title -->
+                <h3 class="challenge-title">{{ challenge.title }}</h3>
+
+                <!-- Challenge Description -->
+                <p class="challenge-description">{{ challenge.description }}</p>
+
+                <!-- Challenge Metadata -->
+                <div class="challenge-meta">
+                    <span class="meta-item">⏱️ {{ challenge.durationDays }} days</span>
+                    <span class="meta-item">⭐ {{ challenge.points }} pts</span>
+                </div>
+
+                <!-- Join Button -->
+                <button class="btn-primary" (click)="joinChallenge(challenge.id)">
+                    Join Challenge
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Active Challenges Section -->
+<section class="active-challenges-section">
+    <div class="container">
+        <h3 class="section-title">My Active Challenges</h3>
+        <p class="section-subtitle">Track your progress and stay motivated</p>
+
+        <!-- No Active Challenges -->
+        <div *ngIf="activeChallenges.length === 0" class="empty-message">
+            No active challenges yet. Join a challenge above to get started!
+        </div>
+
+        <!-- Active Challenges Grid -->
+        <div *ngIf="activeChallenges.length > 0" class="challenges-grid">
+            <div *ngFor="let challenge of activeChallenges" class="challenge-card active-card"
+                [class.completed-card]="isChallengeCompleted(challenge)">
+
+                <!-- Challenge Icon -->
+                <div class="challenge-icon">{{ challenge.icon }}</div>
+
+                <!-- Challenge Title -->
+                <h3 class="challenge-title">{{ challenge.title }}</h3>
+
+                <!-- Challenge Description -->
+                <p class="challenge-description">{{ challenge.description }}</p>
+
+                <!-- Progress Bar -->
+                <div class="challenge-progress-mini">
+                    <div class="progress-mini-bar">
+                        <div class="progress-mini-fill" [style.width.%]="getChallengeStats(challenge).percentage">
+                        </div>
+                    </div>
+                    <div class="progress-mini-text">
+                        {{ getChallengeStats(challenge).completed }}/{{ getChallengeStats(challenge).total }} days
+                        completed
+                        ({{ getChallengeStats(challenge).percentage }}%)
+                        <span *ngIf="isChallengeCompleted(challenge)"> 🏆</span>
+                    </div>
+                </div>
+
+                <!-- Challenge Metadata -->
+                <div class="challenge-meta">
+                    <span class="meta-item">⏱️ {{ challenge.durationDays }} days</span>
+                    <span class="meta-item">⭐ {{ challenge.points }} pts</span>
+                </div>
+
+                <!-- View Progress Button -->
+                <button class="btn-primary" (click)="viewChallengeDetails(challenge.id)">
+                    View Progress
+                </button>
+            </div>
+        </div>
+    </div>
+</section>

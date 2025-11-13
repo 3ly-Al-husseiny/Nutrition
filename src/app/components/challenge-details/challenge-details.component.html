@@ -1,0 +1,99 @@
+<!-- Challenge Details Component -->
+<app-header></app-header>
+
+<!-- Back Button -->
+<section class="container" style="margin-top: 100px;">
+    <a class="back-btn" (click)="goBack()">← Back to Challenges</a>
+</section>
+
+<!-- Loading State -->
+<section *ngIf="isLoading" class="challenge-details-section">
+    <div class="container">
+        <div class="empty-message">Loading challenge details...</div>
+    </div>
+</section>
+
+<!-- Challenge Details -->
+<section *ngIf="!isLoading && challenge && userChallenge" class="challenge-details-section">
+    <div class="container">
+        <div class="challenge-details-card">
+
+            <!-- Challenge Header -->
+            <div class="challenge-header">
+                <div class="challenge-icon-large">{{ challenge.icon }}</div>
+                <h2 class="challenge-title-large">{{ challenge.title }}</h2>
+                <p class="challenge-description">{{ challenge.description }}</p>
+            </div>
+
+            <!-- Progress Section -->
+            <div class="progress-section">
+                <div class="progress-header">
+                    <span class="progress-label">Overall Progress</span>
+                    <span class="progress-percentage">{{ stats.percentage }}%</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" [style.width.%]="stats.percentage"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Challenge Info Grid -->
+            <div class="challenge-info-grid">
+                <div class="info-item">
+                    <span class="info-icon">⏱️</span>
+                    <span class="info-text">Duration: <strong>{{ challenge.durationDays }}</strong> days</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">⭐</span>
+                    <span class="info-text">Points: <strong>{{ challenge.points }}</strong></span>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">📅</span>
+                    <span class="info-text">Started: <strong>{{ formatDate(userChallenge.startedAt) }}</strong></span>
+                </div>
+            </div>
+
+            <!-- Action Button -->
+            <div class="action-buttons">
+                <button class="btn-secondary" (click)="leaveChallenge()">
+                    Leave Challenge
+                </button>
+            </div>
+
+            <!-- Daily Timeline Section -->
+            <div class="timeline-section">
+                <h3 class="timeline-title">📆 Daily Timeline</h3>
+                <div class="timeline-grid">
+                    <div *ngFor="let completed of userChallenge.progress; let i = index" class="timeline-item"
+                        [class.completed]="completed">
+
+                        <!-- Day Info -->
+                        <div class="timeline-day">
+                            <span class="day-icon">{{ completed ? '✅' : '⏳' }}</span>
+                            <div>
+                                <div class="day-label">Day {{ i + 1 }}</div>
+                                <div class="day-status">{{ completed ? 'Completed' : 'Pending' }}</div>
+                            </div>
+                        </div>
+
+                        <!-- Mark Done Button -->
+                        <button class="mark-done-btn" [disabled]="completed" (click)="markDayComplete(i)">
+                            {{ completed ? 'Done ✓' : 'Mark as Done' }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Completion Badge (shown when challenge is complete) -->
+            <div *ngIf="isFullyCompleted" class="completion-badge">
+                <div class="badge-content">
+                    <div class="badge-icon">🏆</div>
+                    <h3>Challenge Completed!</h3>
+                    <p>Congratulations! You've earned <span>{{ challenge.points }}</span> points</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

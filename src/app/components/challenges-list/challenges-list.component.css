@@ -1,0 +1,184 @@
+/* Displays available and active challenges  */
+
+/* Sections */
+.challenges-section {
+    padding: 120px 0 3rem 0;
+}
+
+.active-challenges-section {
+    padding: 3rem 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(25, 71, 43, 0.1) 100%);
+}
+
+.challenges-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.challenge-card {
+    background: linear-gradient(135deg, var(--dark-bg) 0%, var(--secondary-bg) 100%);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    animation: fadeIn 0.5s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.challenge-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(25, 73, 44, 0.4);
+    border-color: var(--success-color);
+}
+
+/* Active Challenge Card */
+.challenge-card.active-card {
+    border: 2px solid var(--success-color);
+    background: linear-gradient(135deg, var(--accent-green) 0%, var(--secondary-bg) 100%);
+}
+
+/* Completed Challenge Card */
+.challenge-card.completed-card {
+    border: 2px solid var(--warning-color);
+    background: linear-gradient(135deg, var(--dark-bg) 0%, rgba(246, 173, 85, 0.1) 100%);
+}
+
+.challenge-icon {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.challenge-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+    min-height: 2.5rem;
+}
+
+.challenge-description {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    flex-grow: 1;
+}
+
+/* Challenge Metadata */
+.challenge-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+/* Progress Mini Bar (for active challenges) */
+.challenge-progress-mini {
+    margin-bottom: 1rem;
+}
+
+.progress-mini-bar {
+    width: 100%;
+    height: 6px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.progress-mini-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--success-color) 0%, #38a169 100%);
+    transition: width 0.5s ease;
+}
+
+.progress-mini-text {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+/* ==================== RESPONSIVE STYLES ==================== */
+
+/* Large Tablets and Small Desktops (1024px and below) */
+@media (max-width: 1024px) {
+    .challenges-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+}
+
+/* Tablets (768px and below) */
+@media (max-width: 768px) {
+    .challenges-section {
+        padding-top: 100px;
+    }
+    
+    .challenges-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+}
+
+/* Mobile (480px and below) */
+@media (max-width: 480px) {
+    .challenges-section {
+        padding-top: 90px;
+        padding-bottom: 2rem;
+    }
+    
+    .active-challenges-section {
+        padding: 2rem 0;
+    }
+    
+    .challenges-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .challenge-card {
+        padding: 1.25rem;
+    }
+    
+    .challenge-icon {
+        font-size: 2.5rem;
+    }
+    
+    .challenge-title {
+        font-size: 1rem;
+        min-height: auto;
+    }
+    
+    .challenge-description {
+        font-size: 0.85rem;
+    }
+    
+    .meta-item {
+        font-size: 0.8rem;
+    }
+}
+
+/* Extra Small Mobile (360px and below) */
+@media (max-width: 360px) {
+    .challenge-card {
+        padding: 1rem;
+    }
+    
+    .challenge-icon {
+        font-size: 2.2rem;
+    }
+}
