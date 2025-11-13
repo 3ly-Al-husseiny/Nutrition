@@ -26,7 +26,7 @@ A comprehensive Angular-based web application for tracking personal health chall
 ## Features
 
 ### Features Implemented
-- ✅ 12 health challenges (nutrition, fitness, mental health)
+- ✅ 12 health challenges
 - ✅ Challenge join/leave functionality
 - ✅ Daily progress tracking with mark as done
 - ✅ Points system with automatic awarding
