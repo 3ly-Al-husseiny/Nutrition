@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-# Nutrition
-Our DEPI Graduation Project 
-
-Hello world , We are testing ya hamoksha 
-=======
 # Challenges Module
 
 A comprehensive Angular-based web application for tracking personal health challenges and building healthy habits. Users can join challenges, track daily progress, earn badges, and visualize their health journey through interactive charts.
@@ -12,7 +6,7 @@ A comprehensive Angular-based web application for tracking personal health chall
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Features](#features)
 - [Tech Stack](#tech-stack)
@@ -487,4 +481,3 @@ This module is part of a team project.
 ---
 
 **Built with ❤️ using Angular**
->>>>>>> challenges-module
