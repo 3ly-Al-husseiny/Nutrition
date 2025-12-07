@@ -1,0 +1,53 @@
+<div class="dashboard-container">
+  <h2>📊 Elements Dashboard</h2>
+  <p class="subtitle">
+    @if (totalMeals > 0) {
+      Average nutritional intake across {{ totalMeals }} meal{{ totalMeals > 1 ? 's' : '' }}
+    } @else {
+      Your nutritional averages will appear here
+    }
+  </p>
+
+  @if (showNoDataMessage) {
+  <div class="no-data-message">
+    <div class="message-icon">🍽️</div>
+    <h3>No Meals Logged Yet</h3>
+    <p>Start logging your meals to see your nutritional intake averages!</p>
+    <p class="sub-text">AI will analyze each meal and track your nutrients automatically.</p>
+  </div>
+  } @else {
+  <div class="elements-grid">
+    @for (element of elements; track element.name) {
+    <div class="element-card">
+      <div class="element-header">
+        <h4>{{ element.name }}</h4>
+        <span class="meal-count">{{ element.totalMeals }} meal{{ element.totalMeals > 1 ? 's' : '' }}</span>
+      </div>
+
+      <div class="element-amount">
+        <span class="value">{{ element.averageAmount }}</span>
+        <span class="unit">{{ element.unit }}</span>
+      </div>
+
+      @if (element.averageDailyValue) {
+      <div class="daily-value">
+        <div class="dv-label">
+          <span>{{ element.averageDailyValue }}% Daily Value</span>
+          <span class="status" [ngClass]="getProgressClass(element.averageDailyValue)">
+            {{ getStatusText(element.averageDailyValue) }}
+          </span>
+        </div>
+        <div class="progress-bar">
+          <div 
+            class="progress-fill" 
+            [ngClass]="getProgressClass(element.averageDailyValue)"
+            [style.width]="getProgressWidth(element.averageDailyValue)"
+          ></div>
+        </div>
+      </div>
+      }
+    </div>
+    }
+  </div>
+  }
+</div>

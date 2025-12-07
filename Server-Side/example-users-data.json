@@ -1,0 +1,32 @@
+{
+  "registered_users": [
+    {
+      "email": "john.doe@example.com",
+      "password": "password123",
+      "profile": {
+        "name": "John Doe",
+        "email": "john.doe@example.com",
+        "password": "password123",
+        "weight": 75,
+        "height": 180,
+        "age": 28,
+        "gender": "male",
+        "photo": "https://ui-avatars.com/api/?name=John+Doe&size=200&background=2d5f3f&color=e8f5e9&bold=true"
+      }
+    },
+    {
+      "email": "jane.smith@example.com",
+      "password": "securepass",
+      "profile": {
+        "name": "Jane Smith",
+        "email": "jane.smith@example.com",
+        "password": "securepass",
+        "weight": 65,
+        "height": 165,
+        "age": 25,
+        "gender": "female",
+        "photo": "https://ui-avatars.com/api/?name=Jane+Smith&size=200&background=2d5f3f&color=e8f5e9&bold=true"
+      }
+    }
+  ]
+}

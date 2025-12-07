@@ -1,0 +1,131 @@
+<div class="container">
+    <div class="cart">
+        <div class="Items">
+            <div class="icon">
+                <svg width="30" height="30" fill="none" stroke="green" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </div>
+
+            <div class="info">
+                <h2>Create Account</h2>
+                <p>Join us to track your fitness journey</p>
+            </div>
+        </div>
+        <div class="form">
+            <form [formGroup]="regForm" (ngSubmit)="onSubmit()">
+                <div *ngIf="errorMessage" class="alert alert-error">
+                    {{ errorMessage }}
+                </div>
+                <div *ngIf="successMessage" class="alert alert-success">
+                    {{ successMessage }}
+                </div>
+
+                <!-- Profile Photo Upload -->
+                <div class="formInput1 photo-upload-section">
+                    <label>Profile Photo:</label>
+                    <div class="photo-upload-container">
+                        <div class="photo-preview">
+                            <img [src]="photoPreview" alt="Profile Preview" class="preview-img">
+                        </div>
+                        <div class="upload-controls">
+                            <input type="file" id="photoInput" accept="image/*" (change)="onPhotoSelected($event)" #fileInput hidden>
+                            <button type="button" class="btn-upload" (click)="fileInput.click()">
+                                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="17 8 12 3 7 8"></polyline>
+                                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                                </svg>
+                                Choose Photo
+                            </button>
+                            <span class="file-info">{{ photoFileName || 'No file chosen' }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="formInput1">
+                    <label for="name">Full Name:</label>
+                    <input class="form-control" type="text" id="name" placeholder="Enter your full name" formControlName="name">
+                    <div *ngIf="regForm.get('name')?.invalid && regForm.get('name')?.touched" class="error-text">
+                        Name is required
+                    </div>
+                </div>
+
+                <div class="formInput1">
+                    <label for="email">Email:</label>
+                    <input class="form-control" type="email" id="email" placeholder="your.email@example.com" formControlName="email">
+                    <div *ngIf="regForm.get('email')?.invalid && regForm.get('email')?.touched" class="error-text">
+                        <span *ngIf="regForm.get('email')?.errors?.['required']">Email is required</span>
+                        <span *ngIf="regForm.get('email')?.errors?.['email']">Please enter a valid email</span>
+                    </div>
+                </div>
+
+                <div class="formInput1">
+                    <label for="password">Password:</label>
+                    <input class="form-control" type="password" id="password" placeholder="At least 6 characters" formControlName="password">
+                    <div *ngIf="regForm.get('password')?.invalid && regForm.get('password')?.touched" class="error-text">
+                        <span *ngIf="regForm.get('password')?.errors?.['required']">Password is required</span>
+                        <span *ngIf="regForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters</span>
+                    </div>
+                </div>
+
+                <div class="formInput1 gender-section">
+                    <label>Gender:</label>
+                    <div class="gender-options">
+                        <label class="gender-option">
+                            <input type="radio" formControlName="gender" value="male">
+                            <span class="gender-label">
+                                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="10" cy="4" r="3"></circle>
+                                    <path d="M10 7v7m-3-3h6m-3 3v3"></path>
+                                </svg>
+                                Male
+                            </span>
+                        </label>
+                        <label class="gender-option">
+                            <input type="radio" formControlName="gender" value="female">
+                            <span class="gender-label">
+                                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="10" cy="6" r="4"></circle>
+                                    <path d="M10 10v6m-3-3h6"></path>
+                                </svg>
+                                Female
+                            </span>
+                        </label>
+                    </div>
+                    <div *ngIf="regForm.get('gender')?.invalid && regForm.get('gender')?.touched" class="error-text">
+                        Please select your gender
+                    </div>
+                </div>
+
+                <div class="contain">
+                    <div class="left d-flex">
+                        <div class="formInput2">
+                            <label for="weight">Weight (kg)</label>
+                            <input class="form-control" type="number" id="weight" placeholder="70" formControlName="weight" min="35" max="250">
+                            <div *ngIf="regForm.get('weight')?.invalid && regForm.get('weight')?.touched" class="error-text">
+                                <span *ngIf="regForm.get('weight')?.errors?.['required']">Weight is required</span>
+                                <span *ngIf="regForm.get('weight')?.errors?.['min']">Weight must be at least 35 kg</span>
+                                <span *ngIf="regForm.get('weight')?.errors?.['max']">Weight must be less than 250 kg</span>
+                            </div>
+                        </div>
+                        <div class="formInput3">
+                            <label for="height">Height (cm)</label>
+                            <input class="form-control" type="number" id="height" placeholder="175" formControlName="height" min="90" max="220">
+                            <div *ngIf="regForm.get('height')?.invalid && regForm.get('height')?.touched" class="error-text">
+                                <span *ngIf="regForm.get('height')?.errors?.['required']">Height is required</span>
+                                <span *ngIf="regForm.get('height')?.errors?.['min']">Height must be at least 90 cm</span>
+                                <span *ngIf="regForm.get('height')?.errors?.['max']">Height must be less than 220 cm</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-next" [disabled]="!regForm.valid">Register</button>
+                <div class="alt">Already have an account? <a routerLink="/login" class="link">Login</a></div>
+            </form>
+        </div>
+    </div>
+</div>

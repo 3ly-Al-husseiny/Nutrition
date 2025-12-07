@@ -1,0 +1,146 @@
+/* src/app/components/user-summary/user-summary.component.css - UPDATED */
+
+.user-summary-card {
+  text-align: center;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 2px solid var(--border-color);
+  background: linear-gradient(135deg, var(--card-bg) 0%, var(--secondary-bg) 100%);
+}
+
+.avatar-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.user-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--accent-green);
+  box-shadow: 0 4px 20px rgba(45, 95, 63, 0.4);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.user-avatar:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 30px rgba(45, 95, 63, 0.6);
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.user-details h3 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.user-details .points {
+  color: var(--accent-green-light);
+  font-size: 18px;
+  margin: 0;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.user-details .points::before {
+  content: "⭐";
+  font-size: 20px;
+}
+
+/* === Responsive === */
+
+/* Tablets (1024px and below) */
+@media (max-width: 1024px) {
+  .user-summary-card {
+    padding: 28px 22px;
+  }
+  
+  .user-avatar {
+    width: 110px;
+    height: 110px;
+  }
+  
+  .user-details h3 {
+    font-size: 26px;
+  }
+}
+
+/* Mobile Landscape & Tablets (768px and below) */
+@media (max-width: 768px) {
+  .user-summary-card {
+    min-height: auto;
+    padding: 24px 20px;
+  }
+  
+  .user-avatar {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .user-details h3 {
+    font-size: 24px;
+  }
+  
+  .user-details .points {
+    font-size: 16px;
+  }
+}
+
+/* Mobile Portrait (480px and below) */
+@media (max-width: 480px) {
+  .user-summary-card {
+    padding: 20px 16px;
+  }
+  
+  .user-avatar {
+    width: 90px;
+    height: 90px;
+  }
+  
+  .user-details h3 {
+    font-size: 22px;
+  }
+  
+  .user-details .points {
+    font-size: 15px;
+  }
+}
+
+/* Extra Small Mobile (360px and below) */
+@media (max-width: 360px) {
+  .user-avatar {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .user-details h3 {
+    font-size: 20px;
+  }
+}
+
+/* Landscape Orientation */
+@media (max-height: 600px) and (orientation: landscape) {
+  .user-summary-card {
+    min-height: auto;
+    padding: 20px;
+  }
+  
+  .avatar-section {
+    gap: 15px;
+  }
+}

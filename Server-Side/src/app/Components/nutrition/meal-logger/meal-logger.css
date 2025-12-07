@@ -1,0 +1,480 @@
+.meal-logger-card {
+  background: linear-gradient(135deg, #1a2e2a 0%, #0d1b18 100%);
+  border: 2px solid #2d4a42;
+  border-radius: 16px;
+  padding: 30px;
+  max-width: 800px;
+  margin: 0 auto 30px;
+}
+
+.meal-logger-card h3 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  margin: 0 0 8px 0;
+}
+
+.subtitle {
+  color: #a0b9b4;
+  font-size: 14px;
+  margin: 0 0 25px 0;
+}
+
+.input-section {
+  margin-bottom: 20px;
+}
+
+.input-section label {
+  display: block;
+  color: #a0b9b4;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.input-section textarea {
+  width: 100%;
+  background: rgba(45, 74, 66, 0.3);
+  border: 2px solid #2d4a42;
+  border-radius: 12px;
+  padding: 15px;
+  color: #fff;
+  font-size: 15px;
+  font-family: inherit;
+  resize: vertical;
+  transition: all 0.3s ease;
+}
+
+.input-section textarea:focus {
+  outline: none;
+  border-color: #4caf50;
+  background: rgba(45, 74, 66, 0.5);
+}
+
+.input-section textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.char-counter {
+  text-align: right;
+  font-size: 12px;
+  color: #7a9590;
+  margin-top: 5px;
+}
+
+.error-message {
+  background: rgba(231, 76, 60, 0.1);
+  border-left: 4px solid #e74c3c;
+  padding: 12px 15px;
+  border-radius: 8px;
+  color: #ffcccc;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.success-message {
+  background: rgba(76, 175, 80, 0.1);
+  border-left: 4px solid #4caf50;
+  padding: 12px 15px;
+  border-radius: 8px;
+  color: #b8f5b8;
+  margin-bottom: 15px;
+  font-size: 14px;
+  animation: slide-in 0.3s ease;
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.analyze-btn,
+.save-btn,
+.cancel-btn {
+  padding: 14px 28px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.analyze-btn {
+  background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+  color: white;
+  width: 100%;
+  justify-content: center;
+}
+
+.analyze-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
+}
+
+.analyze-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.analysis-results {
+  margin-top: 25px;
+  animation: fade-in 0.4s ease;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.analysis-results h4 {
+  color: #4caf50;
+  font-size: 20px;
+  margin: 0 0 20px 0;
+}
+
+.summary-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.info-item {
+  background: rgba(76, 175, 80, 0.1);
+  border: 1px solid rgba(76, 175, 80, 0.2);
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.info-item .label {
+  display: block;
+  color: #a0b9b4;
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+
+.info-item .value {
+  display: block;
+  color: #4caf50;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.elements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.element-card {
+  background: rgba(45, 74, 66, 0.3);
+  border: 1px solid #2d4a42;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.element-card:hover {
+  border-color: #4caf50;
+  transform: translateY(-2px);
+}
+
+.element-name {
+  color: #a0b9b4;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.element-amount {
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.element-dv {
+  color: #4caf50;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.save-btn {
+  flex: 1;
+  background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+  color: white;
+  justify-content: center;
+}
+
+.save-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
+}
+
+.cancel-btn {
+  flex: 0.4;
+  background: rgba(231, 76, 60, 0.1);
+  border: 1px solid rgba(231, 76, 60, 0.3);
+  color: #ff9999;
+  justify-content: center;
+}
+
+.cancel-btn:hover {
+  background: rgba(231, 76, 60, 0.2);
+  border-color: #e74c3c;
+}
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+
+/* Large Laptops (1200px and below) */
+@media (max-width: 1200px) {
+  .meal-logger-card {
+    padding: 28px;
+  }
+}
+
+/* Tablets (1024px and below) */
+@media (max-width: 1024px) {
+  .meal-logger-card {
+    padding: 25px;
+  }
+
+  .meal-logger-card h3 {
+    font-size: 22px;
+  }
+
+  .summary-info {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .elements-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+}
+
+/* Mobile Landscape & Small Tablets (768px and below) */
+@media (max-width: 768px) {
+  .meal-logger-card {
+    padding: 20px;
+  }
+
+  .meal-logger-card h3 {
+    font-size: 20px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+
+  .input-section label {
+    font-size: 13px;
+  }
+
+  .input-section textarea {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .analyze-btn,
+  .save-btn,
+  .cancel-btn {
+    padding: 12px 24px;
+    font-size: 15px;
+  }
+
+  .analysis-results h4 {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+
+  .summary-info {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .info-item {
+    padding: 12px;
+  }
+
+  .info-item .label {
+    font-size: 12px;
+  }
+
+  .info-item .value {
+    font-size: 18px;
+  }
+
+  .elements-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+  }
+
+  .element-card {
+    padding: 12px;
+  }
+
+  .element-name {
+    font-size: 11px;
+  }
+
+  .element-amount {
+    font-size: 16px;
+  }
+
+  .element-dv {
+    font-size: 12px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .cancel-btn {
+    flex: 1;
+  }
+}
+
+/* Mobile Portrait (480px and below) */
+@media (max-width: 480px) {
+  .meal-logger-card {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .meal-logger-card h3 {
+    font-size: 18px;
+  }
+
+  .subtitle {
+    font-size: 12px;
+  }
+
+  .input-section textarea {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .char-counter {
+    font-size: 11px;
+  }
+
+  .error-message,
+  .success-message {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .analyze-btn,
+  .save-btn,
+  .cancel-btn {
+    padding: 11px 20px;
+    font-size: 14px;
+  }
+
+  .analysis-results h4 {
+    font-size: 17px;
+  }
+
+  .info-item {
+    padding: 10px;
+  }
+
+  .info-item .value {
+    font-size: 16px;
+  }
+
+  .elements-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .element-card {
+    padding: 10px;
+  }
+
+  .element-amount {
+    font-size: 15px;
+  }
+}
+
+/* Extra Small Mobile (360px and below) */
+@media (max-width: 360px) {
+  .meal-logger-card {
+    padding: 14px;
+  }
+
+  .meal-logger-card h3 {
+    font-size: 17px;
+  }
+
+  .elements-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .element-card {
+    padding: 12px;
+  }
+
+  .analyze-btn,
+  .save-btn,
+  .cancel-btn {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+}
+
+/* Landscape Orientation */
+@media (max-height: 600px) and (orientation: landscape) {
+  .meal-logger-card {
+    padding: 18px;
+  }
+
+  .summary-info {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .elements-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
+}

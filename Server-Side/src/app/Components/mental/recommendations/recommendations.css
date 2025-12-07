@@ -1,0 +1,1320 @@
+.recommendations-container {
+  background-color: #0d1b18;
+  padding: 40px;
+  font-family: sans-serif;
+  color: white;
+  min-height: 100vh;
+}
+
+.recommendations-container h2 {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: white;
+  text-align: center;
+}
+
+.subtitle {
+  text-align: center;
+  color: #a0b9b4;
+  font-size: 16px;
+  margin-bottom: 50px;
+}
+
+.no-recommendations-message {
+  max-width: 600px;
+  margin: 80px auto;
+  padding: 60px 40px;
+  background: linear-gradient(135deg, #1a2e2a 0%, #0d1b18 100%);
+  border: 2px solid #4caf50;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(76, 175, 80, 0.2);
+}
+
+.message-icon {
+  font-size: 80px;
+  margin-bottom: 20px;
+  animation: celebrate 2s ease-in-out infinite;
+}
+
+@keyframes celebrate {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+  25% {
+    transform: scale(1.1) rotate(-5deg);
+  }
+  75% {
+    transform: scale(1.1) rotate(5deg);
+  }
+}
+
+.no-recommendations-message h3 {
+  font-size: 32px;
+  color: #4caf50;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.no-recommendations-message p {
+  font-size: 18px;
+  color: #a0b9b4;
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+.no-recommendations-message .sub-message {
+  font-size: 16px;
+  color: #7a9590;
+  margin-top: 20px;
+  font-style: italic;
+}
+
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.card {
+  background: linear-gradient(135deg, #1a2e2a 0%, #0d1b18 100%);
+  border: 2px solid #2d4a42;
+  border-radius: 16px;
+  overflow: hidden;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #4caf50, #45a049);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover::before {
+  transform: scaleX(1);
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  border-color: #4caf50;
+  box-shadow: 0 20px 40px rgba(76, 175, 80, 0.2);
+}
+
+.card:active {
+  transform: translateY(-5px);
+}
+
+.card a {
+  text-decoration: none;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.card:hover img {
+  transform: scale(1.05);
+}
+
+.card-content {
+  padding: 25px;
+  background-color: #1a2e2a;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card-content h3 {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+  color: white;
+  transition: color 0.3s ease;
+}
+
+.card:hover .card-content h3 {
+  color: #4caf50;
+}
+
+.card-content p {
+  font-size: 14px;
+  color: #a0b9b4;
+  line-height: 1.6;
+  margin: 0;
+  flex: 1;
+}
+
+/* Score Indicator */
+.score-indicator {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+  padding: 10px 12px;
+  background: rgba(76, 175, 80, 0.1);
+  border-left: 3px solid #4caf50;
+  border-radius: 6px;
+}
+
+.score-label {
+  font-size: 13px;
+  color: #a0b9b4;
+  font-weight: 500;
+}
+
+.score-value {
+  font-size: 16px;
+  font-weight: bold;
+  padding: 4px 12px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.score-good {
+  color: #27ae60;
+  border: 1px solid rgba(39, 174, 96, 0.4);
+}
+
+.score-needs-exercises {
+  color: #f39c12;
+  border: 1px solid rgba(243, 156, 18, 0.4);
+}
+
+.score-see-doctor {
+  color: #e74c3c;
+  border: 1px solid rgba(231, 76, 60, 0.4);
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+  padding: 20px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-container {
+  background: #0d1b18 !important;
+  border: 2px solid #2d4a42;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 900px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #2d4a42;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.modal-close:hover {
+  background: rgba(231, 76, 60, 0.2);
+  border-color: #e74c3c;
+  transform: rotate(90deg);
+}
+
+.modal-close svg {
+  width: 20px;
+  height: 20px;
+  color: white;
+}
+
+.modal-content {
+  padding: 40px 30px;
+  background: transparent !important;
+}
+
+.modal-title {
+  font-size: 32px;
+  font-weight: bold;
+  color: #fff;
+  margin: 0 0 10px 0;
+  text-align: center;
+}
+
+.modal-subtitle {
+  font-size: 16px;
+  color: #a0b9b4;
+  text-align: center;
+  margin: 0 0 40px 0;
+}
+
+/* Exercises Container */
+.exercises-container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.exercise-card {
+  background: linear-gradient(135deg, #1a2e2a 0%, #0d1b18 100%);
+  border: 2px solid #2d4a42;
+  border-radius: 12px;
+  padding: 25px;
+  transition: all 0.3s ease;
+}
+
+.exercise-card:hover {
+  border-color: #4caf50;
+  transform: translateX(5px);
+  box-shadow: 0 5px 20px rgba(76, 175, 80, 0.15);
+}
+
+.exercise-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #2d4a42;
+}
+
+.exercise-emoji {
+  font-size: 32px;
+  flex-shrink: 0;
+}
+
+.exercise-info {
+  flex: 1;
+}
+
+.exercise-info h3 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+  margin: 0 0 8px 0;
+}
+
+.exercise-duration {
+  font-size: 14px;
+  color: #4caf50;
+  font-weight: 600;
+  display: inline-block;
+  padding: 4px 12px;
+  background: rgba(76, 175, 80, 0.15);
+  border-radius: 6px;
+  border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.exercise-body h4 {
+  font-size: 16px;
+  color: #4caf50;
+  margin: 0 0 12px 0;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.exercise-steps {
+  margin: 0 0 20px 0;
+  padding-left: 20px;
+  color: #a0b9b4;
+}
+
+.exercise-steps li {
+  margin-bottom: 10px;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.exercise-steps li::marker {
+  color: #4caf50;
+  font-weight: bold;
+}
+
+.exercise-benefits {
+  background: rgba(76, 175, 80, 0.1);
+  border-left: 4px solid #4caf50;
+  padding: 12px 15px;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #a0b9b4;
+  line-height: 1.6;
+}
+
+.exercise-benefits strong {
+  color: #4caf50;
+  font-weight: 600;
+}
+
+/* Custom scrollbar for modal */
+.modal-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-container::-webkit-scrollbar-track {
+  background: #0d1b18;
+}
+
+.modal-container::-webkit-scrollbar-thumb {
+  background: #2d4a42;
+  border-radius: 4px;
+}
+
+.modal-container::-webkit-scrollbar-thumb:hover {
+  background: #4caf50;
+}
+
+/* Section Container */
+.section-container {
+  margin-bottom: 40px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid rgba(76, 175, 80, 0.2);
+}
+
+.section-container:last-child {
+  border-bottom: none;
+}
+
+.section-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #4caf50;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-subtitle {
+  font-size: 14px;
+  color: #8fa89f;
+  margin-bottom: 15px;
+  font-style: italic;
+}
+
+/* Office Tips Grid */
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.tip-card {
+  display: flex;
+  gap: 15px;
+  padding: 15px;
+  background: rgba(29, 74, 66, 0.3);
+  border: 1px solid rgba(76, 175, 80, 0.2);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.tip-card:hover {
+  background: rgba(29, 74, 66, 0.5);
+  border-color: rgba(76, 175, 80, 0.4);
+  transform: translateY(-2px);
+}
+
+.tip-icon {
+  font-size: 24px;
+  color: #4caf50;
+  flex-shrink: 0;
+}
+
+.tip-content h4 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #e8f5e9;
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+.tip-content p {
+  font-size: 13px;
+  color: #b8d4b8;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Quick Fixes Grid */
+.quick-fixes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.quick-fix-card {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  background: rgba(255, 152, 0, 0.05);
+  border: 1px solid rgba(255, 152, 0, 0.2);
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.quick-fix-card:hover {
+  background: rgba(255, 152, 0, 0.1);
+  border-color: rgba(255, 152, 0, 0.4);
+  transform: translateX(5px);
+}
+
+.fix-icon {
+  font-size: 20px;
+  color: #ff9800;
+  flex-shrink: 0;
+}
+
+.fix-content h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff3e0;
+  margin-bottom: 4px;
+}
+
+.fix-content p {
+  font-size: 13px;
+  color: #ffcc80;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Focus Booster Cards (Purple Theme) */
+.booster-card {
+  background: rgba(156, 39, 176, 0.05) !important;
+  border: 1px solid rgba(156, 39, 176, 0.2) !important;
+}
+
+.booster-card:hover {
+  background: rgba(156, 39, 176, 0.1) !important;
+  border-color: rgba(156, 39, 176, 0.4) !important;
+}
+
+.booster-card .fix-icon {
+  color: #ab47bc;
+}
+
+.booster-card .fix-content h4 {
+  color: #f3e5f5;
+}
+
+.booster-card .fix-content p {
+  color: #ce93d8;
+}
+
+/* Posture Reminders List */
+.reminders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.reminder-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 15px;
+  background: rgba(33, 150, 243, 0.05);
+  border-left: 3px solid #2196f3;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.reminder-item:hover {
+  background: rgba(33, 150, 243, 0.1);
+  transform: translateX(5px);
+}
+
+.reminder-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.reminder-item p {
+  font-size: 14px;
+  color: #bbdefb;
+  margin: 0;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+
+/* Large Laptops (1200px and below) */
+@media (max-width: 1200px) {
+  .recommendations-container {
+    padding: 35px;
+  }
+
+  .cards-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+  }
+}
+
+/* Tablets (1024px and below) */
+@media (max-width: 1024px) {
+  .recommendations-container {
+    padding: 30px;
+  }
+
+  .recommendations-container h2 {
+    font-size: 30px;
+  }
+
+  .subtitle {
+    font-size: 15px;
+    margin-bottom: 40px;
+  }
+
+  .no-recommendations-message {
+    margin: 60px auto;
+    padding: 50px 35px;
+  }
+
+  .message-icon {
+    font-size: 70px;
+  }
+
+  .no-recommendations-message h3 {
+    font-size: 28px;
+  }
+
+  .no-recommendations-message p {
+    font-size: 17px;
+  }
+
+  .cards-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .card img {
+    height: 200px;
+  }
+
+  .card-content h3 {
+    font-size: 19px;
+  }
+
+  .modal-container {
+    max-width: 950px;
+  }
+
+  .tips-grid,
+  .quick-fixes-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+}
+
+/* Mobile Landscape & Small Tablets (768px and below) */
+@media (max-width: 768px) {
+  .recommendations-container {
+    padding: 20px;
+  }
+
+  .recommendations-container h2 {
+    font-size: 26px;
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    margin-bottom: 35px;
+  }
+
+  .no-recommendations-message {
+    margin: 50px auto;
+    padding: 40px 30px;
+    border-radius: 16px;
+  }
+
+  .message-icon {
+    font-size: 60px;
+    margin-bottom: 16px;
+  }
+
+  .no-recommendations-message h3 {
+    font-size: 26px;
+    margin-bottom: 12px;
+  }
+
+  .no-recommendations-message p {
+    font-size: 16px;
+  }
+
+  .no-recommendations-message .sub-message {
+    font-size: 15px;
+    margin-top: 16px;
+  }
+
+  .cards-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 10px;
+  }
+
+  .card img {
+    height: 180px;
+  }
+
+  .card-content {
+    padding: 20px;
+  }
+
+  .card-content h3 {
+    font-size: 18px;
+  }
+
+  .card-content p {
+    font-size: 13px;
+  }
+
+  .score-indicator {
+    gap: 8px;
+    margin-top: 10px;
+    padding: 8px 10px;
+  }
+
+  .score-label {
+    font-size: 12px;
+  }
+
+  .score-value {
+    font-size: 15px;
+    padding: 3px 10px;
+  }
+
+  /* Modal */
+  .modal-overlay {
+    padding: 15px;
+  }
+
+  .modal-container {
+    max-width: 100%;
+    max-height: 88vh;
+    border-radius: 12px;
+  }
+
+  .modal-close {
+    top: 15px;
+    right: 15px;
+    width: 36px;
+    height: 36px;
+  }
+
+  .modal-close svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .modal-content {
+    padding: 30px 20px;
+  }
+
+  .modal-title {
+    font-size: 26px;
+    margin-bottom: 8px;
+  }
+
+  .modal-subtitle {
+    font-size: 14px;
+    margin-bottom: 30px;
+  }
+
+  /* Exercise Cards */
+  .exercises-container {
+    gap: 20px;
+  }
+
+  .exercise-card {
+    padding: 20px;
+  }
+
+  .exercise-header {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+  }
+
+  .exercise-emoji {
+    font-size: 28px;
+  }
+
+  .exercise-info h3 {
+    font-size: 18px;
+    margin-bottom: 6px;
+  }
+
+  .exercise-duration {
+    font-size: 13px;
+    padding: 3px 10px;
+  }
+
+  .exercise-body h4 {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+
+  .exercise-steps {
+    margin-bottom: 16px;
+  }
+
+  .exercise-steps li {
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+
+  .exercise-benefits {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  /* Section Container */
+  .section-container {
+    margin-bottom: 35px;
+    padding-bottom: 25px;
+  }
+
+  .section-title {
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+
+  .section-subtitle {
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+
+  /* Grids */
+  .tips-grid,
+  .quick-fixes-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .tip-card,
+  .quick-fix-card {
+    padding: 12px;
+  }
+
+  .tip-icon,
+  .fix-icon {
+    font-size: 22px;
+  }
+
+  .tip-content h4,
+  .fix-content h4 {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+
+  .tip-content p,
+  .fix-content p {
+    font-size: 12px;
+  }
+
+  /* Reminders */
+  .reminders-list {
+    gap: 10px;
+  }
+
+  .reminder-item {
+    padding: 10px 12px;
+  }
+
+  .reminder-icon {
+    font-size: 18px;
+  }
+
+  .reminder-item p {
+    font-size: 13px;
+  }
+
+  /* Coming Soon */
+  .coming-soon {
+    padding: 50px 20px;
+  }
+
+  .coming-soon .icon {
+    font-size: 60px;
+  }
+
+  .coming-soon h3 {
+    font-size: 24px;
+  }
+
+  .coming-soon p {
+    font-size: 15px;
+  }
+}
+
+/* Mobile Portrait (480px and below) */
+@media (max-width: 480px) {
+  .recommendations-container {
+    padding: 15px;
+  }
+
+  .recommendations-container h2 {
+    font-size: 22px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+    margin-bottom: 30px;
+  }
+
+  .no-recommendations-message {
+    margin: 40px auto;
+    padding: 35px 25px;
+    border-radius: 14px;
+  }
+
+  .message-icon {
+    font-size: 50px;
+    margin-bottom: 14px;
+  }
+
+  .no-recommendations-message h3 {
+    font-size: 22px;
+  }
+
+  .no-recommendations-message p {
+    font-size: 15px;
+  }
+
+  .no-recommendations-message .sub-message {
+    font-size: 14px;
+  }
+
+  .cards-container {
+    gap: 16px;
+    padding: 5px;
+  }
+
+  .card {
+    border-radius: 14px;
+  }
+
+  .card img {
+    height: 160px;
+  }
+
+  .card-content {
+    padding: 18px;
+  }
+
+  .card-content h3 {
+    font-size: 17px;
+  }
+
+  .card-content p {
+    font-size: 12px;
+  }
+
+  .score-indicator {
+    padding: 7px 9px;
+  }
+
+  .score-label {
+    font-size: 11px;
+  }
+
+  .score-value {
+    font-size: 14px;
+    padding: 2px 8px;
+  }
+
+  /* Modal */
+  .modal-overlay {
+    padding: 10px;
+  }
+
+  .modal-container {
+    max-height: 90vh;
+    border-radius: 10px;
+  }
+
+  .modal-close {
+    top: 12px;
+    right: 12px;
+    width: 34px;
+    height: 34px;
+  }
+
+  .modal-close svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .modal-content {
+    padding: 25px 16px;
+  }
+
+  .modal-title {
+    font-size: 22px;
+  }
+
+  .modal-subtitle {
+    font-size: 13px;
+    margin-bottom: 25px;
+  }
+
+  /* Exercise Cards */
+  .exercises-container {
+    gap: 18px;
+  }
+
+  .exercise-card {
+    padding: 18px;
+    border-radius: 10px;
+  }
+
+  .exercise-header {
+    gap: 10px;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+  }
+
+  .exercise-emoji {
+    font-size: 26px;
+  }
+
+  .exercise-info h3 {
+    font-size: 17px;
+  }
+
+  .exercise-duration {
+    font-size: 12px;
+    padding: 3px 9px;
+  }
+
+  .exercise-body h4 {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .exercise-steps {
+    margin-bottom: 14px;
+    padding-left: 18px;
+  }
+
+  .exercise-steps li {
+    font-size: 12px;
+    margin-bottom: 7px;
+  }
+
+  .exercise-benefits {
+    padding: 9px 11px;
+    font-size: 12px;
+  }
+
+  /* Section Container */
+  .section-container {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+  }
+
+  .section-title {
+    font-size: 18px;
+    margin-bottom: 14px;
+  }
+
+  .section-subtitle {
+    font-size: 12px;
+  }
+
+  /* Grids */
+  .tips-grid,
+  .quick-fixes-grid {
+    gap: 10px;
+  }
+
+  .tip-card,
+  .quick-fix-card {
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+  .tip-icon,
+  .fix-icon {
+    font-size: 20px;
+  }
+
+  .tip-content h4,
+  .fix-content h4 {
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  .tip-content p,
+  .fix-content p {
+    font-size: 11px;
+  }
+
+  /* Reminders */
+  .reminders-list {
+    gap: 8px;
+  }
+
+  .reminder-item {
+    padding: 9px 10px;
+  }
+
+  .reminder-icon {
+    font-size: 16px;
+  }
+
+  .reminder-item p {
+    font-size: 12px;
+  }
+
+  /* Coming Soon */
+  .coming-soon {
+    padding: 40px 15px;
+  }
+
+  .coming-soon .icon {
+    font-size: 50px;
+  }
+
+  .coming-soon h3 {
+    font-size: 22px;
+  }
+
+  .coming-soon p {
+    font-size: 14px;
+  }
+}
+
+/* Extra Small Mobile (360px and below) */
+@media (max-width: 360px) {
+  .recommendations-container {
+    padding: 12px;
+  }
+
+  .recommendations-container h2 {
+    font-size: 20px;
+  }
+
+  .subtitle {
+    font-size: 12px;
+  }
+
+  .no-recommendations-message {
+    padding: 30px 20px;
+  }
+
+  .message-icon {
+    font-size: 45px;
+  }
+
+  .no-recommendations-message h3 {
+    font-size: 20px;
+  }
+
+  .no-recommendations-message p {
+    font-size: 14px;
+  }
+
+  .no-recommendations-message .sub-message {
+    font-size: 13px;
+  }
+
+  .card img {
+    height: 140px;
+  }
+
+  .card-content {
+    padding: 16px;
+  }
+
+  .card-content h3 {
+    font-size: 16px;
+  }
+
+  .card-content p {
+    font-size: 11px;
+  }
+
+  .modal-title {
+    font-size: 20px;
+  }
+
+  .modal-subtitle {
+    font-size: 12px;
+  }
+
+  .exercise-info h3 {
+    font-size: 16px;
+  }
+
+  .exercise-steps li {
+    font-size: 11px;
+  }
+
+  .exercise-benefits {
+    font-size: 11px;
+  }
+
+  .section-title {
+    font-size: 16px;
+  }
+
+  .tip-content h4,
+  .fix-content h4 {
+    font-size: 12px;
+  }
+
+  .tip-content p,
+  .fix-content p,
+  .reminder-item p {
+    font-size: 10px;
+  }
+
+  .modal-close {
+    width: 32px;
+    height: 32px;
+  }
+
+  .modal-close svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .coming-soon .icon {
+    font-size: 45px;
+  }
+
+  .coming-soon h3 {
+    font-size: 20px;
+  }
+
+  .coming-soon p {
+    font-size: 13px;
+  }
+}
+
+/* Landscape Orientation (for phones in landscape) */
+@media (max-height: 600px) and (orientation: landscape) {
+  .recommendations-container {
+    padding: 20px;
+  }
+
+  .recommendations-container h2 {
+    font-size: 24px;
+    margin-bottom: 6px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+    margin-bottom: 25px;
+  }
+
+  .no-recommendations-message {
+    margin: 30px auto;
+    padding: 30px 25px;
+  }
+
+  .message-icon {
+    font-size: 50px;
+  }
+
+  .modal-container {
+    max-height: 92vh;
+  }
+
+  .modal-content {
+    padding: 20px 16px;
+  }
+
+  .section-container {
+    margin-bottom: 25px;
+    padding-bottom: 18px;
+  }
+
+  .exercise-card {
+    padding: 16px;
+  }
+
+  .tips-grid,
+  .quick-fixes-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .coming-soon {
+    padding: 40px 20px;
+  }
+
+  .coming-soon .icon {
+    font-size: 50px;
+  }
+}

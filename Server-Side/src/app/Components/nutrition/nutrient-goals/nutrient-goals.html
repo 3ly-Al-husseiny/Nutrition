@@ -1,0 +1,17 @@
+<!-- src/app/components/nutrient-goals/nutrient-goals.component.html -->
+<div class="nutrient-goals-card card">
+  <h2>This Week's Nutrient Goals</h2>
+  <div class="goals-grid">
+    <app-nutrient-card 
+      *ngFor="let nutrient of nutrients" 
+      [nutrient]="nutrient">
+    </app-nutrient-card>
+    
+    <div class="add-goal-item">
+      <button class="btn add-goal-btn" (click)="addNutrientGoal()">
+        <i class="fas fa-plus-circle"></i>
+        <span>Add Nutrient Goal</span>
+      </button>
+    </div>
+  </div>
+</div>

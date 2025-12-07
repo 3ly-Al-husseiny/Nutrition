@@ -1,0 +1,139 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #1a1a1a, #0d0d0d);
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+}
+
+.cart {
+    width: 450px;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    color: white;
+    height: auto;
+    min-height: 500px;
+}
+
+.Items {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.Items h2 {
+    margin: 0;
+    font-size: 1.8em;
+    font-weight: 700;
+    background: linear-gradient(to right, #4CAF50, #81C784);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.info p {
+    font-size: 0.9em;
+    color: #aaa;
+    margin-top: 5px;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.inputs .input1 {
+    height: 50px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0 15px;
+    font-size: 16px;
+    align-items: center;
+    display: flex;
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.inputs .input1:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #4CAF50;
+}
+
+.inputs .input1 input {
+    width: 20px;
+    height: 20px;
+    accent-color: #4CAF50;
+    cursor: pointer;
+}
+
+.inputs .input1 label {
+    font-size: 1em;
+    font-weight: 500;
+    cursor: pointer;
+    flex: 1;
+}
+
+.links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    gap: 15px;
+}
+
+.links a {
+    text-decoration: none;
+    color: #aaa;
+    font-size: 1em;
+    font-weight: 500;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: color 0.3s;
+}
+
+.links a:hover {
+    color: white;
+}
+
+.btn-next {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 0; /* Override previous margin */
+}
+
+.btn-next:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+/* Icon styling */
+.icon svg {
+    stroke: #4CAF50;
+}

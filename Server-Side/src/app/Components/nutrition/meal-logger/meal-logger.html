@@ -1,0 +1,92 @@
+<div class="meal-logger-card">
+  <h3>🍽️ Log Your Meal</h3>
+  <p class="subtitle">Describe your meal and get instant AI-powered nutritional analysis</p>
+
+  <!-- Meal Input -->
+  <div class="input-section">
+    <label for="meal-description">What did you eat?</label>
+    <textarea
+      id="meal-description"
+      [(ngModel)]="mealDescription"
+      placeholder="E.g., Grilled chicken breast with brown rice and steamed broccoli..."
+      rows="4"
+      [disabled]="isAnalyzing"
+    ></textarea>
+    <div class="char-counter">
+      {{ mealDescription.length }} characters (min. 5)
+    </div>
+  </div>
+
+  <!-- Error Message -->
+  @if (errorMessage) {
+  <div class="error-message">
+    ⚠️ {{ errorMessage }}
+  </div>
+  }
+
+  <!-- Success Message -->
+  @if (showSuccess) {
+  <div class="success-message">
+    ✅ Meal saved successfully!
+  </div>
+  }
+
+  <!-- Analyze Button -->
+  @if (!analysisResult) {
+  <button
+    class="analyze-btn"
+    (click)="analyzeMeal()"
+    [disabled]="!isFormValid || isAnalyzing"
+  >
+    @if (isAnalyzing) {
+      <span class="spinner"></span>
+      Analyzing with AI...
+    } @else {
+      🤖 Analyze Meal
+    }
+  </button>
+  }
+
+  <!-- Analysis Results -->
+  @if (analysisResult && !showSuccess) {
+  <div class="analysis-results">
+    <h4>📊 Nutritional Analysis</h4>
+
+    <div class="summary-info">
+      <div class="info-item">
+        <span class="label">Calories:</span>
+        <span class="value">{{ analysisResult.calories }} kcal</span>
+      </div>
+      @if (analysisResult.servingSize) {
+      <div class="info-item">
+        <span class="label">Serving:</span>
+        <span class="value">{{ analysisResult.servingSize }}</span>
+      </div>
+      }
+    </div>
+
+    <div class="elements-grid">
+      @for (element of analysisResult.elements; track element.name) {
+      <div class="element-card">
+        <div class="element-name">{{ element.name }}</div>
+        <div class="element-amount">
+          {{ element.amount }} {{ element.unit }}
+        </div>
+        @if (element.dailyValue) {
+        <div class="element-dv">{{ element.dailyValue }}% DV</div>
+        }
+      </div>
+      }
+    </div>
+
+    <div class="action-buttons">
+      <button class="save-btn" (click)="saveMeal()">
+        💾 Save Meal
+      </button>
+      <button class="cancel-btn" (click)="resetForm()">
+        ❌ Cancel
+      </button>
+    </div>
+  </div>
+  }
+</div>

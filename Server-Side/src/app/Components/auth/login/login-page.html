@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="card">
+    <div class="brand">
+      <div>
+        <h1>Login</h1>
+        <p class="lead">Enter your email & password </p>
+      </div>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div *ngIf="errorMessage" class="alert alert-error">
+        {{ errorMessage }}
+      </div>
+      <div *ngIf="successMessage" class="alert alert-success">
+        {{ successMessage }}
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input class="form-control" id="email" type="email" placeholder="name@example.com" formControlName="email" />
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <input class="form-control" id="password" type="password" placeholder="Enter your password"
+          formControlName="password" />
+      </div>
+
+      <div class="actions">
+        <button class="submit" type="submit">Login</button>
+      </div>
+
+      <div class="alt">Don't have an account? <button class="link" routerLink="/register">Sign up</button></div>
+    </form>
+  </div>
+</div>

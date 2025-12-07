@@ -1,0 +1,243 @@
+/* Header Container */
+.header {
+  background-color: rgba(18, 32, 23, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* Support safari and IOS */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+  border-bottom: 2px solid var(--border-color);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  height: 70px; /* Fixed height for consistency */
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  height: 100%;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  gap: 1rem;
+}
+
+/* Exit Button */
+.exit-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, rgba(252, 129, 129, 0.2) 0%, rgba(229, 62, 62, 0.2) 100%);
+  border: 1px solid rgba(252, 129, 129, 0.3);
+  color: var(--text-primary);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.exit-btn:hover {
+  background: linear-gradient(135deg, rgba(252, 129, 129, 0.3) 0%, rgba(229, 62, 62, 0.3) 100%);
+  border-color: rgba(252, 129, 129, 0.5);
+  transform: translateX(-2px);
+}
+
+.exit-icon {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.exit-text {
+  white-space: nowrap;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--text-primary);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  margin: 0;
+  flex: 1;
+  text-align: center;
+}
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.nav-menu li {
+  margin: 0;
+}
+
+.nav-menu a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+  display: block;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  border: 1px solid transparent;
+}
+
+.nav-menu a:hover {
+  color: var(--success-color);
+  background: rgba(72, 187, 120, 0.1);
+}
+
+/* Active Link Indicator */
+.nav-menu a.active {
+  color: var(--success-color);
+  border-color: var(--success-color);
+  background: rgba(72, 187, 120, 0.1);
+}
+
+/* Hamburger Menu Button */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 2rem;
+  height: 2rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+  flex-shrink: 0;
+}
+
+.hamburger-line {
+  width: 2rem;
+  height: 0.25rem;
+  background-color: var(--text-primary);
+  border-radius: 10px;
+  transition: all 0.3s linear;
+  position: relative;
+  transform-origin: 1px;
+}
+
+/* Hamburger Animation when active */
+.hamburger.active .hamburger-line:nth-child(1) {
+  transform: rotate(45deg);
+}
+
+.hamburger.active .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active .hamburger-line:nth-child(3) {
+  transform: rotate(-45deg);
+}
+
+/* ==================== RESPONSIVE STYLES ==================== */
+
+/* Tablets and Mobile (768px and below) */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .logo {
+    font-size: 1.3rem;
+  }
+
+  .nav-menu {
+    position: fixed;
+    top: 70px;
+    right: -100%;
+    flex-direction: column;
+    background-color: rgba(18, 32, 23, 0.98);
+    width: 250px;
+    height: calc(100vh - 70px);
+    padding: 1rem 0;
+    gap: 0;
+    border-left: 2px solid var(--border-color);
+    box-shadow: -4px 0 10px rgba(0, 0, 0, 0.3);
+    transition: right 0.3s ease;
+  }
+
+  .nav-menu.active {
+    right: 0;
+  }
+
+  .nav-menu li {
+    width: 100%;
+  }
+
+  .nav-menu a {
+    padding: 1rem 1.5rem;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .nav-menu a.active {
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+    border-left: 4px solid var(--success-color);
+  }
+
+  .exit-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+  }
+
+  .exit-text {
+    display: none;
+  }
+
+  .exit-icon {
+    font-size: 1.3rem;
+  }
+}
+
+/* Mobile (480px and below) */
+@media (max-width: 480px) {
+  .logo {
+    font-size: 1.2rem;
+  }
+
+  .nav-menu {
+    width: 100%;
+  }
+
+  .exit-btn {
+    padding: 0.35rem 0.7rem;
+  }
+}
+
+/* Extra Small Mobile (360px and below) */
+@media (max-width: 360px) {
+  .logo {
+    font-size: 1.1rem;
+  }
+
+  .exit-btn {
+    padding: 0.3rem 0.6rem;
+  }
+
+  .exit-icon {
+    font-size: 1.2rem;
+  }
+}

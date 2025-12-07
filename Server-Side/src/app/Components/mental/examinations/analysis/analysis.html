@@ -1,0 +1,102 @@
+<div class="analysis-container">
+  <!-- No Data Message -->
+  @if (showNoDataMessage) {
+  <div class="no-data">
+    <div class="no-data-icon">📊</div>
+    <h3>No Analysis Available</h3>
+    <p>Complete your first Mental Health Check to see analysis and insights here!</p>
+  </div>
+  }
+
+  <!-- Analysis Content -->
+  @if (!showNoDataMessage && stats) {
+  <div class="analysis-content">
+    <!-- Section Trends -->
+    <div class="section-trends">
+      <h3>Mental Health Performance Trends</h3>
+      <div class="trends-grid">
+        @for (section of sectionTrends; track section.sectionName) {
+        <div class="trend-card">
+          <div class="trend-header">
+            <h4>{{ section.sectionName }}</h4>
+            <span class="trend-badge" [ngClass]="getTrendClass(section.trend)">
+              {{ getTrendIcon(section.trend) }} {{ section.trend }}
+            </span>
+          </div>
+
+          <div class="trend-stats">
+            <span class="avg-score" [ngClass]="getScoreClass(section.averageScore)">
+              Avg: {{ section.averageScore }}%
+            </span>
+          </div>
+
+          <!-- Simple Bar Chart -->
+          <div class="bar-chart">
+            @for (point of section.data; track point.date) {
+            <div class="bar-wrapper">
+              <div
+                class="bar"
+                [style.height]="getBarHeight(point.score)"
+                [ngClass]="getScoreClass(point.score)"
+              >
+                <span class="bar-value">{{ point.score }}%</span>
+              </div>
+              <span class="bar-label">{{ point.date }}</span>
+            </div>
+            }
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+
+    <!-- Most Common Sections -->
+    <div class="insights-section">
+      <h3>Insights</h3>
+      <div class="insight-card">
+        <div class="insight-icon">🎯</div>
+        <div class="insight-content">
+          <h4>Most Assessed Areas</h4>
+          <div class="section-chips">
+            @for (section of stats.mostCommonSections; track section) {
+            <span class="chip">{{ section }}</span>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="insight-card">
+        <div class="insight-icon">💡</div>
+        <div class="insight-content">
+          <h4>Recommendation</h4>
+          <p>
+            @if (stats.averageScore >= 80) { Great job! Keep maintaining your current mental health habits
+            and continue regular check-ins. } @else if (stats.averageScore >= 60) { You're doing
+            well! Focus on the areas that need attention with mindfulness or stress management exercises. } @else {
+            Consider consulting with a mental health professional for personalized support and guidance. }
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="recent-activity">
+      <h3>Recent Activity</h3>
+      <div class="activity-list">
+        @for (check of recentChecks; track check.id) {
+        <div class="activity-item">
+          <div class="activity-date">
+            <span class="date-icon">📅</span>
+            {{ formatDate(check.date) }}
+          </div>
+          <div class="activity-score" [ngClass]="getScoreClass(check.totalScore)">
+            {{ check.totalScore }}%
+          </div>
+          <div class="activity-sections">{{ check.selectedSections.length }} sections checked</div>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+  }
+</div>

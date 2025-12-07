@@ -1,0 +1,116 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    sans-serif;
+  min-height: 100vh;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  width: 100%;
+}
+
+/* Ensure the sticky navbar doesn't overlap page content. Adjust the top padding to match navbar height. */
+.main-content {
+  padding-top: 72px; /* adjust if navbar height changes */
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding-top: 92px; /* taller navbar on small screens due to wrapping */
+  }
+}
+
+/* src/app/app.component.css */
+
+.navbar {
+  background-color: #9c8466;
+  padding: 15px 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  color: var(--primary-text);
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.brand-logo {
+  height: 35px;
+  margin-right: 10px;
+}
+
+.navbar-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.navbar-links li {
+  margin-right: 25px;
+}
+
+.navbar-links li:last-child {
+  margin-right: 0;
+}
+
+.navbar-links a {
+  text-decoration: none;
+  color: var(--primary-text);
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navbar-links a:hover {
+  color: var(--secondary-text);
+}
+
+.log-activity-btn {
+  background-color: var(--secondary-text);
+  color: var(--primary-bg);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.log-activity-btn:hover {
+  background-color: #6a3e33;
+}
+
+@media (max-width: 768px) {
+  .navbar .container {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .navbar-links {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .navbar-links li {
+    margin: 5px 0;
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "sectionMapping": {
+    "eyes": "eye",
+    "lower_back": "lower-back",
+    "shoulder": "neck-shoulders",
+    "energy_focus": "headache-focus"
+  },
+  "recommendations": [
+    {
+      "title": "Eye Exercises for Screen Time",
+      "description": "Try the 20-20-20 rule to reduce digital eye strain.",
+      "image": "assets/images/Eye.png",
+      "type": "eye"
+    },
+    {
+      "title": "Lower-Back Health Tips",
+      "description": "Incorporate simple stretches into your daily routine.",
+      "image": "assets/images/Back.png",
+      "type": "lower-back"
+    },
+    {
+      "title": "Neck and Shoulders",
+      "description": "Gentle neck stretches can alleviate tension from sitting.",
+      "image": "assets/images/Posture.png",
+      "type": "neck-shoulders"
+    },
+    {
+      "title": "Headache & Focus",
+      "description": "Reduce tension headaches and boost mental clarity.",
+      "image": "assets/images/Eye.png",
+      "type": "headache-focus"
+    }
+  ]
+}

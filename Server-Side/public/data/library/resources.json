@@ -1,0 +1,259 @@
+[
+  {
+    "id": 1,
+    "title": "10-Minute Morning Yoga",
+    "description": "Start your day with energy and focus.",
+    "category": "Physical Health",
+    "format": "Video",
+    "duration": "10 min",
+    "tags": [
+      "yoga",
+      "morning",
+      "flexibility"
+    ],
+    "published": "2025-10-30",
+    "thumbnail": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1200&q=80",
+    "url": "https://www.youtube.com/embed/sTANio_2E0Q"
+  },
+  {
+    "id": 2,
+    "title": "Healthy Smoothie Recipes",
+    "description": "Boost your nutrition with delicious recipes.",
+    "category": "Nutrition",
+    "format": "Article",
+    "duration": "5 min",
+    "tags": [
+      "smoothie",
+      "breakfast"
+    ],
+    "published": "2025-10-20",
+    "thumbnail": "https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=1200&q=80",
+    "content": "<h3>The Green Goddess</h3><p>Spinach is the star here. Blend 1 cup of spinach, 1 banana, 1/2 cup of almond milk, and a spoon of peanut butter. It's rich in iron and keeps you full until lunch.</p><h3>Berry Blast</h3><p>Antioxidants galore! Mix blueberries, strawberries, greek yogurt, and a dash of honey.</p>"
+  },
+  {
+    "id": 3,
+    "title": "Breathing Patterns for Instant Calm",
+    "description": "A 10-minute audio walkthrough for high-stress days.",
+    "category": "Mental Health",
+    "format": "Podcast",
+    "duration": "10 min",
+    "tags": [
+      "stress",
+      "anxiety",
+      "breathing"
+    ],
+    "published": "2025-10-08",
+    "thumbnail": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1200&q=80",
+    "url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+  },
+  {
+    "id": 4,
+    "title": "7-Day Anti-Inflammatory Meal Plan",
+    "description": "A structured, budget-friendly plan to reduce inflammation.",
+    "category": "Nutrition",
+    "format": "Guide",
+    "duration": "7 days",
+    "level": "Beginner",
+    "tags": [
+      "meal-plan",
+      "gut",
+      "budget"
+    ],
+    "published": "2025-09-17",
+    "thumbnail": "https://images.unsplash.com/photo-1542838132-92c53300491e?w=1200&q=80",
+    "content": "<h3>Day 1: Reset</h3><p>Start with warm lemon water. For lunch, have a quinoa salad with chickpeas. Dinner is baked salmon with asparagus.</p><h3>Day 2: Greens</h3><p>Focus on leafy greens today. Kale salad for lunch, spinach stir-fry for dinner.</p>"
+  },
+  {
+    "id": 5,
+    "title": "Desk Mobility Routine",
+    "description": "5 movements to undo 6+ hours of sitting.",
+    "category": "Physical Health",
+    "format": "Video",
+    "duration": "6 min",
+    "level": "Beginner",
+    "tags": [
+      "mobility",
+      "desk",
+      "posture"
+    ],
+    "published": "2025-08-29",
+    "thumbnail": "https://images.unsplash.com/photo-1599050751795-5d0d35b71f32?w=1200&q=80",
+    "url": "https://www.youtube.com/embed/B4bjK2aI-nU"
+  },
+  {
+    "id": 6,
+    "title": "Advanced Guide to Digital Productivity",
+    "description": "Track sleep, hydration, meals, and focus blocks in one view.",
+    "category": "Productivity",
+    "format": "Guide",
+    "tags": [
+      "notion",
+      "focus",
+      "templates"
+    ],
+    "published": "2025-07-03",
+    "content": "<h3>The Dashboard</h3><p>The key to digital productivity is a centralized dashboard. Use tools like Notion or Obsidian to link your daily tasks with your long-term goals.</p><h3>Time Blocking</h3><p>Allocate specific hours for 'Deep Work' where no notifications are allowed.</p>"
+  },
+  {
+    "id": 7,
+    "title": "Emotional Regulation 101",
+    "description": "Core skills for managing overwhelm and emotional spikes.",
+    "category": "Mental Health",
+    "format": "Article",
+    "duration": "8 min",
+    "level": "Intermediate",
+    "tags": [
+      "emotions",
+      "resilience"
+    ],
+    "published": "2025-10-25",
+    "thumbnail": "https://images.unsplash.com/photo-1527236438218-d82077ae1f85?w=1200&q=80",
+    "content": "<h3>Naming the Emotion</h3><p>The first step to regulation is identification. Are you angry, or are you hurt? Are you anxious, or are you excited?</p><h3>Grounding Techniques</h3><p>Use the 5-4-3-2-1 technique: Name 5 things you see, 4 you feel, 3 you hear, 2 you smell, and 1 you taste.</p>"
+  },
+  {
+    "id": 8,
+    "title": "Introduction to Mindful Eating",
+    "description": "Change your relationship with food by paying attention.",
+    "category": "Nutrition",
+    "format": "Podcast",
+    "duration": "15 min",
+    "level": "Beginner",
+    "tags": [
+      "mindfulness",
+      "habits"
+    ],
+    "published": "2025-06-15",
+    "url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+  },
+  {
+    "id": 9,
+    "title": "Building a Strength Training Habit",
+    "description": "A beginner's guide to lifting weights for long-term health.",
+    "category": "Physical Health",
+    "format": "Guide",
+    "tags": [
+      "strength",
+      "gym",
+      "beginner"
+    ],
+    "published": "2025-05-22",
+    "content": "<h3>Starting Small</h3><p>Do not rush into heavy weights. Focus on form. The 'Big 3' compound movements are Squat, Bench Press, and Deadlift.</p><h3>Frequency</h3><p>Aim for 3 days a week with at least one rest day in between.</p>"
+  },
+  {
+    "id": 10,
+    "title": "The Science of Sleep",
+    "description": "Understand the stages of sleep and how to improve its quality.",
+    "category": "Mental Health",
+    "format": "Article",
+    "duration": "12 min",
+    "tags": [
+      "sleep",
+      "science",
+      "health"
+    ],
+    "published": "2025-04-30",
+    "thumbnail": "https://images.unsplash.com/photo-1530508128341-a79782a47985?w=1200&q=80",
+    "content": "<h3>REM vs Deep Sleep</h3><p>Deep sleep repairs the body, while REM sleep repairs the mind. Both are critical.</p><h3>Sleep Hygiene</h3><p>Keep the room cool (around 65F/18C) and dark. Avoid blue light 1 hour before bed.</p>"
+  },
+  {
+    "id": 11,
+    "title": "How to Stop Procrastinating",
+    "description": "Actionable strategies to overcome procrastination today.",
+    "category": "Productivity",
+    "format": "Video",
+    "duration": "9 min",
+    "tags": [
+      "procrastination",
+      "focus"
+    ],
+    "published": "2025-03-18",
+    "thumbnail": "https://images.unsplash.com/photo-1524146128017-b9dd0bfd2778?w=1200&q=80",
+    "url": "https://www.youtube.com/embed/arj7oStGLkU"
+  },
+  {
+    "id": 12,
+    "title": "Fermented Foods for Gut Health",
+    "description": "Learn about kefir, kimchi, and kombucha.",
+    "category": "Nutrition",
+    "format": "Article",
+    "tags": [
+      "gut",
+      "fermentation",
+      "kimchi"
+    ],
+    "published": "2025-02-25",
+    "content": "<h3>Why Ferment?</h3><p>Fermentation creates probiotics, which are beneficial bacteria for your gut microbiome.</p><h3>Top Foods</h3><ul><li>Kimchi</li><li>Sauerkraut</li><li>Kefir</li><li>Miso</li></ul>"
+  },
+  {
+    "id": 13,
+    "title": "The Imposter Syndrome",
+    "description": "A podcast discussing the feelings of being a fraud.",
+    "category": "Mental Health",
+    "format": "Podcast",
+    "duration": "25 min",
+    "tags": [
+      "imposter-syndrome",
+      "career"
+    ],
+    "published": "2025-01-10",
+    "url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+  },
+  {
+    "id": 14,
+    "title": "High-Intensity Interval Training (HIIT)",
+    "description": "A quick and effective 15-minute workout.",
+    "category": "Physical Health",
+    "format": "Video",
+    "duration": "15 min",
+    "level": "Intermediate",
+    "tags": [
+      "hiit",
+      "cardio",
+      "workout"
+    ],
+    "published": "2024-12-29",
+    "url": "https://www.youtube.com/embed/cZnsLVArIt8"
+  },
+  {
+    "id": 15,
+    "title": "Time Blocking Your Day",
+    "description": "A guide to managing your time effectively.",
+    "category": "Productivity",
+    "format": "Guide",
+    "tags": [
+      "time-management",
+      "planning"
+    ],
+    "published": "2024-11-15",
+    "content": "<h3>The Pomodoro Technique</h3><p>Work for 25 minutes, break for 5. After 4 cycles, take a longer break.</p><h3>The Eisenhower Matrix</h3><p>Categorize tasks into Urgent/Important, Not Urgent/Important, etc.</p>"
+  },
+  {
+    "id": 16,
+    "title": "MuscleWiki",
+    "description": "A comprehensive wiki for exercises based on muscle groups.",
+    "category": "Physical Health",
+    "format": "Website",
+    "tags": [
+      "anatomy",
+      "exercises",
+      "tools"
+    ],
+    "published": "2024-11-01",
+    "url": "https://musclewiki.com",
+    "thumbnail": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1200&q=80"
+  },
+  {
+    "id": 17,
+    "title": "Insight Timer",
+    "description": "Free library of guided meditations and music.",
+    "category": "Mental Health",
+    "format": "Website",
+    "tags": [
+      "meditation",
+      "timer",
+      "free"
+    ],
+    "published": "2024-10-15",
+    "url": "https://insighttimer.com"
+  }
+]

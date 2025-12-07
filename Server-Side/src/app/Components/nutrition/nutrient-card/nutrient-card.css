@@ -1,0 +1,218 @@
+/* src/app/components/nutrient-card/nutrient-card.component.css - UPDATED */
+
+.goal-item {
+  background: linear-gradient(135deg, var(--secondary-bg) 0%, var(--dark-bg) 100%);
+  border-radius: 12px;
+  padding: 18px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  border: 2px solid var(--border-color);
+  transition: all var(--transition-normal);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.goal-item::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(45, 95, 63, 0.1) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+
+.goal-item:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--accent-green);
+}
+
+.goal-item:hover::before {
+  opacity: 1;
+}
+
+.goal-item h3 {
+  font-size: 1.1em;
+  color: var(--text-primary);
+  margin: 0 0 16px 0;
+  font-weight: 700;
+  position: relative;
+  z-index: 1;
+}
+
+/* === Progress Circle === */
+.progress-circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 14px auto;
+  font-weight: 700;
+  font-size: 1.4em;
+  color: var(--text-primary);
+  background: var(--progress-background);
+  position: relative;
+  overflow: visible;
+  box-shadow: var(--shadow-inner);
+  transition: transform var(--transition-normal);
+}
+
+.goal-item:hover .progress-circle {
+  transform: scale(1.08);
+}
+
+/* === Circle Background (Inner) === */
+.progress-circle::after {
+  content: '';
+  position: absolute;
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  background: var(--dark-bg);
+  z-index: 1;
+}
+
+/* === Progress Ring === */
+.progress-circle::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  z-index: 0;
+  background: conic-gradient(
+    var(--progress-color) 0deg,
+    var(--progress-color) calc(var(--progress-percentage) * 3.6deg),
+    var(--progress-background) calc(var(--progress-percentage) * 3.6deg)
+  );
+}
+
+.progress-circle span {
+  position: relative;
+  z-index: 2;
+  color: var(--text-primary);
+  font-weight: 800;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* === Progress States with Dynamic Percentages === */
+.progress-circle.low::before {
+  background: conic-gradient(
+    var(--progress-low) 0deg,
+    var(--progress-low) calc(40 * 3.6deg),
+    var(--progress-background) calc(40 * 3.6deg)
+  );
+}
+
+.progress-circle.on-track::before {
+  background: conic-gradient(
+    var(--progress-on-track) 0deg,
+    var(--progress-on-track) calc(90 * 3.6deg),
+    var(--progress-background) calc(90 * 3.6deg)
+  );
+}
+
+.progress-circle.achieved::before {
+  background: conic-gradient(
+    var(--progress-achieved) 0deg,
+    var(--progress-achieved) calc(100 * 3.6deg),
+    var(--progress-background) calc(100 * 3.6deg)
+  );
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4);
+  }
+  50% { 
+    box-shadow: 0 0 0 8px rgba(76, 175, 80, 0);
+  }
+}
+
+.progress-circle.good::before {
+  background: conic-gradient(
+    var(--progress-good) 0deg,
+    var(--progress-good) calc(75 * 3.6deg),
+    var(--progress-background) calc(75 * 3.6deg)
+  );
+}
+
+/* === Custom percentages for specific nutrients === */
+.progress-circle.low.zinc::before {
+  background: conic-gradient(
+    var(--progress-low) 0deg,
+    var(--progress-low) calc(20 * 3.6deg),
+    var(--progress-background) calc(20 * 3.6deg)
+  );
+}
+
+.progress-circle.good.vitamin-d::before {
+  background: conic-gradient(
+    var(--progress-good) 0deg,
+    var(--progress-good) calc(60 * 3.6deg),
+    var(--progress-background) calc(60 * 3.6deg)
+  );
+}
+
+/* === Status Text === */
+.status {
+  font-size: 0.95em;
+  color: var(--text-secondary);
+  margin: 8px 0 0 0;
+  font-weight: 600;
+  position: relative;
+  z-index: 1;
+}
+
+/* === Status Colors === */
+.goal-item:has(.progress-circle.low) .status {
+  color: var(--progress-low);
+}
+
+.goal-item:has(.progress-circle.on-track) .status {
+  color: var(--progress-on-track);
+}
+
+.goal-item:has(.progress-circle.achieved) .status {
+  color: var(--progress-achieved);
+}
+
+.goal-item:has(.progress-circle.good) .status {
+  color: var(--progress-good);
+}
+
+/* === Responsive === */
+@media (max-width: 576px) {
+  .goal-item {
+    padding: 14px;
+  }
+  
+  .goal-item h3 {
+    font-size: 1em;
+    margin-bottom: 12px;
+  }
+  
+  .progress-circle {
+    width: 75px;
+    height: 75px;
+    font-size: 1.1em;
+  }
+  
+  .progress-circle::after {
+    width: 58px;
+    height: 58px;
+  }
+  
+  .status {
+    font-size: 0.85em;
+  }
+}

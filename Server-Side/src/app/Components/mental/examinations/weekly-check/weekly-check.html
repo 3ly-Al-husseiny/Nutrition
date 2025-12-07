@@ -1,0 +1,115 @@
+<div class="weekly-check-container">
+  <!-- Step 1: Section Selection -->
+  <div *ngIf="currentStep === 'selection'" class="section-selection">
+    <h2>Weekly Mental Health Check</h2>
+    <p class="instruction">Select at least 3 sections to begin your weekly check:</p>
+
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="loading-state">
+      <p>Loading mental health sections...</p>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!isLoading && allSections.length === 0" class="empty-state">
+      <p>⚠️ No mental health sections available. Please check your connection and try again.</p>
+    </div>
+
+    <!-- Section Selection Form -->
+    <form *ngIf="!isLoading && allSections.length > 0" [formGroup]="sectionSelectionForm" class="selection-form">
+      <div class="section-checkboxes">
+        <div *ngFor="let section of allSections" class="checkbox-item">
+          <label>
+            <input type="checkbox" [formControlName]="section.id" />
+            <span class="section-icon">{{ section.icon }}</span>
+            <span class="section-label">{{ section.displayName }}</span>
+          </label>
+        </div>
+      </div>
+
+      <div
+        *ngIf="sectionSelectionForm.errors?.['minSections'] && sectionSelectionForm.touched"
+        class="error-message"
+      >
+        Please select at least 3 sections
+      </div>
+
+      <button type="button" class="btn btn-primary" (click)="startCheck()">Start Check</button>
+    </form>
+  </div>
+
+  <!-- Step 2: Weekly Check Form -->
+  <div *ngIf="currentStep === 'form'" class="weekly-form">
+    <h2>Weekly Mental Health Check Form</h2>
+    <p class="instruction">Answer the following questions for each selected section:</p>
+
+    <form [formGroup]="weeklyCheckForm">
+      <div *ngFor="let section of selectedSections; let sectionIdx = index" class="section-block">
+        <h3 class="section-title">
+          <span class="section-icon-large">{{ section.icon }}</span>
+          {{ section.displayName }}
+        </h3>
+
+        <div [formGroupName]="section.id" class="questions-group">
+          <div *ngFor="let question of section.questions; let qIdx = index" class="question-item">
+            <p class="question-text">{{ qIdx + 1 }}. {{ question.text }}</p>
+            <div class="answer-options">
+              <label class="radio-option">
+                <input type="radio" [formControlName]="'q' + question.id" [value]="true" />
+                <span>YES</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" [formControlName]="'q' + question.id" [value]="false" />
+                <span>NO</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" (click)="resetCheck()">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="submitWeeklyCheck()">
+          Submit Check
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Step 3: Results -->
+  <div *ngIf="currentStep === 'results'" class="results-section">
+    <h2>Your Weekly Mental Health Check Results</h2>
+
+    <div class="overall-score">
+      <h3>Overall Score</h3>
+      <div class="score-display" [ngClass]="getTotalScoreClass()">{{ totalScore }}%</div>
+      <p class="overall-message">{{ overallResult }}</p>
+    </div>
+
+    <div class="section-results">
+      <h3>Section Results</h3>
+      <div class="results-grid">
+        <div
+          *ngFor="let result of sectionResults"
+          class="result-card"
+          [ngClass]="getResultClass(result.result)"
+        >
+          <h4>
+            <span class="section-icon-result">{{ getSectionIcon(result.sectionName) }}</span>
+            {{ result.sectionName }}
+          </h4>
+          <div class="score-info">
+            <p class="score">Score: {{ result.normalizedScore }}%</p>
+            <p class="points">Points: {{ result.score }}/{{ result.maxPoints }}</p>
+          </div>
+          <div class="result-badge">
+            {{ result.result }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="results-actions">
+      <button type="button" class="btn btn-primary" (click)="resetCheck()">Start New Check</button>
+    </div>
+  </div>
+</div>

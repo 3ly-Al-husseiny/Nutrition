@@ -1,0 +1,36 @@
+<!-- Navigation Header -->
+<header class="header">
+    <div class="container">
+        <nav class="nav">
+            <!-- Back/Exit Button -->
+            <button class="exit-btn" (click)="exitChallenges()" title="Exit Challenges">
+                <span class="exit-icon">←</span>
+                <span class="exit-text">Exit Challenges</span>
+            </button>
+
+            <!-- Logo -->
+            <h1 class="logo">Challenges</h1>
+
+            <!-- Hamburger Menu Button (Mobile) -->
+            <button type="button" class="hamburger" [class.active]="isMenuOpen" (click)="toggleMenu()"
+                aria-label="Toggle navigation menu" [attr.aria-expanded]="isMenuOpen">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+
+            <ul class="nav-menu" [class.active]="isMenuOpen">
+                <li>
+                    <a routerLink="/challenging/list" routerLinkActive="active" (click)="closeMenu()">
+                        Challenges
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="/challenging/progress" routerLinkActive="active" (click)="closeMenu()">
+                        Progress
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>

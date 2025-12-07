@@ -1,0 +1,717 @@
+<div class="recommendations-container">
+  <h2>Mental Health Recommendations</h2>
+  <p class="subtitle">Expert-curated mental health and wellness recommendations</p>
+
+  @if (showNoChecksMessage) {
+  <div class="no-recommendations-message">
+    <div class="message-icon">📋</div>
+    <h3>No Checks Yet</h3>
+    <p>Complete your first mental health check to get personalized recommendations!</p>
+    <p class="sub-message">
+      Your mental health insights will appear here after completing an assessment.
+    </p>
+  </div>
+  } @else if (showNoRecommendationsMessage) {
+  <div class="no-recommendations-message">
+    <div class="message-icon">🎉</div>
+    <h3>Excellent Work!</h3>
+    <p>You're maintaining great mental health across all areas!</p>
+    <p class="sub-message">Keep up your healthy habits and continue with your regular check-ups.</p>
+  </div>
+  } @else {
+  <div class="cards-container">
+    @for (recommendation of recommendations; track recommendation.type) {
+    <div class="card" (click)="openRecommendation(recommendation.type)">
+      <img [src]="recommendation.image" alt="{{ recommendation.title }}" />
+      <div class="card-content">
+        <h3>{{ recommendation.title }}</h3>
+        <p>{{ recommendation.description }}</p>
+        @if (recommendation.sectionScore !== undefined) {
+        <div class="score-indicator">
+          <span class="score-label">Average Score:</span>
+          <span class="score-value" [ngClass]="getScoreClass(recommendation.sectionScore)">
+            {{ recommendation.sectionScore }}%
+          </span>
+        </div>
+        }
+      </div>
+    </div>
+    }
+  </div>
+  }
+</div>
+
+<!-- Stress & Mental Load Modal -->
+@if (showExerciseModal && selectedRecommendation === 'stress-mental-load') {
+<div class="modal-overlay" (click)="closeModal()">
+  <div class="modal-container lower-back-modal" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="closeModal()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    <div class="modal-content">
+      <h2 class="modal-title">🔥 Stress & Mental Load Module</h2>
+      <p class="modal-subtitle">
+        Office tips, micro-exercises, and techniques to reduce stress and manage mental workload
+      </p>
+
+      <!-- Section 1: Office Tips -->
+      <div class="section-container">
+        <h3 class="section-title">🔵 1. Office Tips to Reduce Stress & Mental Load</h3>
+        <div class="tips-grid">
+          @for (tip of stressOfficeTips; track tip.title) {
+          <div class="tip-card">
+            <div class="tip-icon">{{ tip.icon }}</div>
+            <div class="tip-content">
+              <h4>{{ tip.title }}</h4>
+              <p>{{ tip.description }}</p>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Section 2: Micro-Exercises -->
+      <div class="section-container">
+        <h3 class="section-title">🟡 2. Micro-Exercises (1–3 Minutes) for Stress Relief</h3>
+        <div class="exercises-container">
+          @for (exercise of stressExercises; track exercise.title) {
+          <div class="exercise-card">
+            <div class="exercise-header">
+              <span class="exercise-emoji">{{ exercise.emoji }}</span>
+              <div class="exercise-info">
+                <h3>{{ exercise.title }}</h3>
+                <span class="exercise-duration">⏱️ Duration: {{ exercise.duration }}</span>
+              </div>
+            </div>
+
+            <div class="exercise-body">
+              <h4>Steps:</h4>
+              <ol class="exercise-steps">
+                @for (step of exercise.steps; track $index) {
+                <li>{{ step }}</li>
+                }
+              </ol>
+
+              <div class="exercise-benefits">
+                <strong>✔ Benefits:</strong> {{ exercise.benefits }}
+              </div>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Section 3: Quick Fixes -->
+      <div class="section-container">
+        <h3 class="section-title">🔥 3. Quick Fixes (Under 1 Minute)</h3>
+        <div class="quick-fixes-grid">
+          @for (fix of stressQuickFixes; track fix.title) {
+          <div class="quick-fix-card">
+            <div class="fix-icon">✔</div>
+            <div class="fix-content">
+              <h4>{{ fix.title }}</h4>
+              <p>{{ fix.description }}</p>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Section 4: Boosters -->
+      <div class="section-container">
+        <h3 class="section-title">🟣 4. Focus & Mental Load Boosters (Short & Effective)</h3>
+        <div class="quick-fixes-grid">
+          @for (booster of stressBoosters; track booster.title) {
+          <div class="quick-fix-card booster-card">
+            <div class="fix-icon">✔</div>
+            <div class="fix-content">
+              <h4>{{ booster.title }}</h4>
+              <p>{{ booster.description }}</p>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Section 5: Reminders -->
+      <div class="section-container">
+        <h3 class="section-title">💡 5. Stress & Mental Load Reminders</h3>
+        <p class="section-subtitle">For Notifications / UI Cards:</p>
+        <div class="reminders-list">
+          @for (reminder of stressReminders; track reminder.text) {
+          <div class="reminder-item">
+            <span class="reminder-icon">💡</span>
+            <p>"{{ reminder.text }}"</p>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+}
+
+<!-- Focus & Attention Modal -->
+@if (showExerciseModal && selectedRecommendation === 'focus-attention') {
+<div class="modal-overlay" (click)="closeModal()">
+  <div class="modal-container lower-back-modal" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="closeModal()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    <div class="modal-content">
+      <h2 class="modal-title">🔥 Focus & Attention Module</h2>
+      <p class="modal-subtitle">
+        Office tips, micro-exercises, and techniques to improve focus and concentration
+      </p>
+
+      <!-- Section 1: Office Tips -->
+      <div class="section-container">
+        <h3 class="section-title">🔵 1. Office Tips to Improve Focus</h3>
+        <div class="tips-grid">
+          @for (tip of focusOfficeTips; track tip.title) {
+          <div class="tip-card">
+            <div class="tip-icon">{{ tip.icon }}</div>
+            <div class="tip-content">
+              <h4>{{ tip.title }}</h4>
+              <p>{{ tip.description }}</p>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Section 2: Micro-Exercises -->
+      <div class="section-container">
+        <h3 class="section-title">🟡 2. Micro-Exercises (1–3 Minutes) to Boost Focus</h3>
+        <div class="exercises-container">
+          @for (exercise of focusExercises; track exercise.title) {
+          <div class="exercise-card">
+            <div class="exercise-header">
+              <span class="exercise-emoji">{{ exercise.emoji }}</span>
+              <div class="exercise-info">
+                <h3>{{ exercise.title }}</h3>
+                <span class="exercise-duration">⏱️ Duration: {{ exercise.duration }}</span>
+              </div>
+            </div>
+
+            <div class="exercise-body">
+              <h4>Steps:</h4>
+              <ol class="exercise-steps">
+                @for (step of exercise.steps; track $index) {
+                <li>{{ step }}</li>
+                }
+              </ol>
+
+              <div class="exercise-benefits">
+                <strong>✔ Benefits:</strong> {{ exercise.benefits }}
+              </div>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Section 3: Quick Fixes -->
+      <div class="section-container">
+        <h3 class="section-title">🔥 3. Quick Fixes (Under 1 Minute)</h3>
+        <div class="quick-fixes-grid">
+          @for (fix of focusQuickFixes; track fix.title) {
+          <div class="quick-fix-card">
+            <div class="fix-icon">✔</div>
+            <div class="fix-content">
+              <h4>{{ fix.title }}</h4>
+              <p>{{ fix.description }}</p>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Section 4: Boosters -->
+      <div class="section-container">
+        <h3 class="section-title">🟣 4. Focus Boosters (Short & Effective)</h3>
+        <div class="quick-fixes-grid">
+          @for (booster of focusBoosters; track booster.title) {
+          <div class="quick-fix-card booster-card">
+            <div class="fix-icon">✔</div>
+            <div class="fix-content">
+              <h4>{{ booster.title }}</h4>
+              <p>{{ booster.description }}</p>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Section 5: Reminders -->
+      <div class="section-container">
+        <h3 class="section-title">💡 5. Focus & Attention Reminders</h3>
+        <p class="section-subtitle">For Notifications / UI Cards:</p>
+        <div class="reminders-list">
+          @for (reminder of focusReminders; track reminder.text) {
+          <div class="reminder-item">
+            <span class="reminder-icon">💡</span>
+            <p>"{{ reminder.text }}"</p>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+}
+
+<!-- Motivation & Productivity Modal -->
+@if (showExerciseModal && selectedRecommendation === 'motivation-productivity') {
+<div class="modal-overlay" (click)="closeModal()">
+  <div class="modal-container lower-back-modal" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="closeModal()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    <div class="modal-content">
+      <h2 class="modal-title">🔥 Motivation & Productivity Module</h2>
+      <p class="modal-subtitle">
+        Office tips, micro-exercises, and techniques to boost motivation and productivity
+      </p>
+
+      <!-- Section 1: Office Tips -->
+      <div class="section-container">
+        <h3 class="section-title">🔵 1. Office Tips to Boost Motivation & Productivity</h3>
+        <div class="tips-grid">
+          @for (tip of motivationOfficeTips; track tip.title) {
+          <div class="tip-card">
+            <div class="tip-icon">{{ tip.icon }}</div>
+            <div class="tip-content">
+              <h4>{{ tip.title }}</h4>
+              <p>{{ tip.description }}</p>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Section 2: Micro-Exercises -->
+      <div class="section-container">
+        <h3 class="section-title">🟡 2. Micro-Exercises (1–3 Minutes) to Boost Motivation</h3>
+        <div class="exercises-container">
+          @for (exercise of motivationExercises; track exercise.title) {
+          <div class="exercise-card">
+            <div class="exercise-header">
+              <span class="exercise-emoji">{{ exercise.emoji }}</span>
+              <div class="exercise-info">
+                <h3>{{ exercise.title }}</h3>
+                <span class="exercise-duration">⏱️ Duration: {{ exercise.duration }}</span>
+              </div>
+            </div>
+
+            <div class="exercise-body">
+              <h4>Steps:</h4>
+              <ol class="exercise-steps">
+                @for (step of exercise.steps; track $index) {
+                <li>{{ step }}</li>
+                }
+              </ol>
+
+              <div class="exercise-benefits">
+                <strong>✔ Benefits:</strong> {{ exercise.benefits }}
+              </div>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Section 3: Quick Fixes -->
+      <div class="section-container">
+        <h3 class="section-title">🔥 3. Quick Fixes (Under 1 Minute)</h3>
+        <div class="quick-fixes-grid">
+          @for (fix of motivationQuickFixes; track fix.title) {
+          <div class="quick-fix-card">
+            <div class="fix-icon">✔</div>
+            <div class="fix-content">
+              <h4>{{ fix.title }}</h4>
+              <p>{{ fix.description }}</p>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Section 4: Boosters -->
+      <div class="section-container">
+        <h3 class="section-title">🟣 4. Productivity Boosters (Short & Effective)</h3>
+        <div class="quick-fixes-grid">
+          @for (booster of motivationBoosters; track booster.title) {
+          <div class="quick-fix-card booster-card">
+            <div class="fix-icon">✔</div>
+            <div class="fix-content">
+              <h4>{{ booster.title }}</h4>
+              <p>{{ booster.description }}</p>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Section 5: Reminders -->
+      <div class="section-container">
+        <h3 class="section-title">💡 5. Motivation & Productivity Reminders</h3>
+        <p class="section-subtitle">For Notifications / UI Cards:</p>
+        <div class="reminders-list">
+          @for (reminder of motivationReminders; track reminder.text) {
+          <div class="reminder-item">
+            <span class="reminder-icon">💡</span>
+            <p>"{{ reminder.text }}"</p>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+}
+
+<!-- Sleep & Mental Recovery Modal -->
+@if (showExerciseModal && selectedRecommendation === 'sleep-recovery') {
+<div class="modal-overlay" (click)="closeModal()">
+  <div class="modal-container lower-back-modal" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="closeModal()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    <div class="modal-content">
+      <h2 class="modal-title">🔥 Sleep & Mental Recovery Module</h2>
+      <p class="modal-subtitle">
+        Office & lifestyle tips, micro-exercises for better sleep and mental recovery
+      </p>
+
+      <!-- Section 1: Office Tips -->
+      <div class="section-container">
+        <h3 class="section-title">🔵 1. Office & Lifestyle Tips for Better Sleep</h3>
+        <div class="tips-grid">
+          @for (tip of sleepOfficeTips; track tip.title) {
+          <div class="tip-card">
+            <div class="tip-icon">{{ tip.icon }}</div>
+            <div class="tip-content">
+              <h4>{{ tip.title }}</h4>
+              <p>{{ tip.description }}</p>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Section 2: Micro-Exercises -->
+      <div class="section-container">
+        <h3 class="section-title">🟡 2. Micro-Exercises (1–3 Minutes) for Recovery</h3>
+        <div class="exercises-container">
+          @for (exercise of sleepExercises; track exercise.title) {
+          <div class="exercise-card">
+            <div class="exercise-header">
+              <span class="exercise-emoji">{{ exercise.emoji }}</span>
+              <div class="exercise-info">
+                <h3>{{ exercise.title }}</h3>
+                <span class="exercise-duration">⏱️ Duration: {{ exercise.duration }}</span>
+              </div>
+            </div>
+
+            <div class="exercise-body">
+              <h4>Steps:</h4>
+              <ol class="exercise-steps">
+                @for (step of exercise.steps; track $index) {
+                <li>{{ step }}</li>
+                }
+              </ol>
+
+              <div class="exercise-benefits">
+                <strong>✔ Benefits:</strong> {{ exercise.benefits }}
+              </div>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Section 3: Quick Fixes -->
+      <div class="section-container">
+        <h3 class="section-title">🔥 3. Quick Fixes (Under 1 Minute)</h3>
+        <div class="quick-fixes-grid">
+          @for (fix of sleepQuickFixes; track fix.title) {
+          <div class="quick-fix-card">
+            <div class="fix-icon">✔</div>
+            <div class="fix-content">
+              <h4>{{ fix.title }}</h4>
+              <p>{{ fix.description }}</p>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Section 4: Reminders -->
+      <div class="section-container">
+        <h3 class="section-title">💡 4. Sleep & Mental Recovery Reminders</h3>
+        <div class="reminders-list">
+          @for (reminder of sleepReminders; track reminder.text) {
+          <div class="reminder-item">
+            <span class="reminder-icon">💡</span>
+            <p>"{{ reminder.text }}"</p>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+}
+
+<!-- Emotional Wellbeing & Mood Modal -->
+@if (showExerciseModal && selectedRecommendation === 'emotional-wellbeing') {
+<div class="modal-overlay" (click)="closeModal()">
+  <div class="modal-container lower-back-modal" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="closeModal()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    <div class="modal-content">
+      <h2 class="modal-title">🔥 Emotional Wellbeing & Mood Module</h2>
+      <p class="modal-subtitle">
+        Office & lifestyle tips, micro-exercises for emotional health and mood regulation
+      </p>
+
+      <!-- Section 1: Office Tips -->
+      <div class="section-container">
+        <h3 class="section-title">🔵 1. Office & Lifestyle Tips for Emotional Wellbeing</h3>
+        <div class="tips-grid">
+          @for (tip of emotionalOfficeTips; track tip.title) {
+          <div class="tip-card">
+            <div class="tip-icon">{{ tip.icon }}</div>
+            <div class="tip-content">
+              <h4>{{ tip.title }}</h4>
+              <p>{{ tip.description }}</p>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Section 2: Micro-Exercises -->
+      <div class="section-container">
+        <h3 class="section-title">🟡 2. Micro-Exercises (1–3 Minutes)</h3>
+        <div class="exercises-container">
+          @for (exercise of emotionalExercises; track exercise.title) {
+          <div class="exercise-card">
+            <div class="exercise-header">
+              <span class="exercise-emoji">{{ exercise.emoji }}</span>
+              <div class="exercise-info">
+                <h3>{{ exercise.title }}</h3>
+                <span class="exercise-duration">⏱️ Duration: {{ exercise.duration }}</span>
+              </div>
+            </div>
+
+            <div class="exercise-body">
+              <h4>Steps:</h4>
+              <ol class="exercise-steps">
+                @for (step of exercise.steps; track $index) {
+                <li>{{ step }}</li>
+                }
+              </ol>
+
+              <div class="exercise-benefits">
+                <strong>✔ Benefits:</strong> {{ exercise.benefits }}
+              </div>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Section 3: Quick Fixes -->
+      <div class="section-container">
+        <h3 class="section-title">🔥 3. Quick Fixes (Under 1 Minute)</h3>
+        <div class="quick-fixes-grid">
+          @for (fix of emotionalQuickFixes; track fix.title) {
+          <div class="quick-fix-card">
+            <div class="fix-icon">✔</div>
+            <div class="fix-content">
+              <h4>{{ fix.title }}</h4>
+              <p>{{ fix.description }}</p>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Section 4: Reminders -->
+      <div class="section-container">
+        <h3 class="section-title">💡 4. Emotional Wellbeing Reminders</h3>
+        <div class="reminders-list">
+          @for (reminder of emotionalReminders; track reminder.text) {
+          <div class="reminder-item">
+            <span class="reminder-icon">💡</span>
+            <p>"{{ reminder.text }}"</p>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+}
+
+<!-- Digital Overuse / Tech Fatigue Modal -->
+@if (showExerciseModal && selectedRecommendation === 'digital-overuse') {
+<div class="modal-overlay" (click)="closeModal()">
+  <div class="modal-container lower-back-modal" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="closeModal()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    <div class="modal-content">
+      <h2 class="modal-title">🔥 Digital Overuse / Tech Fatigue Module</h2>
+      <p class="modal-subtitle">
+        Office & lifestyle tips, micro-exercises to reduce digital fatigue and screen time
+      </p>
+
+      <!-- Section 1: Office Tips -->
+      <div class="section-container">
+        <h3 class="section-title">🔵 1. Office & Lifestyle Tips to Reduce Tech Fatigue</h3>
+        <div class="tips-grid">
+          @for (tip of digitalOfficeTips; track tip.title) {
+          <div class="tip-card">
+            <div class="tip-icon">{{ tip.icon }}</div>
+            <div class="tip-content">
+              <h4>{{ tip.title }}</h4>
+              <p>{{ tip.description }}</p>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Section 2: Micro-Exercises -->
+      <div class="section-container">
+        <h3 class="section-title">🟡 2. Micro-Exercises (1–3 Minutes)</h3>
+        <div class="exercises-container">
+          @for (exercise of digitalExercises; track exercise.title) {
+          <div class="exercise-card">
+            <div class="exercise-header">
+              <span class="exercise-emoji">{{ exercise.emoji }}</span>
+              <div class="exercise-info">
+                <h3>{{ exercise.title }}</h3>
+                <span class="exercise-duration">⏱️ Duration: {{ exercise.duration }}</span>
+              </div>
+            </div>
+
+            <div class="exercise-body">
+              <h4>Steps:</h4>
+              <ol class="exercise-steps">
+                @for (step of exercise.steps; track $index) {
+                <li>{{ step }}</li>
+                }
+              </ol>
+
+              <div class="exercise-benefits">
+                <strong>✔ Benefits:</strong> {{ exercise.benefits }}
+              </div>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Section 3: Quick Fixes -->
+      <div class="section-container">
+        <h3 class="section-title">🔥 3. Quick Fixes (Under 1 Minute)</h3>
+        <div class="quick-fixes-grid">
+          @for (fix of digitalQuickFixes; track fix.title) {
+          <div class="quick-fix-card">
+            <div class="fix-icon">✔</div>
+            <div class="fix-content">
+              <h4>{{ fix.title }}</h4>
+              <p>{{ fix.description }}</p>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Section 4: Reminders -->
+      <div class="section-container">
+        <h3 class="section-title">💡 4. Digital Overuse / Tech Fatigue Reminders</h3>
+        <div class="reminders-list">
+          @for (reminder of digitalReminders; track reminder.text) {
+          <div class="reminder-item">
+            <span class="reminder-icon">💡</span>
+            <p>"{{ reminder.text }}"</p>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+}

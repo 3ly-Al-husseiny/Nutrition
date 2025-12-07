@@ -1,0 +1,153 @@
+<!-- Progress Component -->
+<app-header></app-header>
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <h2 class="hero-title">📊 Progress Dashboard</h2>
+        <p class="hero-subtitle">Track your achievements and visualize your health journey</p>
+    </div>
+</section>
+
+<!-- Stats Overview Section -->
+<section class="stats-overview">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">⭐</div>
+                <div class="stat-value">{{ stats.totalPoints }}</div>
+                <div class="stat-label">Total Points</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🎯</div>
+                <div class="stat-value">{{ stats.activeChallenges }}</div>
+                <div class="stat-label">Active Challenges</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🏆</div>
+                <div class="stat-value">{{ stats.completedChallenges }}</div>
+                <div class="stat-label">Completed Challenges</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Badges Section -->
+<section class="badges-section">
+    <div class="container">
+        <h3 class="section-title">🏅 Your Badges</h3>
+
+        <!-- No Badges -->
+        <div *ngIf="userData.badges.length === 0" class="empty-message">
+            Complete challenges to earn badges!
+        </div>
+
+        <!-- Badges Grid - Only show EARNED badges -->
+        <div *ngIf="userData.badges.length > 0" class="badges-grid">
+            <div *ngFor="let badge of getEarnedBadges()" [class]="'badge-item ' + badge.class">
+                <div class="badge-icon">{{ badge.icon }}</div>
+                <div class="badge-name">{{ badge.name }}</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Start Charts Section -->
+<section class="charts-section">
+    <div class="container">
+        <h3 class="section-title">📈 Visual Analytics</h3>
+        
+        <!-- Charts Grid -->
+        <div class="charts-grid">
+            <!-- Challenges Overview Pie Chart -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h4 class="chart-title">Challenges Overview</h4>
+                    <p class="chart-subtitle">Completed vs In Progress</p>
+                </div>
+                <div class="chart-container">
+                    <canvas id="challengesPieChart" role="img" aria-label="Challenges overview pie chart"></canvas>
+                </div>
+            </div>
+
+            <!-- Points History Line Chart -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h4 class="chart-title">Points History</h4>
+                    <p class="chart-subtitle">Your points accumulation over time</p>
+                </div>
+                <div class="chart-container">
+                    <canvas id="pointsHistoryChart" role="img" aria-label="Points history line chart"></canvas>
+                </div>
+            </div>
+
+            <!-- Progress per Challenge Bar Chart -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h4 class="chart-title">Progress per Challenge</h4>
+                    <p class="chart-subtitle">Completion percentage for each challenge</p>
+                </div>
+                <div class="chart-container">
+                    <canvas id="challengesBarChart" role="img" aria-label="Challenges progress bar chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Charts Section -->
+
+<!-- Active Challenges Details -->
+<section class="detailed-progress">
+    <div class="container">
+        <h3 class="section-title">🎯 Active Challenges Details</h3>
+
+        <!-- No Active Challenges -->
+        <div *ngIf="activeChallenges.length === 0" class="empty-message">
+            No active challenges yet.
+        </div>
+
+        <!-- Progress List -->
+        <div *ngIf="activeChallenges.length > 0" class="progress-list">
+            <div *ngFor="let challenge of activeChallenges" class="progress-item" (click)="viewChallenge(challenge.id)">
+
+                <div class="progress-item-header">
+                    <span class="progress-item-title">{{ challenge.icon }} {{ challenge.title }}</span>
+                    <span class="progress-item-percentage">
+                        {{ getChallengeStats(challenge).percentage }}%
+                        <span *ngIf="getChallengeStats(challenge).percentage === 100"> 🏆</span>
+                    </span>
+                </div>
+
+                <div class="progress-item-bar">
+                    <div class="progress-item-fill" [style.width.%]="getChallengeStats(challenge).percentage">
+                    </div>
+                </div>
+
+                <div class="progress-item-details">
+                    <span class="progress-detail">
+                        {{ getChallengeStats(challenge).completed }}/{{ getChallengeStats(challenge).total }} days
+                        completed
+                    </span>
+                    <span class="progress-detail">⭐ {{ challenge.points }} pts</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Action Buttons -->
+<section class="action-section">
+    <div class="container">
+        <div class="action-buttons-grid">
+            <button class="action-btn primary-btn" (click)="browseChallenges()">
+                🎯 Browse Challenges
+            </button>
+            <button class="action-btn tertiary-btn" (click)="exportProgress()">
+                📥 Export Data
+            </button>
+            <button class="action-btn danger-btn" (click)="resetProgress()">
+                🔄 Reset All Data
+            </button>
+        </div>
+    </div>
+</section>

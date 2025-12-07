@@ -1,0 +1,178 @@
+[
+  {
+    "id": "lower_back",
+    "name": "lower_back",
+    "displayName": "Lower Back",
+    "icon": "🦴",
+    "maxPoints": 15,
+    "questions": [
+      {
+        "id": 1,
+        "text": "Do you feel lower-back pain after sitting for more than 30 minutes?",
+        "points": 2
+      },
+      {
+        "id": 2,
+        "text": "Does bending forward increase the pain?",
+        "points": 2
+      },
+      {
+        "id": 3,
+        "text": "Do you feel stiffness in the lower-back in the morning?",
+        "points": 1
+      },
+      {
+        "id": 4,
+        "text": "Do you experience numbness/tingling in the legs?",
+        "points": 4
+      },
+      {
+        "id": 5,
+        "text": "Does heavy lifting increase your lower-back pain?",
+        "points": 2
+      },
+      {
+        "id": 6,
+        "text": "Have you had a past back injury within the last 2 years?",
+        "points": 3
+      },
+      {
+        "id": 7,
+        "text": "Do you avoid stretching or mobility exercises for the lower-back?",
+        "points": 1
+      }
+    ]
+  },
+  {
+    "id": "shoulder",
+    "name": "shoulder",
+    "displayName": "Shoulder",
+    "icon": "💪",
+    "maxPoints": 11,
+    "questions": [
+      {
+        "id": 1,
+        "text": "Do you feel shoulder pain during daily activities?",
+        "points": 2
+      },
+      {
+        "id": 2,
+        "text": "Does raising your arm above your head cause discomfort?",
+        "points": 2
+      },
+      {
+        "id": 3,
+        "text": "Do you feel weakness when lifting light objects?",
+        "points": 2
+      },
+      {
+        "id": 4,
+        "text": "Do you hear clicking sounds when rotating your shoulder?",
+        "points": 1
+      },
+      {
+        "id": 5,
+        "text": "Do you feel tightness in the upper back/shoulder area?",
+        "points": 1
+      },
+      {
+        "id": 6,
+        "text": "Does your shoulder pain increase after long working hours?",
+        "points": 2
+      },
+      {
+        "id": 7,
+        "text": "Do you skip upper-body mobility or strengthening exercises?",
+        "points": 1
+      }
+    ]
+  },
+  {
+    "id": "eyes",
+    "name": "eyes",
+    "displayName": "Eyes",
+    "icon": "👁️",
+    "maxPoints": 9,
+    "questions": [
+      {
+        "id": 1,
+        "text": "Do your eyes feel dry after screen time?",
+        "points": 1
+      },
+      {
+        "id": 2,
+        "text": "Do you experience blurry vision during work?",
+        "points": 2
+      },
+      {
+        "id": 3,
+        "text": "Do you get headaches after long screen exposure?",
+        "points": 2
+      },
+      {
+        "id": 4,
+        "text": "Do you feel eye strain when focusing on small text?",
+        "points": 1
+      },
+      {
+        "id": 5,
+        "text": "Do you often forget to take screen breaks?",
+        "points": 1
+      },
+      {
+        "id": 6,
+        "text": "Do you work in low-light or high-glare environments?",
+        "points": 1
+      },
+      {
+        "id": 7,
+        "text": "Do you feel sensitivity to bright screens or lights?",
+        "points": 1
+      }
+    ]
+  },
+  {
+    "id": "energy_focus",
+    "name": "energy_focus",
+    "displayName": "Energy & Headache & Focus",
+    "icon": "⚡",
+    "maxPoints": 11,
+    "questions": [
+      {
+        "id": 1,
+        "text": "Do you feel tired during most of the day?",
+        "points": 2
+      },
+      {
+        "id": 2,
+        "text": "Do you have trouble focusing for long periods?",
+        "points": 2
+      },
+      {
+        "id": 3,
+        "text": "Do you wake up feeling unrefreshed?",
+        "points": 1
+      },
+      {
+        "id": 4,
+        "text": "Do you rely heavily on caffeine to stay alert?",
+        "points": 1
+      },
+      {
+        "id": 5,
+        "text": "Do you feel afternoon crashes or energy drops?",
+        "points": 1
+      },
+      {
+        "id": 6,
+        "text": "Do you skip physical activity during the week?",
+        "points": 2
+      },
+      {
+        "id": 7,
+        "text": "Do you have frequent headaches related to screen/work stress?",
+        "points": 2
+      }
+    ]
+  }
+]
