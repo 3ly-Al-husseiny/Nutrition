@@ -1,0 +1,236 @@
+/* 
+ * RESPONSIVE DESIGN QUICK REFERENCE
+ * For: Home Page & Navbar
+ * Date: December 4, 2025
+ */
+
+/* ============================================
+   BREAKPOINT REFERENCE
+   ============================================ */
+
+/*
+  📱 MOBILE PORTRAIT (360px - 480px)
+  ----------------------------------------
+  - Single column layouts
+  - Icon-only navigation at 360px
+  - Full-width buttons
+  - Minimal padding
+  - Touch-optimized (44px minimum)
+  
+  📱 MOBILE LANDSCAPE (481px - 768px)
+  ----------------------------------------
+  - Single/dual column grids
+  - Text + icon navigation
+  - Stacked hero section
+  - Optimized for touch
+  
+  📱 TABLET PORTRAIT (769px - 1024px)
+  ----------------------------------------
+  - 2-column grids
+  - Wrapped navigation menu
+  - Side-by-side CTAs
+  - Enhanced spacing
+  
+  💻 TABLET LANDSCAPE (1025px - 1200px)
+  ----------------------------------------
+  - 2-3 column grids
+  - Horizontal navigation
+  - Hero side-by-side layout
+  - Full desktop features
+  
+  🖥️ DESKTOP (1201px+)
+  ----------------------------------------
+  - Multi-column grids (3-4 cols)
+  - Full horizontal layout
+  - Enhanced animations
+  - Maximum spacing
+*/
+
+/* ============================================
+   COMPONENT BEHAVIOR BY BREAKPOINT
+   ============================================ */
+
+/*
+  HERO SECTION
+  ------------
+  1920px+  : Side-by-side (content | visual), visual: 400px
+  1200px   : Side-by-side, visual: 350px
+  1024px   : Stacked, visual: 300px centered
+  768px    : Stacked, visual: hidden
+  480px    : Stacked, compact spacing
+  360px    : Stacked, minimal spacing
+  
+  FEATURES GRID
+  -------------
+  1200px+  : 3 columns
+  1024px   : 2 columns
+  768px-   : 1 column
+  
+  STATS GRID
+  ----------
+  1200px+  : 4 columns
+  1024px   : 2 columns
+  480px-   : 1 column
+  
+  NAVBAR
+  ------
+  1024px+  : Logo | Nav Menu | Settings + Profile
+  768px    : Logo + Actions (top) | Nav Menu (bottom, scrollable)
+  480px    : Logo + Icon Actions (top) | Icon Nav (bottom)
+  360px    : Logo + Icons (top) | Only Icons (bottom)
+*/
+
+/* ============================================
+   TYPOGRAPHY SCALE
+   ============================================ */
+
+/*
+  Hero Title:
+  - Desktop (1200px+): 3.5rem
+  - Tablet (1024px):   3rem
+  - Mobile (768px):    2.5rem
+  - Mobile (480px):    2rem
+  - Small (360px):     1.75rem
+  
+  Section Title:
+  - Desktop (1200px+): 2.5rem
+  - Tablet (1024px):   2.2rem
+  - Mobile (768px):    2rem
+  - Mobile (480px):    1.75rem
+  - Small (360px):     1.6rem
+  
+  Body Text:
+  - Desktop: 1rem - 1.2rem
+  - Mobile:  0.85rem - 1rem
+*/
+
+/* ============================================
+   SPACING SCALE
+   ============================================ */
+
+/*
+  Container Padding:
+  - Desktop (1200px+): 20px
+  - Tablet (1024px):   20px 25px
+  - Mobile (768px):    15px 20px
+  - Mobile (480px):    15px
+  - Small (360px):     12px
+  
+  Section Padding:
+  - Desktop: 80px 0
+  - Tablet:  60px 0
+  - Mobile:  50px 0
+  - Small:   40px 0
+*/
+
+/* ============================================
+   GRID GAPS
+   ============================================ */
+
+/*
+  Features Grid Gap:
+  - Desktop: 30px
+  - Tablet:  24px
+  - Mobile:  20px
+  
+  Stats Grid Gap:
+  - Desktop: 30px
+  - Tablet:  20px
+  - Mobile:  16px
+  - Small:   12px
+*/
+
+/* ============================================
+   INTERACTIVE ELEMENTS
+   ============================================ */
+
+/*
+  Button Sizes (padding):
+  - Desktop Primary:   16px 32px
+  - Mobile Primary:    14px 24px (full-width)
+  - Small Primary:     12px 20px (full-width)
+  
+  Touch Targets (minimum):
+  - All sizes: 44x44px (WCAG 2.1 AA)
+  - Recommended: 48x48px
+*/
+
+/* ============================================
+   HIDDEN ELEMENTS BY BREAKPOINT
+   ============================================ */
+
+/*
+  Hidden at 768px and below:
+  - Hero floating visual cards
+  
+  Hidden at 480px and below:
+  - Button text labels (icons only)
+  - Brand name in navbar
+  
+  Hidden at 360px and below:
+  - All navigation text (icons only)
+*/
+
+/* ============================================
+   TESTING VIEWPORTS
+   ============================================ */
+
+/*
+  Common Device Widths to Test:
+  
+  📱 Mobile
+  - iPhone SE:        375px
+  - iPhone 12-14:     390px
+  - Samsung Galaxy:   360px, 412px
+  - Google Pixel:     393px
+  
+  📱 Tablet
+  - iPad Mini:        768px
+  - iPad:             820px
+  - iPad Pro:         1024px
+  - Surface Pro:      912px
+  
+  💻 Desktop
+  - Small Laptop:     1366px
+  - Full HD:          1920px
+  - 2K:               2560px
+  - 4K:               3840px
+*/
+
+/* ============================================
+   ORIENTATION SPECIFIC
+   ============================================ */
+
+/*
+  Landscape Mode (height < 600px):
+  - Reduced vertical padding
+  - Compact navbar
+  - Smaller typography
+  - Optimized for wide, short screens
+*/
+
+/* ============================================
+   PERFORMANCE TIPS
+   ============================================ */
+
+/*
+  1. Use CSS transforms for animations (GPU accelerated)
+  2. Avoid layout-triggering properties in transitions
+  3. Use will-change sparingly
+  4. Optimize images for mobile (responsive images)
+  5. Test on real devices, not just emulators
+  6. Monitor FPS with DevTools Performance panel
+*/
+
+/* ============================================
+   ACCESSIBILITY NOTES
+   ============================================ */
+
+/*
+  ✅ Touch targets: Minimum 44x44px
+  ✅ Color contrast: WCAG AA compliant
+  ✅ Font sizes: Minimum 16px (prevents zoom on iOS)
+  ✅ Focus indicators: Visible on all interactive elements
+  ✅ Semantic HTML: Proper heading hierarchy
+  ✅ ARIA labels: Where needed for screen readers
+*/

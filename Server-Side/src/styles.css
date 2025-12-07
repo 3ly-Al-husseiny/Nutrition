@@ -1,0 +1,206 @@
+/* src/styles.css - UPDATED PROFESSIONAL DESIGN */
+
+:root {
+  /* === Primary Colors === */
+  --primary-bg: #0d1f15;           /* خلفية رئيسية أغمق */
+  --secondary-bg: #1a2e23;         /* خلفية ثانوية */
+  --card-bg: #1e3429;              /* خلفية الكروت */
+  --dark-bg: #152520;              /* خلفية داكنة للعناصر */
+  
+  /* === Accent Colors === */
+  --accent-green: #2d5f3f;         /* أخضر للتفاعلات */
+  --accent-green-light: #3a7550;   /* أخضر فاتح */
+  --accent-green-dark: #1f4530;    /* أخضر غامق */
+  
+  /* === Border & Divider === */
+  --border-color: #2a4735;         /* حدود العناصر */
+  --border-light: #344f3f;         /* حدود فاتحة */
+  --divider-color: rgba(42, 71, 53, 0.5);
+  
+  /* === Text Colors === */
+  --text-primary: #e8f5e9;         /* نص أساسي */
+  --text-secondary: #a5c9b0;       /* نص ثانوي */
+  --text-muted: #7a9784;           /* نص خافت */
+  
+  /* === Status Colors === */
+  --success-color: #4caf50;        /* نجاح */
+  --warning-color: #ff9800;        /* تحذير */
+  --danger-color: #f44336;         /* خطر */
+  --info-color: #2196f3;           /* معلومات */
+  
+  /* === Progress Colors === */
+  --progress-low: #f44336;         /* أحمر للـ Low */
+  --progress-on-track: #2196f3;    /* أزرق للـ On Track */
+  --progress-achieved: #4caf50;    /* أخضر للـ Achieved */
+  --progress-good: #ff9800;        /* برتقالي للـ Good */
+  --progress-background: #263b2e;  /* خلفية البروجرس */
+  
+  /* === Shadows === */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.25);
+  --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+  /* === Transitions === */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+}
+
+/* === Global Styles === */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, var(--primary-bg) 0%, #0a1910 50%, var(--primary-bg) 100%);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* === Card Styles === */
+.card {
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* === Heading Styles === */
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+h2 {
+  color: var(--text-secondary);
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 12px;
+}
+
+/* === Scrollbar Styling === */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--primary-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-green);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-green-light);
+}
+
+/* === Selection === */
+::selection {
+  background-color: var(--accent-green);
+  color: var(--text-primary);
+}
+
+/* === Focus Styles === */
+*:focus {
+  outline: 2px solid var(--accent-green);
+  outline-offset: 2px;
+}
+
+/* === Toast Notification Animations === */
+@keyframes slideIn {
+  from {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+}
+
+/* === Responsive === */
+
+/* Tablets and smaller laptops */
+@media (max-width: 1024px) {
+  .container {
+    max-width: 100%;
+    padding: 20px 25px;
+  }
+}
+
+/* Mobile devices */
+@media (max-width: 768px) {
+  .container {
+    padding: 15px 20px;
+  }
+  
+  .card {
+    padding: 18px;
+    border-radius: 10px;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+    padding-bottom: 10px;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .container {
+    padding: 15px;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+}
+
+/* Extra small mobile devices */
+@media (max-width: 360px) {
+  .container {
+    padding: 12px;
+  }
+
+  .card {
+    padding: 14px;
+  }
+}

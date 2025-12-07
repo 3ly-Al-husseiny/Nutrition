@@ -1,0 +1,73 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2025-11-26",
+  "modules": {
+    "physical": {
+      "name": "Physical Health Module",
+      "status": "active",
+      "dataFiles": [
+        {
+          "filename": "examination-sections.json",
+          "description": "Health examination sections with questions and scoring",
+          "endpoint": "/api/physical/sections",
+          "method": "GET",
+          "responseType": "Section[]"
+        },
+        {
+          "filename": "recommendations.json",
+          "description": "Recommendation cards and section mapping",
+          "endpoint": "/api/physical/recommendations",
+          "method": "GET",
+          "responseType": "{ sectionMapping, recommendations }"
+        },
+        {
+          "filename": "exercises-detailed.json",
+          "description": "Detailed exercises, tips, and remedies by type",
+          "endpoint": "/api/physical/exercises/{type}",
+          "method": "GET",
+          "responseType": "ExerciseDetails"
+        }
+      ],
+      "services": [
+        "ExaminationsService"
+      ]
+    },
+    "mental": {
+      "name": "Mental Health Module",
+      "status": "planned",
+      "dataFiles": [],
+      "services": []
+    },
+    "nutrition": {
+      "name": "Nutrition Module",
+      "status": "planned",
+      "dataFiles": [],
+      "services": []
+    },
+    "challenging": {
+      "name": "Challenging Module",
+      "status": "active",
+      "dataFiles": [
+        {
+          "filename": "challenges.json",
+          "description": "12 health challenges with duration and points",
+          "endpoint": "/api/challenging/challenges",
+          "method": "GET",
+          "responseType": "Challenge[]"
+        }
+      ],
+      "services": [
+        "ChallengeService",
+        "StorageService",
+        "NotificationService",
+        "ReminderService"
+      ]
+    }
+  },
+  "apiSimulation": {
+    "baseUrl": "assets/data",
+    "authentication": "none",
+    "rateLimit": "none",
+    "notes": "Local JSON files for development. Replace with real API in production."
+  }
+}

@@ -1,0 +1,318 @@
+/* ==========================================================================
+   SIDEBAR COMPONENT STYLES
+   ==========================================================================
+   
+   TABLE OF CONTENTS:
+   1.  Base Layout & Container
+   2.  Header Section (Title & Toggle)
+   3.  Navigation Items
+   4.  Responsive Behavior
+       4.1. Mobile (Off-canvas Drawer)
+       4.2. Tablet (Overlay Mode)
+       4.3. Desktop (Collapsible Mode)
+   ========================================================================== */
+
+/* =============================================
+   1. BASE LAYOUT & CONTAINER
+   ============================================= */
+.sidebar {
+    background: linear-gradient(180deg, #0a1810 0%, #0d1913 50%, #0f1b14 100%);
+    border-right: 1px solid rgba(94, 221, 151, 0.15);
+    padding: 1.25rem .875rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+}
+
+/* Subtle glow effect on the edge */
+.sidebar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent 0%, rgba(94, 221, 151, 0.3) 50%, transparent 100%);
+    pointer-events: none;
+}
+
+/* Utility to prevent text wrapping during collapse animations */
+.sidebar-nav,
+.sidebar-header {
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+
+/* =============================================
+   2. HEADER SECTION (Title & Toggle)
+   ============================================= */
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .75rem .875rem .5rem;
+    margin-bottom: .75rem;
+    border-bottom: 1px solid rgba(94, 221, 151, 0.2);
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+    border-radius: .5rem;
+}
+
+.sidebar-header:hover {
+    background: rgba(94, 221, 151, 0.05);
+    border-bottom-color: rgba(94, 221, 151, 0.3);
+}
+
+/* Gradient Text Effect for Title */
+.sidebar-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #5edd97 0%, #63e89d 50%, #5edd97 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 12px rgba(94, 221, 151, .3), 0 0 24px rgba(94, 221, 151, .15);
+    letter-spacing: 0.3px;
+}
+
+/* Logo Icon */
+.sidebar-icon-pulse {
+    width: 26px;
+    height: 26px;
+    color: #5edd97;
+    flex-shrink: 0;
+    will-change: transform, opacity;
+    filter: drop-shadow(0 0 8px rgba(94, 221, 151, 0.4));
+    transition: all 0.3s ease;
+}
+
+.sidebar-header:hover .sidebar-icon-pulse {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 12px rgba(94, 221, 151, 0.6));
+}
+
+/* Chevron Toggle Icon */
+.collapse-icon {
+    margin-left: auto;
+    color: #5edd97;
+    transition: transform .3s ease-in-out, color 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar-header:hover .collapse-icon {
+    color: #63e89d;
+    transform: translateX(2px);
+}
+
+
+/* =============================================
+   3. NAVIGATION ITEMS
+   ============================================= */
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: .875rem;
+    padding: .75rem .875rem;
+    margin: .3rem 0;
+    color: #d3efe4;
+    text-decoration: none;
+    border-radius: .875rem;
+    transition: all .25s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid transparent;
+    font-weight: 500;
+}
+
+/* Gradient border effect on hover */
+.nav-item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: .875rem;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(94, 221, 151, 0.4), rgba(99, 232, 157, 0.4));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity .25s ease;
+}
+
+.nav-item .icon {
+    color: #e5fff1;
+    opacity: .85;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    transition: all .25s ease;
+}
+
+/* Hover State */
+.nav-item:hover {
+    background: linear-gradient(135deg, rgba(94, 221, 151, .12), rgba(99, 232, 157, .08));
+    color: #fff;
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(94, 221, 151, 0.15);
+}
+
+.nav-item:hover::before {
+    opacity: 1;
+}
+
+.nav-item:hover .icon {
+    opacity: 1;
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 4px rgba(94, 221, 151, 0.4));
+}
+
+/* Active State */
+.nav-item.active {
+    background: linear-gradient(135deg, rgba(94, 221, 151, .22), rgba(99, 232, 157, .18));
+    border-color: rgba(94, 221, 151, .45);
+    color: #fff;
+    box-shadow: 0 6px 20px rgba(94, 221, 151, .25),
+                0 0 0 1px rgba(94, 221, 151, .15) inset,
+                0 12px 32px rgba(0, 0, 0, .35);
+    font-weight: 600;
+}
+
+.nav-item.active .icon {
+    opacity: 1;
+    filter: drop-shadow(0 0 6px rgba(94, 221, 151, 0.6));
+}
+
+/* Active glow effect */
+.nav-item.active::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: .875rem;
+    background: radial-gradient(circle at center, rgba(94, 221, 151, 0.15), transparent 70%);
+    z-index: -1;
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+
+/* =============================================
+   4. RESPONSIVE BEHAVIOR
+   ============================================= */
+
+/* --- 4.1. Mobile: Off-canvas Drawer (< 768px) --- */
+@media (max-width: 767.98px) {
+    :host {
+        position: fixed;
+        top: 0; left: 0; bottom: 0;
+        width: 280px;
+        z-index: 1050; /* Above backdrop (1045) */
+        transform: translateX(-100%);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 8px 0 32px rgba(0, 0, 0, .5);
+    }
+
+    :host(.is-open) {
+        transform: translateX(0);
+    }
+}
+
+
+/* --- 4.2. Tablet: Overlay Mode (>= 768px) --- */
+/* 
+   Note: On tablet, there are often two instances of the sidebar:
+   1. The "Main" one in the grid (usually hidden or icon-only).
+   2. The "Overlay" one (slide-out).
+   The .is-overlay class distinguishes them.
+*/
+
+@media (min-width: 768px) {
+    /* Overlay Instance Styling */
+    :host(.is-overlay) {
+        position: fixed;
+        top: 0; left: 0; bottom: 0;
+        width: 280px;
+        z-index: 1050;
+        transform: translateX(-100%);
+        box-shadow: 12px 0 48px rgba(0, 0, 0, .5);
+        visibility: hidden; /* Hides completely when closed to prevent focus issues */
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.3s;
+    }
+
+    :host(.is-overlay.is-open) {
+        transform: translateX(0);
+        visibility: visible;
+    }
+}
+
+/* Tablet: Main Grid Instance (Non-Overlay) */
+/* Forces icon-only look if displayed in the grid on tablet */
+@media (min-width: 768px) and (max-width: 991.98px) {
+
+    :host:not(.is-overlay) .sidebar-title,
+    :host:not(.is-overlay) .nav-text {
+        display: none;
+    }
+
+    :host:not(.is-overlay) .sidebar-header,
+    :host:not(.is-overlay) .nav-item {
+        justify-content: center;
+        margin-left: 0; margin-right: 0;
+        padding-left: 0; padding-right: 0;
+        gap: 0;
+    }
+
+    :host:not(.is-overlay) .collapse-icon {
+        margin-left: 0;
+        transform: rotate(180deg); /* Indicates it can expand */
+    }
+}
+
+
+/* --- 4.3. Desktop: Collapsible Mode (>= 992px) --- */
+@media (min-width: 992px) {
+    :host {
+        display: block;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        min-width: 0;
+    }
+
+    /* Collapsed State Styles */
+    :host(.is-collapsed) .sidebar-title,
+    :host(.is-collapsed) .nav-text {
+        display: none;
+    }
+
+    :host(.is-collapsed) .sidebar-header,
+    :host(.is-collapsed) .nav-item {
+        justify-content: center;
+        padding-left: 0; padding-right: 0;
+        gap: 0;
+        margin-left: 0; margin-right: 0;
+    }
+
+    :host(.is-collapsed) .collapse-icon {
+        margin-left: 0;
+        transform: rotate(180deg);
+    }
+
+    :host(.is-collapsed) .nav-item:hover {
+        transform: scale(1.05);
+    }
+}

@@ -1,0 +1,206 @@
+<!-- Challenges List Component -->
+<app-header></app-header>
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <h2 class="hero-title">🎯 Health Challenges</h2>
+        <p class="hero-subtitle">Choose challenges that fit your goals and start building healthy habits</p>
+    </div>
+</section>
+
+<!-- Recent Joined Challenges Section -->
+<section class="recent-joined-section" *ngIf="recentJoinedChallenges.length > 0">
+    <div class="container">
+        <div class="section-header">
+            <h3 class="section-title">🏃 Recent Joined Challenges</h3>
+            <button class="btn-secondary" (click)="viewAllProgress()">
+                📊 View Full Progress
+            </button>
+        </div>
+        <p class="section-subtitle">Your latest challenges - keep up the great work!</p>
+
+        <!-- Recent Joined Grid (Max 3) -->
+        <div class="challenges-grid-recent">
+            <div *ngFor="let challenge of recentJoinedChallenges" class="challenge-card joined-card"
+                (click)="showChallengeDetails(challenge)">
+
+                <!-- Challenge Icon -->
+                <div class="challenge-icon">{{ challenge.icon }}</div>
+
+                <!-- Joined Badge -->
+                <div class="joined-badge">✓ Joined</div>
+
+                <!-- Challenge Title -->
+                <h3 class="challenge-title">{{ challenge.title }}</h3>
+
+                <!-- Challenge Description -->
+                <p class="challenge-description">{{ challenge.description }}</p>
+
+                <!-- Progress Bar -->
+                <div class="challenge-progress-mini">
+                    <div class="progress-mini-bar">
+                        <div class="progress-mini-fill" [style.width.%]="getChallengeProgress(challenge.id)">
+                        </div>
+                    </div>
+                    <div class="progress-mini-text">
+                        {{ getChallengeProgress(challenge.id) }}% Complete
+                        <span *ngIf="getChallengeProgress(challenge.id) === 100"> 🏆</span>
+                    </div>
+                </div>
+
+                <!-- Challenge Metadata -->
+                <div class="challenge-meta">
+                    <span class="meta-item">⏱️ {{ challenge.durationDays }} days</span>
+                    <span class="meta-item">⭐ {{ challenge.points }} pts</span>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="challenge-actions" (click)="$event.stopPropagation()">
+                    <button class="btn-primary" (click)="viewChallengeDetails(challenge.id)">
+                        View Progress
+                    </button>
+                    <button class="btn-danger" (click)="resetChallenge(challenge.id)">
+                        Reset
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- All Challenges Section -->
+<section class="challenges-section">
+    <div class="container">
+        <div class="section-header">
+            <h3 class="section-title">📋 All Challenges</h3>
+            <span class="challenges-count">{{ allChallenges.length }} Challenges Available</span>
+        </div>
+        <p class="section-subtitle">Explore all our health challenges and join the ones that inspire you</p>
+
+        <!-- Loading State -->
+        <div *ngIf="isLoading" class="empty-message">
+            Loading challenges...
+        </div>
+
+        <!-- No Challenges -->
+        <div *ngIf="!isLoading && allChallenges.length === 0" class="empty-message">
+            No challenges available at the moment.
+        </div>
+
+        <!-- All Challenges Grid -->
+        <div *ngIf="!isLoading && allChallenges.length > 0" class="challenges-grid">
+            <div *ngFor="let challenge of allChallenges" class="challenge-card"
+                [class.joined-card]="isJoined(challenge.id)"
+                (click)="showChallengeDetails(challenge)">
+
+                <!-- Challenge Icon -->
+                <div class="challenge-icon">{{ challenge.icon }}</div>
+
+                <!-- Joined Badge -->
+                <div *ngIf="isJoined(challenge.id)" class="joined-badge">
+                    ✓ Joined
+                </div>
+
+                <!-- Challenge Title -->
+                <h3 class="challenge-title">{{ challenge.title }}</h3>
+
+                <!-- Challenge Description -->
+                <p class="challenge-description">{{ challenge.description }}</p>
+
+                <!-- Progress Bar (if joined) -->
+                <div *ngIf="isJoined(challenge.id)" class="challenge-progress-mini">
+                    <div class="progress-mini-bar">
+                        <div class="progress-mini-fill" [style.width.%]="getChallengeProgress(challenge.id)">
+                        </div>
+                    </div>
+                    <div class="progress-mini-text">
+                        {{ getChallengeProgress(challenge.id) }}% Complete
+                        <span *ngIf="getChallengeProgress(challenge.id) === 100"> 🏆</span>
+                    </div>
+                </div>
+
+                <!-- Challenge Metadata -->
+                <div class="challenge-meta">
+                    <span class="meta-item">⏱️ {{ challenge.durationDays }} days</span>
+                    <span class="meta-item">⭐ {{ challenge.points }} pts</span>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="challenge-actions" (click)="$event.stopPropagation()">
+                    <!-- Not Joined -->
+                    <button *ngIf="!isJoined(challenge.id)" class="btn-primary" (click)="joinChallenge(challenge.id)">
+                        Join Challenge
+                    </button>
+
+                    <!-- Joined -->
+                    <div *ngIf="isJoined(challenge.id)" class="joined-actions">
+                        <button class="btn-primary" (click)="viewChallengeDetails(challenge.id)">
+                            View Progress
+                        </button>
+                        <button class="btn-danger" (click)="resetChallenge(challenge.id)">
+                            Reset
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Challenge Details Modal -->
+<div *ngIf="selectedChallenge" class="modal-overlay" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <button class="modal-close" (click)="closeModal()">×</button>
+
+        <div class="modal-header">
+            <div class="modal-icon">{{ selectedChallenge.icon }}</div>
+            <h2 class="modal-title">{{ selectedChallenge.title }}</h2>
+        </div>
+
+        <div class="modal-body">
+            <p class="modal-description">{{ selectedChallenge.description }}</p>
+
+            <div class="modal-info-grid">
+                <div class="info-item">
+                    <span class="info-label">Duration</span>
+                    <span class="info-value">{{ selectedChallenge.durationDays }} days</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Points</span>
+                    <span class="info-value">{{ selectedChallenge.points }} pts</span>
+                </div>
+            </div>
+
+            <!-- Progress Info (if joined) -->
+            <div *ngIf="isJoined(selectedChallenge.id)" class="modal-progress">
+                <h4>Your Progress</h4>
+                <div class="progress-bar-large">
+                    <div class="progress-fill-large" [style.width.%]="getChallengeProgress(selectedChallenge.id)">
+                    </div>
+                </div>
+                <p class="progress-text-large">
+                    {{ getChallengeProgress(selectedChallenge.id) }}% Complete
+                </p>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <!-- Not Joined -->
+            <button *ngIf="!isJoined(selectedChallenge.id)" class="btn-primary btn-large"
+                (click)="joinChallenge(selectedChallenge.id); closeModal()">
+                Join This Challenge
+            </button>
+
+            <!-- Joined -->
+            <div *ngIf="isJoined(selectedChallenge.id)" class="modal-actions">
+                <button class="btn-primary btn-large" (click)="viewChallengeDetails(selectedChallenge.id)">
+                    View Full Progress
+                </button>
+                <button class="btn-secondary btn-large" (click)="closeModal()">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

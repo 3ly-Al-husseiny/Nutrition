@@ -1,0 +1,818 @@
+/* ==========================================================================
+   LIBRARY PAGE STYLES
+   ==========================================================================
+   
+   TABLE OF CONTENTS:
+   1.  Layout & Shell
+   2.  Page Header & Typography
+   3.  Action Bar (Search, Sort, Filters)
+   4.  Grid View (Resource Cards)
+   5.  List View (Rows)
+   6.  Interactive Elements (Buttons, Inputs)
+   7.  Pagination
+   8.  Responsive Design & Mobile Overlays
+   ========================================================================== */
+
+/* =============================================
+   1. LAYOUT & SHELL
+   ============================================= */
+
+/* Main wrapper with atmospheric background gradients */
+.library-shell {
+    background: 
+        radial-gradient(1200px 600px at 22% -10%, rgba(25, 73, 44, 0.45) 0%, rgba(18, 32, 23, 0) 60%),
+        radial-gradient(900px 500px at 90% 10%, rgba(25, 73, 44, 0.25) 0%, rgba(18, 32, 23, 0) 55%),
+        linear-gradient(180deg, var(--dark-bg) 0%, #0f1b14 100%);
+    color: var(--text-primary);
+    min-height: 100vh;
+}
+
+/* Grid layout for Sidebar + Main Content */
+.library-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr; /* Sidebar width fixed, content flexible */
+    transition: grid-template-columns 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.main-content {
+    min-width: 0; /* Prevents grid blowout with long text */
+}
+
+/* Default hidden states for mobile-specific elements */
+.btn-fab-menu,
+.mobile-backdrop,
+.sidebar-tablet-overlay {
+    display: none;
+}
+
+
+/* =============================================
+   2. PAGE HEADER & TYPOGRAPHY
+   ============================================= */
+
+.page-header h1 {
+    letter-spacing: .2px;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, .35);
+}
+
+/* =============================================
+   3. ACTION BAR (Search, Sort, Filters)
+   ============================================= */
+
+.actionbar {
+    padding: 1rem 1.25rem;
+}
+
+/* Top Row: Search Input + Control Cluster */
+.action-bar-top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Grouping for Sort/View/Clear buttons */
+.controls-cluster {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+}
+
+/* Bottom Row: Filter Chips */
+.action-bar-filters {
+    padding-top: 1rem;
+    margin-top: 1rem;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.filter-label {
+    font-size: .8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    min-width: 50px;
+}
+
+.filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+}
+
+
+/* =============================================
+   4. GRID VIEW (Resource Cards)
+   ============================================= */
+
+.resource {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1rem;
+    background: radial-gradient(120% 120% at 0% 0%, rgba(25, 73, 44, .16) 0%, rgba(18, 32, 23, 1) 55%);
+    border: 1px solid rgba(94, 221, 151, .32) !important;
+    text-decoration: none !important;
+}
+
+.resource * {
+    text-decoration: none !important;
+}
+
+/* Hover Lift Effect */
+.resource:hover {
+    transform: translateY(-3px);
+    border-color: rgba(94, 221, 151, .58) !important;
+    box-shadow: 0 18px 42px rgba(0, 0, 0, .38), inset 0 0 0 1px rgba(94, 221, 151, .10);
+}
+
+/* Card Media Area */
+.resource-media {
+    height: 150px;
+    background: radial-gradient(80% 60% at 50% 40%, rgba(25, 73, 44, .12), rgba(18, 32, 23, 1));
+    background-size: cover;
+    background-position: center;
+    border-bottom: 1px dashed rgba(94, 221, 151, .28);
+}
+
+.resource-media-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Placeholder when no image exists */
+.resource-media-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at 50% 0%, rgba(25, 73, 44, 0.45) 0%, rgba(18, 32, 23, 0.1) 80%), var(--dark-bg);
+    box-shadow: inset 0 2px 2px rgba(0, 0, 0, .25);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Shimmer Animation Overlay */
+.resource-media-placeholder::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%; width: 100%;
+    background: linear-gradient(90deg, transparent 0%, rgba(94, 221, 151, 0.05) 40%, rgba(229, 255, 241, 0.1) 50%, rgba(94, 221, 151, 0.05) 60%, transparent 100%);
+    transform: translateX(-100%);
+    animation: shimmer-wave 3s infinite cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.resource-media-placeholder svg {
+    width: 42px;
+    height: 42px;
+    color: var(--accent-bright-2);
+    opacity: .7;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, .4));
+    position: relative;
+    z-index: 2;
+}
+
+/* Card Content */
+.resource-body {
+    padding: .9rem .95rem 1rem;
+}
+
+.title { font-size: .98rem; }
+.desc { min-height: 2.35em; } /* Ensures cards align even with short desc */
+
+
+/* =============================================
+   5. LIST VIEW (Rows)
+   ============================================= */
+
+.listview {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+}
+
+.lv-item {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: .9rem;
+    padding: .6rem;
+    border-radius: 1rem;
+    border: 1px solid rgba(94, 221, 151, .32);
+    background: linear-gradient(180deg, rgba(25, 73, 44, .16), rgba(18, 32, 23, .72));
+    transition: .18s ease;
+    text-decoration: none !important;
+}
+
+.lv-item * {
+    text-decoration: none !important;
+}
+
+.lv-item:hover {
+    transform: translateY(-2px);
+    border-color: rgba(94, 221, 151, .58);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, .35);
+}
+
+.lv-media {
+    width: 140px;
+    height: 92px;
+    border-radius: .8rem;
+    background-size: cover;
+    background-position: center;
+    border: 1px solid rgba(94, 221, 151, .28);
+    overflow: hidden;
+}
+
+.lv-media .resource-media-placeholder svg {
+    width: 32px;
+    height: 32px;
+}
+
+.lv-body {
+    position: relative;
+    padding: .25rem .25rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.lv-body .meta {
+    margin-top: auto;
+}
+
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .3rem;
+    margin-bottom: .6rem;
+}
+
+/* Tag Badge Styling */
+.badge-tag {
+    padding: .35rem .75rem;
+    border-radius: .5rem;
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    border: 1px solid transparent;
+    transition: all .2s ease;
+    display: inline-block;
+}
+
+/* Different colors for tags using nth-child */
+.tag-link:nth-child(6n+1) .badge-tag {
+    background: linear-gradient(135deg, rgba(94, 221, 151, 0.25), rgba(94, 221, 151, 0.15));
+    color: #5edd97;
+    border-color: rgba(94, 221, 151, 0.4);
+}
+
+.tag-link:nth-child(6n+2) .badge-tag {
+    background: linear-gradient(135deg, rgba(99, 179, 237, 0.25), rgba(99, 179, 237, 0.15));
+    color: #63b3ed;
+    border-color: rgba(99, 179, 237, 0.4);
+}
+
+.tag-link:nth-child(6n+3) .badge-tag {
+    background: linear-gradient(135deg, rgba(237, 137, 54, 0.25), rgba(237, 137, 54, 0.15));
+    color: #ed8936;
+    border-color: rgba(237, 137, 54, 0.4);
+}
+
+.tag-link:nth-child(6n+4) .badge-tag {
+    background: linear-gradient(135deg, rgba(159, 122, 234, 0.25), rgba(159, 122, 234, 0.15));
+    color: #9f7aea;
+    border-color: rgba(159, 122, 234, 0.4);
+}
+
+.tag-link:nth-child(6n+5) .badge-tag {
+    background: linear-gradient(135deg, rgba(245, 101, 101, 0.25), rgba(245, 101, 101, 0.15));
+    color: #f56565;
+    border-color: rgba(245, 101, 101, 0.4);
+}
+
+.tag-link:nth-child(6n+6) .badge-tag {
+    background: linear-gradient(135deg, rgba(236, 201, 75, 0.25), rgba(236, 201, 75, 0.15));
+    color: #ecc94b;
+    border-color: rgba(236, 201, 75, 0.4);
+}
+
+/* Hover effects for tags */
+.tag-link:hover .badge-tag {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.tag-link:nth-child(6n+1):hover .badge-tag {
+    background: linear-gradient(135deg, rgba(94, 221, 151, 0.35), rgba(94, 221, 151, 0.25));
+    border-color: rgba(94, 221, 151, 0.6);
+}
+
+.tag-link:nth-child(6n+2):hover .badge-tag {
+    background: linear-gradient(135deg, rgba(99, 179, 237, 0.35), rgba(99, 179, 237, 0.25));
+    border-color: rgba(99, 179, 237, 0.6);
+}
+
+.tag-link:nth-child(6n+3):hover .badge-tag {
+    background: linear-gradient(135deg, rgba(237, 137, 54, 0.35), rgba(237, 137, 54, 0.25));
+    border-color: rgba(237, 137, 54, 0.6);
+}
+
+.tag-link:nth-child(6n+4):hover .badge-tag {
+    background: linear-gradient(135deg, rgba(159, 122, 234, 0.35), rgba(159, 122, 234, 0.25));
+    border-color: rgba(159, 122, 234, 0.6);
+}
+
+.tag-link:nth-child(6n+5):hover .badge-tag {
+    background: linear-gradient(135deg, rgba(245, 101, 101, 0.35), rgba(245, 101, 101, 0.25));
+    border-color: rgba(245, 101, 101, 0.6);
+}
+
+.tag-link:nth-child(6n+6):hover .badge-tag {
+    background: linear-gradient(135deg, rgba(236, 201, 75, 0.35), rgba(236, 201, 75, 0.25));
+    border-color: rgba(236, 201, 75, 0.6);
+}
+
+
+
+/* =============================================
+   6. INTERACTIVE ELEMENTS
+   ============================================= */
+
+/* --- Search Input --- */
+.search.input-icon {
+    flex-grow: 1;
+    min-width: 250px;
+    position: relative;
+}
+
+.input-icon .icon {
+    position: absolute;
+    left: .6rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #eafff4;
+    opacity: .95;
+    z-index: 1;
+}
+
+.input-icon input {
+    position: relative;
+    padding-left: 2rem;
+    height: 38px;
+    width: 100%;
+    background: rgba(18, 32, 23, 0.82);
+    border: 1px solid rgba(94, 221, 151, .30);
+    border-radius: .6rem;
+    color: var(--text-primary);
+    caret-color: #dbffe9;
+}
+
+.input-icon input::placeholder { color: #e1f8ee; opacity: 1; }
+
+.input-icon input:focus {
+    border-color: var(--accent-bright-2);
+    box-shadow: var(--accent-glow);
+    outline: none;
+}
+
+/* --- Controls: Sort & View Switch --- */
+.sort-by-control {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    max-width: 250px;
+    opacity: 1;
+    transform: translateX(0);
+    transition: all 0.4s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.sort-by-control.hidden {
+    opacity: 0;
+    max-width: 0;
+    transform: translateX(-20px);
+    pointer-events: none;
+}
+
+.view-switch .btn {
+    border-color: rgba(229, 255, 241, .15);
+    background: rgba(18, 32, 23, .2);
+    color: #eafff4;
+}
+
+.view-switch .btn:hover {
+    background: rgba(94, 221, 151, .22);
+    border-color: rgba(94, 221, 151, .60);
+    box-shadow: var(--accent-glow);
+    color: #fff;
+}
+
+.view-switch .btn.active {
+    background: rgba(94, 221, 151, .18);
+    border-color: rgba(94, 221, 151, .45);
+    color: #fff;
+    transform: scale(0.92);
+}
+
+/* --- Filter Buttons --- */
+.btn-filter {
+    background: rgba(18, 32, 23, .42);
+    border: 1px solid rgba(94, 221, 151, .35);
+    color: #eafff4;
+    border-radius: .8rem;
+    padding: .35rem .7rem;
+}
+
+.btn-filter:hover,
+.btn-filter:focus {
+    background: rgba(94, 221, 151, .18);
+    border-color: rgba(94, 221, 151, .55);
+    box-shadow: var(--accent-glow);
+}
+
+.btn-filter.active {
+    background: var(--accent-bright-2);
+    border-color: var(--accent-bright);
+    color: #fff;
+    font-weight: 600;
+    box-shadow: var(--accent-glow);
+    animation: pop-in 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* --- Clear Buttons --- */
+.btn-clear-search {
+    position: absolute;
+    top: calc(50% - 12px);
+    right: 0.6rem;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(94, 221, 151, .2);
+    border: none;
+    border-radius: 999px;
+    color: var(--accent-bright);
+    cursor: pointer;
+    opacity: .8;
+    z-index: 2;
+}
+
+.btn-clear-search:hover {
+    background: rgba(252, 129, 129, .2);
+    color: var(--danger-color);
+    opacity: 1;
+}
+
+.btn-clear-filters {
+    background: transparent;
+    border: 1px solid rgba(252, 129, 129, .4);
+    color: var(--danger-color);
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    border-radius: .75rem;
+    cursor: pointer;
+    padding: 6px;
+}
+
+.btn-clear-filters:hover {
+    color: #fff;
+    border-color: rgba(252, 129, 129, .7);
+    background: rgba(252, 129, 129, .15);
+}
+
+/* --- Favorite Button (Heart) --- */
+.btn-favorite {
+    position: absolute;
+    top: .6rem; right: .6rem;
+    width: 32px; height: 32px;
+    display: grid; place-items: center;
+    background: rgba(18, 32, 23, .65);
+    border: 1px solid rgba(94, 221, 151, .38);
+    border-radius: 999px;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.btn-favorite:hover {
+    background: rgba(18, 32, 23, .9);
+    border-color: var(--accent-bright);
+}
+
+.btn-favorite svg {
+    width: 18px; height: 18px;
+    color: #fff;
+    opacity: .6;
+    transition: .15s ease;
+}
+
+.btn-favorite.active svg {
+    opacity: 1;
+    color: var(--danger-color);
+}
+
+/* List view positioning override */
+.lv-body .btn-favorite {
+    top: 0; right: 0;
+}
+
+/* --- CTA Button --- */
+.btn-cta {
+    background: rgba(18, 32, 23, 0.6);
+    border: 1px solid rgba(94, 221, 151, 0.4);
+    color: var(--accent-bright);
+    border-radius: 999px;
+    padding: 0.75rem 2rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.btn-cta:hover {
+    background: rgba(94, 221, 151, 0.15);
+    border-color: var(--accent-bright);
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: var(--accent-glow), 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+
+/* =============================================
+   7. PAGINATION
+   ============================================= */
+
+.pagination.glass .page-link {
+    background: transparent;
+    border: none;
+    color: #eafff4;
+}
+
+.pagination.glass .page-item.active .page-link {
+    background: rgba(94, 221, 151, .22);
+    border-radius: .6rem;
+    box-shadow: var(--accent-glow);
+}
+
+
+/* =============================================
+   8. RESPONSIVE DESIGN & OVERLAYS
+   ============================================= */
+
+/* --- Large Laptops (1200px and below) --- */
+@media (max-width: 1200px) {
+    .resource-media {
+        height: 140px;
+    }
+}
+
+/* --- Tablets (1024px and below) --- */
+@media (max-width: 1024px) {
+    .library-layout {
+        grid-template-columns: 240px 1fr;
+    }
+
+    .actionbar {
+        padding: .9rem 1rem;
+    }
+
+    .resource-media {
+        height: 130px;
+    }
+
+    .lv-item {
+        grid-template-columns: 120px 1fr;
+    }
+
+    .lv-media {
+        width: 120px;
+        height: 80px;
+    }
+}
+
+/* --- Desktop (>= 992px) --- */
+@media (min-width: 991.98px) {
+    .library-layout.sidebar-collapsed {
+        grid-template-columns: 88px 1fr;
+    }
+}
+
+/* --- Tablet & Desktop Shared View Toggles --- */
+@media (min-width: 768px) {
+    /* Show Grid, Hide List if grid selected */
+    .view-grid .view-container-grid { display: flex; }
+    .view-grid .view-container-list { display: none; }
+
+    /* Show List, Hide Grid if list selected */
+    .view-list .view-container-grid { display: none; }
+    .view-list .view-container-list { display: flex; }
+}
+
+/* --- Tablet (768px - 991px) --- */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .sidebar-tablet-overlay {
+        display: block; /* Enable the overlay component */
+    }
+}
+
+/* --- Tablet & Mobile Shared (<= 991px) --- */
+@media (max-width: 991.98px) {
+    .library-layout {
+        grid-template-columns: 88px 1fr; /* Collapsed sidebar look by default */
+    }
+}
+
+/* --- Mobile Specifics (<= 767px) --- */
+@media (max-width: 767.98px) {
+    .view-toggle-desktop {
+        display: none; /* Hide view switcher, force list view */
+    }
+
+    /* Stack Action Bar Elements */
+    .action-bar-top {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .controls-cluster {
+        justify-content: space-between;
+    }
+
+    /* Full width layout, sidebar is overlay only */
+    .library-layout {
+        grid-template-columns: 1fr;
+    }
+
+    /* Force List View */
+    .view-container-grid { display: none; }
+    .view-container-list { display: flex; }
+
+    /* Floating Action Button (Menu) */
+    .btn-fab-menu {
+        display: grid;
+        place-items: center;
+        position: fixed;
+        bottom: 1.5rem;
+        right: 1.5rem;
+        z-index: 1040;
+        width: 56px; height: 56px;
+        background: var(--dark-bg);
+        border: 1px solid var(--accent-bright);
+        border-radius: 50%;
+        color: var(--accent-bright);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+        cursor: pointer;
+        animation: fabPulse 2s infinite;
+    }
+
+    .btn-fab-menu svg {
+        width: 24px; height: 24px;
+    }
+}
+
+/* --- Small Mobile (<= 575px) --- */
+@media (max-width: 575.98px) {
+    .lv-item {
+        grid-template-columns: 1fr; /* Stack list items vertically */
+    }
+
+    .lv-media {
+        width: 100%;
+        height: 160px;
+    }
+
+    .filter-group {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+/* --- Mobile Portrait (480px and below) --- */
+@media (max-width: 480px) {
+    .page-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .actionbar {
+        padding: .75rem;
+    }
+
+    .search.input-icon {
+        min-width: 100%;
+    }
+
+    .lv-media {
+        height: 140px;
+    }
+
+    .resource-body {
+        padding: .75rem;
+    }
+
+    .title {
+        font-size: .9rem;
+    }
+
+    .btn-fab-menu {
+        width: 52px;
+        height: 52px;
+        bottom: 1.2rem;
+        right: 1.2rem;
+    }
+
+    .btn-fab-menu svg {
+        width: 22px;
+        height: 22px;
+    }
+}
+
+/* --- Extra Small Mobile (360px and below) --- */
+@media (max-width: 360px) {
+    .page-header h1 {
+        font-size: 1.6rem;
+    }
+
+    .actionbar {
+        padding: .65rem;
+    }
+
+    .resource-media {
+        height: 120px;
+    }
+
+    .resource-body {
+        padding: .65rem;
+    }
+
+    .title {
+        font-size: .85rem;
+    }
+
+    .btn-fab-menu {
+        width: 48px;
+        height: 48px;
+    }
+}
+
+/* --- Landscape Orientation --- */
+@media (max-height: 600px) and (orientation: landscape) {
+    .page-header {
+        margin-bottom: 1rem;
+    }
+
+    .page-header h1 {
+        font-size: 2rem;
+        margin-bottom: .5rem;
+    }
+
+    .resource-media {
+        height: 110px;
+    }
+
+    .lv-media {
+        height: 70px;
+    }
+
+    .actionbar {
+        padding: .75rem 1rem;
+    }
+}
+
+/* --- Backdrop Overlay Logic --- */
+.mobile-backdrop {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    z-index: 1045; /* Behind sidebar (1050) but above content */
+    background-color: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.library-layout.overlay-active .mobile-backdrop {
+    display: block;
+    opacity: 1;
+    pointer-events: auto;
+    backdrop-filter: blur(2px);
+}
+
+/* --- Animations --- */
+@keyframes fabPulse {
+    0% { box-shadow: 0 0 0 0 rgba(94, 221, 151, 0.4); }
+    70% { box-shadow: 0 0 0 15px rgba(94, 221, 151, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(94, 221, 151, 0); }
+}

@@ -1,0 +1,266 @@
+[
+  {
+    "id": "stress_mental_load",
+    "name": "stress_mental_load",
+    "displayName": "Stress & Mental Load",
+    "icon": "🧠",
+    "maxPoints": 12,
+    "questions": [
+      {
+        "id": 1,
+        "text": "Have you felt overwhelmed by tasks or deadlines this week?",
+        "points": 2
+      },
+      {
+        "id": 2,
+        "text": "Do you struggle to switch off mentally after work or studying?",
+        "points": 2
+      },
+      {
+        "id": 3,
+        "text": "Do you keep thinking about tasks even when \"off time\"?",
+        "points": 2
+      },
+      {
+        "id": 4,
+        "text": "Have you felt like you're running out of time most days?",
+        "points": 1
+      },
+      {
+        "id": 5,
+        "text": "Did you feel pressure to be productive constantly?",
+        "points": 2
+      },
+      {
+        "id": 6,
+        "text": "Did you cancel rest or breaks to finish work or study?",
+        "points": 2
+      },
+      {
+        "id": 7,
+        "text": "Have you felt mental tension without a clear reason?",
+        "points": 1
+      }
+    ]
+  },
+  {
+    "id": "focus_attention",
+    "name": "focus_attention",
+    "displayName": "Focus & Attention",
+    "icon": "🎯",
+    "maxPoints": 11,
+    "questions": [
+      {
+        "id": 1,
+        "text": "Did you struggle to maintain focus during work or study sessions?",
+        "points": 2
+      },
+      {
+        "id": 2,
+        "text": "Do you get distracted easily by your phone or environment?",
+        "points": 2
+      },
+      {
+        "id": 3,
+        "text": "Did you switch tasks without completing them first?",
+        "points": 2
+      },
+      {
+        "id": 4,
+        "text": "Did you start working without planning what to do?",
+        "points": 1
+      },
+      {
+        "id": 5,
+        "text": "Did you struggle to remember what you were doing after interruptions?",
+        "points": 1
+      },
+      {
+        "id": 6,
+        "text": "Have you felt mentally slow or foggy while studying/working?",
+        "points": 2
+      },
+      {
+        "id": 7,
+        "text": "Did you find it hard to stay focused for more than 20–30 minutes?",
+        "points": 1
+      }
+    ]
+  },
+  {
+    "id": "motivation_productivity",
+    "name": "motivation_productivity",
+    "displayName": "Motivation & Productivity",
+    "icon": "🚀",
+    "maxPoints": 12,
+    "questions": [
+      {
+        "id": 1,
+        "text": "Did you often feel unmotivated to start tasks this week?",
+        "points": 2
+      },
+      {
+        "id": 2,
+        "text": "Did you procrastinate on important tasks?",
+        "points": 2
+      },
+      {
+        "id": 3,
+        "text": "Did you feel like you achieved less than you could?",
+        "points": 2
+      },
+      {
+        "id": 4,
+        "text": "Did you miss or push off planned study/work sessions?",
+        "points": 2
+      },
+      {
+        "id": 5,
+        "text": "Did you feel stuck but didn't know how to move forward?",
+        "points": 1
+      },
+      {
+        "id": 6,
+        "text": "Did you lack interest in tasks you usually enjoy?",
+        "points": 2
+      },
+      {
+        "id": 7,
+        "text": "Did you feel bored during tasks more than usual?",
+        "points": 1
+      }
+    ]
+  },
+  {
+    "id": "sleep_recovery",
+    "name": "sleep_recovery",
+    "displayName": "Sleep & Mental Recovery",
+    "icon": "😴",
+    "maxPoints": 12,
+    "questions": [
+      {
+        "id": 1,
+        "text": "Did you sleep less than 6–7 hours on most days this week?",
+        "points": 2
+      },
+      {
+        "id": 2,
+        "text": "Did you stay up late working or studying?",
+        "points": 2
+      },
+      {
+        "id": 3,
+        "text": "Did you wake up feeling tired or unrefreshed?",
+        "points": 2
+      },
+      {
+        "id": 4,
+        "text": "Did you think about work/study while trying to sleep?",
+        "points": 1
+      },
+      {
+        "id": 5,
+        "text": "Did you use screens (PC/phone) right before sleep?",
+        "points": 1
+      },
+      {
+        "id": 6,
+        "text": "Did you nap because of lack of nighttime sleep?",
+        "points": 2
+      },
+      {
+        "id": 7,
+        "text": "Did you feel mentally tired during the day?",
+        "points": 2
+      }
+    ]
+  },
+  {
+    "id": "emotional_wellbeing",
+    "name": "emotional_wellbeing",
+    "displayName": "Emotional Wellbeing & Mood",
+    "icon": "💙",
+    "maxPoints": 12,
+    "questions": [
+      {
+        "id": 1,
+        "text": "Have you experienced unusual mood swings this week?",
+        "points": 2
+      },
+      {
+        "id": 2,
+        "text": "Did you feel more anxious than normal?",
+        "points": 2
+      },
+      {
+        "id": 3,
+        "text": "Did you feel sad, low, or down without a reason?",
+        "points": 2
+      },
+      {
+        "id": 4,
+        "text": "Did you feel irritated or frustrated more than usual?",
+        "points": 1
+      },
+      {
+        "id": 5,
+        "text": "Did you feel disconnected from others?",
+        "points": 2
+      },
+      {
+        "id": 6,
+        "text": "Did things that normally feel easy feel hard this week?",
+        "points": 2
+      },
+      {
+        "id": 7,
+        "text": "Did you have trouble enjoying your free time?",
+        "points": 1
+      }
+    ]
+  },
+  {
+    "id": "digital_overuse",
+    "name": "digital_overuse",
+    "displayName": "Digital Overuse / Tech Fatigue",
+    "icon": "📱",
+    "maxPoints": 11,
+    "questions": [
+      {
+        "id": 1,
+        "text": "Have you spent most of your day in front of screens?",
+        "points": 2
+      },
+      {
+        "id": 2,
+        "text": "Did you feel mentally tired after screen use?",
+        "points": 2
+      },
+      {
+        "id": 3,
+        "text": "Did you check your phone even when not needed?",
+        "points": 1
+      },
+      {
+        "id": 4,
+        "text": "Did social media or apps steal time from studying/work?",
+        "points": 2
+      },
+      {
+        "id": 5,
+        "text": "Did you feel uncomfortable when away from digital devices?",
+        "points": 1
+      },
+      {
+        "id": 6,
+        "text": "Did you keep using screens even when tired or in pain?",
+        "points": 2
+      },
+      {
+        "id": 7,
+        "text": "Did screen time affect your mood negatively?",
+        "points": 1
+      }
+    ]
+  }
+]

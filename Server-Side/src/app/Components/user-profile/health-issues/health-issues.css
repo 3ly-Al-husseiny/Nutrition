@@ -1,0 +1,176 @@
+/* src/app/components/health-issues/health-issues.component.css - UPDATED */
+
+.health-issues-card {
+  padding: 28px;
+  border: 2px solid var(--border-color);
+  background: var(--card-bg);
+}
+
+h2 {
+  color: var(--text-secondary);
+  font-size: 22px;
+  margin-bottom: 24px;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 12px;
+  font-weight: 600;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+li {
+  font-size: 16px;
+  color: var(--text-primary);
+  padding: 12px 16px;
+  background-color: var(--secondary-bg);
+  border-radius: 8px;
+  border-left: 4px solid var(--warning-color);
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+li:hover {
+  background-color: var(--dark-bg);
+  transform: translateX(4px);
+}
+
+/* Remove the old ::before icon */
+li::before {
+  display: none;
+}
+
+/* === Issue Elements === */
+.issue-icon {
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.issue-text {
+  flex: 1;
+  font-weight: 500;
+}
+
+.issue-source {
+  font-size: 12px;
+  color: var(--text-muted);
+  background: var(--dark-bg);
+  padding: 4px 10px;
+  border-radius: 12px;
+  text-transform: capitalize;
+  font-weight: 600;
+}
+
+.issue-score {
+  font-size: 12px;
+  color: #fff;
+  background: rgba(244, 67, 54, 0.3);
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-weight: 700;
+  margin-left: auto;
+}
+
+.medium-severity .issue-score {
+  background: rgba(255, 152, 0, 0.3);
+}
+
+.high-severity .issue-score {
+  background: rgba(244, 67, 54, 0.4);
+}
+
+
+/* === Severity Levels === */
+.high-severity {
+  border-left-color: #f44336;
+  background: linear-gradient(135deg, rgba(244, 67, 54, 0.1) 0%, var(--secondary-bg) 100%);
+}
+
+.high-severity:hover {
+  border-left-color: #d32f2f;
+}
+
+.medium-severity {
+  border-left-color: #ff9800;
+  background: linear-gradient(135deg, rgba(255, 152, 0, 0.1) 0%, var(--secondary-bg) 100%);
+}
+
+.medium-severity:hover {
+  border-left-color: #f57c00;
+}
+
+.low-severity {
+  border-left-color: #2196f3;
+  background: linear-gradient(135deg, rgba(33, 150, 243, 0.1) 0%, var(--secondary-bg) 100%);
+}
+
+.low-severity:hover {
+  border-left-color: #1976d2;
+}
+
+/* === No Issues State === */
+.no-issues {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+  color: var(--text-tertiary);
+}
+
+.success-icon {
+  font-size: 64px;
+  margin-bottom: 16px;
+  opacity: 0.8;
+}
+
+.no-issues p {
+  margin: 8px 0;
+  font-size: 16px;
+  color: var(--text-secondary);
+}
+
+.no-issues .hint {
+  font-size: 13px;
+  color: #ffffff;
+  opacity: 0.9;
+  margin-top: 12px;
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  .health-issues-card {
+    padding: 20px;
+  }
+  
+  li {
+    padding: 10px 12px;
+    font-size: 14px;
+    gap: 8px;
+  }
+  
+  .issue-icon {
+    font-size: 18px;
+  }
+
+  .issue-source {
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+
+  .no-issues {
+    padding: 40px 16px;
+  }
+
+  .success-icon {
+    font-size: 48px;
+  }
+}

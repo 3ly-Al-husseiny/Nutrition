@@ -1,0 +1,22 @@
+<!-- src/app/components/earned-badges/earned-badges.component.html -->
+<div class="card earned-badges-card">
+  <h2>Earned Badges</h2>
+  <div class="badges-list" *ngIf="challengeBadges.length > 0; else noBadges">
+    <div class="badge-item" *ngFor="let badge of challengeBadges">
+      <div class="badge-icon" [style.background]="badge.color">
+        <span class="badge-emoji">{{ badge.icon }}</span>
+      </div>
+      <div class="badge-info">
+        <span class="badge-name">{{ badge.name }}</span>
+        <span class="badge-date" *ngIf="badge.dateEarned">{{ formatDate(badge.dateEarned) }}</span>
+      </div>
+    </div>
+  </div>
+  <ng-template #noBadges>
+    <div class="no-badges">
+      <i class="fas fa-trophy empty-icon"></i>
+      <p>Complete challenges to earn unique badges!</p>
+      <p class="hint">Each completed challenge awards a special badge 🏆</p>
+    </div>
+  </ng-template>
+</div>

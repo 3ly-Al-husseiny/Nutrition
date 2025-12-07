@@ -1,0 +1,424 @@
+<div class="recommendations-container">
+  <h2>Recommendations</h2>
+  <p class="subtitle">Expert-curated health and wellness recommendations</p>
+
+  @if (showNoChecksMessage) {
+  <div class="no-recommendations-message">
+    <div class="message-icon">📋</div>
+    <h3>No Checks Yet</h3>
+    <p>Complete your first weekly check to get personalized recommendations!</p>
+    <p class="sub-message">
+      Your health insights will appear here after completing an examination.
+    </p>
+  </div>
+  } @else if (showNoRecommendationsMessage) {
+  <div class="no-recommendations-message">
+    <div class="message-icon">🎉</div>
+    <h3>Excellent Work!</h3>
+    <p>You're maintaining great physical health across all areas!</p>
+    <p class="sub-message">Keep up your healthy habits and continue with your regular check-ups.</p>
+  </div>
+  } @else {
+  <div class="cards-container">
+    @for (recommendation of recommendations; track recommendation.type) {
+    <div class="card" (click)="openRecommendation(recommendation.type)">
+      <img [src]="recommendation.image" alt="{{ recommendation.title }}" />
+      <div class="card-content">
+        <h3>{{ recommendation.title }}</h3>
+        <p>{{ recommendation.description }}</p>
+        @if (recommendation.sectionScore !== undefined) {
+        <div class="score-indicator">
+          <span class="score-label">Average Score:</span>
+          <span class="score-value" [ngClass]="getScoreClass(recommendation.sectionScore)">
+            {{ recommendation.sectionScore }}%
+          </span>
+        </div>
+        }
+      </div>
+    </div>
+    }
+  </div>
+  }
+</div>
+
+<!-- Exercise Modal -->
+@if (showExerciseModal && selectedRecommendation === 'eye') {
+<div class="modal-overlay" (click)="closeModal()">
+  <div class="modal-container" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="closeModal()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    <div class="modal-content">
+      <h2 class="modal-title">👁️ Eye Exercises - Micro Routines</h2>
+      <p class="modal-subtitle">Quick exercises to reduce eye strain and improve focus</p>
+
+      <div class="exercises-container">
+        @for (exercise of eyeExercises; track exercise.title) {
+        <div class="exercise-card">
+          <div class="exercise-header">
+            <span class="exercise-emoji">{{ exercise.emoji }}</span>
+            <div class="exercise-info">
+              <h3>{{ exercise.title }}</h3>
+              <span class="exercise-duration">⏱️ Duration: {{ exercise.duration }}</span>
+            </div>
+          </div>
+
+          <div class="exercise-body">
+            <h4>Steps:</h4>
+            <ol class="exercise-steps">
+              @for (step of exercise.steps; track $index) {
+              <li>{{ step }}</li>
+              }
+            </ol>
+
+            <div class="exercise-benefits"><strong>Benefits:</strong> {{ exercise.benefits }}</div>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
+}
+
+<!-- Lower Back Modal -->
+@if (showExerciseModal && selectedRecommendation === 'lower-back') {
+<div class="modal-overlay" (click)="closeModal()">
+  <div class="modal-container lower-back-modal" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="closeModal()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    <div class="modal-content">
+      <h2 class="modal-title">🔵 Lower Back Health Guide</h2>
+      <p class="modal-subtitle">
+        Office tips, micro-exercises, and quick fixes for a healthier lower back
+      </p>
+
+      <!-- Section 1: Office Tips -->
+      <div class="section-container">
+        <h3 class="section-title">🔵 1. Office Tips for a Healthier Lower Back</h3>
+        <div class="tips-grid">
+          @for (tip of lowerBackOfficeTips; track tip.title) {
+          <div class="tip-card">
+            <div class="tip-icon">{{ tip.icon }}</div>
+            <div class="tip-content">
+              <h4>{{ tip.title }}</h4>
+              <p>{{ tip.description }}</p>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Section 2: Micro-Exercises -->
+      <div class="section-container">
+        <h3 class="section-title">🟡 2. Micro-Exercises for Lower Back (1–3 Minutes)</h3>
+        <div class="exercises-container">
+          @for (exercise of lowerBackExercises; track exercise.title) {
+          <div class="exercise-card">
+            <div class="exercise-header">
+              <span class="exercise-emoji">{{ exercise.emoji }}</span>
+              <div class="exercise-info">
+                <h3>{{ exercise.title }}</h3>
+                <span class="exercise-duration">⏱️ Duration: {{ exercise.duration }}</span>
+              </div>
+            </div>
+
+            <div class="exercise-body">
+              <h4>Steps:</h4>
+              <ol class="exercise-steps">
+                @for (step of exercise.steps; track $index) {
+                <li>{{ step }}</li>
+                }
+              </ol>
+
+              <div class="exercise-benefits">
+                <strong>✔ Benefits:</strong> {{ exercise.benefits }}
+              </div>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Section 3: Quick Fixes -->
+      <div class="section-container">
+        <h3 class="section-title">🔥 3. Quick Fixes (Under 1 Minute)</h3>
+        <p class="section-subtitle">Perfect as "instant relief" tips:</p>
+        <div class="quick-fixes-grid">
+          @for (fix of lowerBackQuickFixes; track fix.title) {
+          <div class="quick-fix-card">
+            <div class="fix-icon">✔</div>
+            <div class="fix-content">
+              <h4>{{ fix.title }}</h4>
+              <p>{{ fix.description }}</p>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Section 4: Posture Reminders -->
+      <div class="section-container">
+        <h3 class="section-title">💡 4. Lower Back Posture Reminders</h3>
+        <p class="section-subtitle">Great as notifications:</p>
+        <div class="reminders-list">
+          @for (reminder of lowerBackReminders; track reminder.text) {
+          <div class="reminder-item">
+            <span class="reminder-icon">💡</span>
+            <p>"{{ reminder.text }}"</p>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+}
+
+<!-- Neck and Shoulders Modal -->
+@if (showExerciseModal && selectedRecommendation === 'neck-shoulders') {
+<div class="modal-overlay" (click)="closeModal()">
+  <div class="modal-container lower-back-modal" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="closeModal()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    <div class="modal-content">
+      <h2 class="modal-title">🔵 Neck and Shoulders Health Guide</h2>
+      <p class="modal-subtitle">
+        Office tips, micro-exercises, and quick fixes for healthier shoulders & neck
+      </p>
+
+      <!-- Section 1: Office Tips -->
+      <div class="section-container">
+        <h3 class="section-title">🔵 1. Office Tips for Healthier Shoulders & Neck</h3>
+        <div class="tips-grid">
+          @for (tip of neckShouldersOfficeTips; track tip.title) {
+          <div class="tip-card">
+            <div class="tip-icon">{{ tip.icon }}</div>
+            <div class="tip-content">
+              <h4>{{ tip.title }}</h4>
+              <p>{{ tip.description }}</p>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Section 2: Micro-Exercises -->
+      <div class="section-container">
+        <h3 class="section-title">🟡 2. Micro-Exercises for Shoulders & Neck (1–3 Minutes)</h3>
+        <div class="exercises-container">
+          @for (exercise of neckShouldersExercises; track exercise.title) {
+          <div class="exercise-card">
+            <div class="exercise-header">
+              <span class="exercise-emoji">{{ exercise.emoji }}</span>
+              <div class="exercise-info">
+                <h3>{{ exercise.title }}</h3>
+                <span class="exercise-duration">⏱️ Duration: {{ exercise.duration }}</span>
+              </div>
+            </div>
+
+            <div class="exercise-body">
+              <h4>Steps:</h4>
+              <ol class="exercise-steps">
+                @for (step of exercise.steps; track $index) {
+                <li>{{ step }}</li>
+                }
+              </ol>
+
+              <div class="exercise-benefits">
+                <strong>✔ Benefits:</strong> {{ exercise.benefits }}
+              </div>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Section 3: Quick Fixes -->
+      <div class="section-container">
+        <h3 class="section-title">🔥 3. Quick Fixes (Under 1 Minute)</h3>
+        <div class="quick-fixes-grid">
+          @for (fix of neckShouldersQuickFixes; track fix.title) {
+          <div class="quick-fix-card">
+            <div class="fix-icon">✔</div>
+            <div class="fix-content">
+              <h4>{{ fix.title }}</h4>
+              <p>{{ fix.description }}</p>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Section 4: Posture Reminders -->
+      <div class="section-container">
+        <h3 class="section-title">💡 4. Shoulders & Neck Posture Reminders</h3>
+        <div class="reminders-list">
+          @for (reminder of neckShouldersReminders; track reminder.text) {
+          <div class="reminder-item">
+            <span class="reminder-icon">💡</span>
+            <p>"{{ reminder.text }}"</p>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+}
+
+<!-- Headache & Focus Modal -->
+@if (showExerciseModal && selectedRecommendation === 'headache-focus') {
+<div class="modal-overlay" (click)="closeModal()">
+  <div class="modal-container lower-back-modal" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="closeModal()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    <div class="modal-content">
+      <h2 class="modal-title">🔵 Headache & Focus Health Guide</h2>
+      <p class="modal-subtitle">
+        Office tips, micro-exercises, and quick fixes for reducing headaches & improving focus
+      </p>
+
+      <!-- Section 1: Office Tips -->
+      <div class="section-container">
+        <h3 class="section-title">🔵 1. Office Tips for Reducing Headache & Improving Focus</h3>
+        <div class="tips-grid">
+          @for (tip of headacheFocusOfficeTips; track tip.title) {
+          <div class="tip-card">
+            <div class="tip-icon">{{ tip.icon }}</div>
+            <div class="tip-content">
+              <h4>{{ tip.title }}</h4>
+              <p>{{ tip.description }}</p>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Section 2: Micro-Exercises -->
+      <div class="section-container">
+        <h3 class="section-title">🟡 2. Micro-Exercises (1–3 Minutes) for Headache & Focus</h3>
+        <div class="exercises-container">
+          @for (exercise of headacheFocusExercises; track exercise.title) {
+          <div class="exercise-card">
+            <div class="exercise-header">
+              <span class="exercise-emoji">{{ exercise.emoji }}</span>
+              <div class="exercise-info">
+                <h3>{{ exercise.title }}</h3>
+                <span class="exercise-duration">⏱️ Duration: {{ exercise.duration }}</span>
+              </div>
+            </div>
+
+            <div class="exercise-body">
+              <h4>Steps:</h4>
+              <ol class="exercise-steps">
+                @for (step of exercise.steps; track $index) {
+                <li>{{ step }}</li>
+                }
+              </ol>
+
+              <div class="exercise-benefits">
+                <strong>✔ Benefits:</strong> {{ exercise.benefits }}
+              </div>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Section 3: Quick Fixes -->
+      <div class="section-container">
+        <h3 class="section-title">🔥 3. Quick Fixes (Under 1 Minute)</h3>
+        <div class="quick-fixes-grid">
+          @for (fix of headacheFocusQuickFixes; track fix.title) {
+          <div class="quick-fix-card">
+            <div class="fix-icon">✔</div>
+            <div class="fix-content">
+              <h4>{{ fix.title }}</h4>
+              <p>{{ fix.description }}</p>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Section 4: Focus Boosters -->
+      <div class="section-container">
+        <h3 class="section-title">🟣 4. Focus Boosters (Short & Effective)</h3>
+        <div class="quick-fixes-grid">
+          @for (booster of headacheFocusBoosters; track booster.title) {
+          <div class="quick-fix-card booster-card">
+            <div class="fix-icon">✔</div>
+            <div class="fix-content">
+              <h4>{{ booster.title }}</h4>
+              <p>{{ booster.description }}</p>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Section 5: Reminders -->
+      <div class="section-container">
+        <h3 class="section-title">💡 5. Headache & Focus Reminders</h3>
+        <p class="section-subtitle">For Notifications / UI Cards:</p>
+        <div class="reminders-list">
+          @for (reminder of headacheFocusReminders; track reminder.text) {
+          <div class="reminder-item">
+            <span class="reminder-icon">💡</span>
+            <p>"{{ reminder.text }}"</p>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+}

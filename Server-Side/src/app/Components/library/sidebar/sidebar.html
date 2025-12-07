@@ -1,0 +1,90 @@
+<!-- 
+  =============================================
+  SIDEBAR COMPONENT TEMPLATE
+  =============================================
+  A responsive navigation sidebar that handles:
+  1. Toggling between main library views (Recommended, All, Favorites).
+  2. Collapsing/Expanding state on Desktop.
+  3. Functioning as a slide-out overlay on Mobile/Tablet.
+-->
+
+<aside class="sidebar">
+    <div class="sidebar-content-wrapper">
+
+        <!-- =============================================
+             1. SIDEBAR HEADER
+             ============================================= -->
+        <!-- 
+             Clicking the header toggles the sidebar state:
+             - Desktop: Collapses/Expands the width.
+             - Mobile/Tablet: Closes the overlay.
+        -->
+        <button class="sidebar-header" (click)="handleHeaderClick()" aria-label="Toggle Sidebar">
+
+            <!-- Logo Icon (Pulsing Animation) -->
+            <svg class="sidebar-icon-pulse" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                fill="currentColor">
+                <path
+                    d="M261 22a187 187 0 0 1 9 9l8 5 1-1 7-6 3-2c25-22 53-29 86-27a92 92 0 0 1 59 33 115 115 0 0 1 25 78v5h38c5 0 7 0 11 2 3 3 3 5 3 9a10 10 0 0 1-3 7c-6 3-11 3-18 3h-34l-1 2c-7 28-23 49-45 67l-15 14-14 15-15 14-17 16-12 12-15 15-15 14a268 268 0 0 1-17 17l-4 3-8 4c-6-1-9-4-13-8l-5-5-4-4-10-9-16-16a261 261 0 0 0-16-15l-7-7-2-2c-3-3-4-5-4-10l3-7a13 13 0 0 1 10-3l10 8 3 3a588 588 0 0 1 37 35 146 146 0 0 1 9 9l4 4 9-7a274 274 0 0 0 17-16l14-14 15-15 17-16 13-12 14-14 15-15 17-17c13-10 20-25 26-40-17-2-17-2-33 3a59 59 0 0 0-10 15l-6 9-2 3c-5 6-5 6-9 7-5 0-6-1-10-3l-4-5-2-3-2-3-8-12-1 2-11 22-1 2-2 3c-2 4-4 6-7 8h-4l-3 1-7-5-4-7-1-2-4-7-17-33-8-14a254 254 0 0 0-14 25l-13 24-2 3c-6 13-6 13-11 15l-4 1h-3c-5-2-7-7-10-11a308 308 0 0 1-7-15l-5-12-11 13c-7 12-7 12-12 13-5 0-6-1-10-3a87 87 0 0 1-7-8l-2-3-7-11c-4-7-4-7-9-11-10-2-19-1-29 0 6 16 14 28 26 40l1 1 5 5c3 3 4 5 4 10l-3 7a13 13 0 0 1-10 3l-10-8-4-3a107 107 0 0 1-31-52v-4H62c-6 0-10 0-15-3-3-4-3-6-2-11 1-3 2-5 5-7h46v-12c0-30 13-58 33-79 36-35 94-33 132-3M138 47a94 94 0 0 0-21 60v9h25c17 0 17 0 22 3l5 7 4 5 10 14 8-10 2-3 4-6 2-3 2-3c2-2 3-3 6-3h5c3 0 5 2 7 5a95 95 0 0 1 5 9l10 21a63 63 0 0 0 7-11l1-2 2-4 6-11 11-20 1-3c8-14 8-14 11-16h4l3-1c3 1 5 3 7 6a203 203 0 0 1 7 12l2 5 3 5 9 17 12 22h2l12-23 1-2 3-8c4-1 8-2 13-1l7 8 2 3 4 6 7 10c3-1 5-3 7-6l2-2 1-3 14-16h13l30-1c3-26-6-50-22-71a70 70 0 0 0-35-22 85 85 0 0 0-82 23c-7 7-13 13-23 13a36 36 0 0 1-18-11 93 93 0 0 0-68-27 72 72 0 0 0-52 26m39 298h4c19 0 37 5 56 10l15 5 3 1c14 4 26 8 34 21l3 8c5-1 9-3 14-6l2-1 12-6 39-20c31-15 31-15 47-11a40 40 0 0 1 23 20 41 41 0 0 1 0 30c-6 12-16 19-27 26l-15 11a439 439 0 0 1-35 25 1426 1426 0 0 1-31 22l-11 8-2 2a98 98 0 0 1-56 23h-3c-24 0-50-12-74-19l-24-7a211 211 0 0 0-45-9l-3-1h-7v2c-2 9-6 14-14 20-6 3-13 3-21 3h-3l-23 1h-3a34 34 0 0 1-25-10 38 38 0 0 1-7-24v-86c0-9 3-17 10-23a37 37 0 0 1 24-7h33c8 0 15 2 21 8a17 17 0 0 1 5 9 68 68 0 0 0 30-12l21-9h2c10-4 20-4 31-4m-49 35a80 80 0 0 1-32 11v65l24 2c21 4 42 10 63 16l29 9c20 6 20 6 40 9h2c17-1 32-12 45-22l15-11 18-13 20-14 17-12a368 368 0 0 1 16-12c16-10 16-10 26-25 0-5-1-9-4-12a17 17 0 0 0-11-5c-10 0-19 6-27 10l-30 16-2 1a1136 1136 0 0 1-28 13l-14 7-3 1-7 10a33 33 0 0 1-21 13c-15 2-28-2-42-7l-24-7-2-1-5-1-3-1c-3-1-4-3-6-6 0-8 0-8 2-11 3-3 7-2 11-2l13 3 3 2 33 10h3c7 2 12 2 18-1 5-4 7-8 7-14 0-4-1-8-4-12a43 43 0 0 0-15-7l-3-1-8-2-3-1c-39-12-75-19-111 2m-105-3c-2 3-1 7-1 11v33l-1 38v11c0 5 0 5 3 10l7 2h37c3-1 5-3 7-6l1-9v-19l-1-31 1-29v-2l-2-9c-3-3-6-3-9-3H35c-5 0-8 0-12 3">
+                </path>
+                <path d="M184 214c3 1 3 1 5 4v12a17 17 0 0 1-9 5c-4-1-6-1-9-4-2-4-3-6-2-10 3-7 8-8 15-7"></path>
+            </svg>
+
+            <!-- Title (Hidden when collapsed) -->
+            <h2 class="sidebar-title">Wellness Resources</h2>
+
+            <!-- Chevron Toggle (Rotates via CSS) -->
+            <span class="collapse-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M15 18l-6-6 6-6" />
+                </svg>
+            </span>
+        </button>
+
+
+        <!-- =============================================
+             2. NAVIGATION MENU
+             ============================================= -->
+        <nav class="sidebar-nav">
+
+            <!-- A. Recommended View -->
+            <a href="javascript:void(0)" class="nav-item" [class.active]="store.activeFilter() === 'recommended'"
+                (click)="store.setActiveFilter('recommended')" title="Recommended For You">
+                <span class="icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                        <path d="m12 3.6 2.3 4.7 5.2.8-3.7 3.6.9 5.2L12 15.9l-4.7 2.5.9-5.2L4.5 9.1l5.2-.8L12 3.6Z"
+                            stroke="currentColor" stroke-width="1.5"></path>
+                    </svg>
+                </span>
+                <span class="nav-text">Recommended</span>
+            </a>
+
+            <!-- B. All Resources View -->
+            <a href="javascript:void(0)" class="nav-item" [class.active]="store.activeFilter() === 'all'"
+                (click)="store.setActiveFilter('all')" title="Browse All">
+                <span class="icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                        <path d="M10 3H3v7h7V3Zm11 0h-7v7h7V3ZM10 14H3v7h7v-7Zm11 0h-7v7h7v-7Z" stroke="currentColor"
+                            stroke-width="1.5"></path>
+                    </svg>
+                </span>
+                <span class="nav-text">All Resources</span>
+            </a>
+
+            <!-- C. Favorites View -->
+            <a href="javascript:void(0)" class="nav-item" [class.active]="store.activeFilter() === 'favorites'"
+                (click)="store.setActiveFilter('favorites')" title="Your Favorites">
+                <span class="icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                        <path
+                            d="M20.8 5.9a5.1 5.1 0 0 0-7.2 0L12 7.5l-1.6-1.6a5.1 5.1 0 0 0-7.2 7.2l1.6 1.6L12 21l7.2-6.3 1.6-1.6a5.1 5.1 0 0 0 0-7.2Z"
+                            stroke="currentColor" stroke-width="1.5"></path>
+                    </svg>
+                </span>
+                <span class="nav-text">Favorites</span>
+            </a>
+
+        </nav>
+    </div>
+</aside>

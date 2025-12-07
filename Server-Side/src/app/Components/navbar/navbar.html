@@ -1,0 +1,80 @@
+<nav class="navbar">
+  <div class="navbar-container">
+    <!-- Left Container: Logo -->
+    <div class="navbar-left">
+      <div class="navbar-brand">
+        <a routerLink="/" class="brand-logo">
+          <img src="/assets/Logo.png" alt="WellDev Logo" class="logo-image" />
+        </a>
+      </div>
+    </div>
+
+    <!-- Center Container: Navigation Buttons -->
+    <div class="navbar-center">
+      <ul class="navbar-menu">
+        <li class="nav-item">
+          <a routerLink="physical" routerLinkActive="active" class="nav-link">
+            <span class="nav-icon">💪</span>
+            <span>Physical</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="mental" routerLinkActive="active" class="nav-link">
+            <span class="nav-icon">🧠</span>
+            <span>Mental</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="nutrition" routerLinkActive="active" class="nav-link">
+            <span class="nav-icon">🥗</span>
+            <span>Nutrition</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="challenging/list" routerLinkActive="active" class="nav-link">
+            <span class="nav-icon">🏆</span>
+            <span>Challenging</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="library" routerLinkActive="active" class="nav-link">
+            <span class="nav-icon">📚</span>
+            <span>Library</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Right Container: Settings & Profile Buttons -->
+    <div class="navbar-right">
+      <div class="navbar-actions">
+        <button class="btn-settings" routerLink="settings">
+          <span class="settings-icon">⚙️</span>
+          <span>Settings</span>
+        </button>
+        <div class="profile-dropdown">
+          <button class="btn-profile" (click)="toggleProfileDropdown()">
+            <span class="profile-icon">👤</span>
+            <span>Profile</span>
+          </button>
+
+          <div class="dropdown-menu" [class.show]="isProfileDropdownOpen">
+            <a routerLink="user-profile" class="dropdown-item" (click)="closeDropdown()">
+              <span class="item-icon">👤</span>
+              <span>My Profile</span>
+            </a>
+            <a routerLink="settings" class="dropdown-item" (click)="closeDropdown()">
+              <span class="item-icon">⚙️</span>
+              <span>Settings</span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <button class="dropdown-item text-danger" (click)="logout()">
+              <span class="item-icon">🚪</span>
+              <span>Logout</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,116 @@
+/* ==========================================================================
+   SCROLL TOP COMPONENT STYLES
+   ==========================================================================
+   
+   TABLE OF CONTENTS:
+   1.  Base Button Styles (Positioning & Theme)
+   2.  Animation States (Hidden vs Visible)
+   3.  Hover Interactions
+   4.  Icon Styling
+   5.  Responsive Adjustments
+   ========================================================================== */
+
+/* =============================================
+   1. BASE BUTTON STYLES
+   ============================================= */
+.btn-scroll-top {
+    /* Fixed Positioning */
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 1030;
+    /* Z-Index Note: 
+       - Above standard content (0-100)
+       - Below Mobile Sidebar Overlay (1045) 
+       - Below Mobile Sidebar Drawer (1050) 
+    */
+
+    /* Dimensions & Shape */
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    /* Theme Colors (Glassmorphism) */
+    background: rgba(18, 32, 23, 0.85);
+    border: 1px solid rgba(94, 221, 151, 0.3);
+    color: var(--accent-bright);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+
+    /* Animation: Initial Hidden State */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px) scale(0.9);
+    /* Slide up from bottom */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+/* =============================================
+   2. ANIMATION STATES
+   ============================================= */
+
+/* Active State: Applied when scroll threshold is met */
+.btn-scroll-top.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+
+/* =============================================
+   3. HOVER INTERACTIONS
+   ============================================= */
+.btn-scroll-top:hover {
+    background: rgba(94, 221, 151, 0.15);
+    border-color: var(--accent-bright);
+    box-shadow: var(--accent-glow);
+    /* Defined in global styles */
+    transform: translateY(0) scale(1.05);
+}
+
+/* Internal Icon Animation on Hover */
+.btn-scroll-top:hover svg {
+    transform: translateY(-2px);
+}
+
+
+/* =============================================
+   4. ICON STYLING
+   ============================================= */
+.btn-scroll-top svg {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.2s ease;
+}
+
+
+/* =============================================
+   5. RESPONSIVE ADJUSTMENTS
+   ============================================= */
+
+/* Mobile Devices (< 768px) */
+@media (max-width: 767.98px) {
+    .btn-scroll-top {
+        /* 
+           Position Adjustment:
+           Shift upwards (bottom: 6rem) to avoid collision with the 
+           floating "Menu" FAB which sits at bottom: 1.5rem.
+        */
+        bottom: 6rem;
+        right: 1.5rem;
+
+        /* Slightly smaller touch target */
+        width: 42px;
+        height: 42px;
+    }
+
+    .btn-scroll-top svg {
+        width: 20px;
+        height: 20px;
+    }
+}

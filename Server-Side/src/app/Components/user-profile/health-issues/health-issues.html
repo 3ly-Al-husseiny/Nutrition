@@ -1,0 +1,24 @@
+<!-- src/app/components/health-issues/health-issues.component.html -->
+<div class="card health-issues-card">
+  <h2>Health Issues</h2>
+  
+  <!-- Health Issues List -->
+  <ul *ngIf="healthIssues.length > 0; else noIssues">
+    <li *ngFor="let issue of healthIssues" 
+        [class.high-severity]="issue.severity === 'high'" 
+        [class.medium-severity]="issue.severity === 'medium'"
+        [class.low-severity]="issue.severity === 'low'">
+      <span class="issue-icon">{{ issue.icon }}</span>
+      <span class="issue-text">{{ issue.concern }}</span>
+      <span class="issue-score">{{ issue.score }}%</span>
+      <span class="issue-source">{{ issue.source }}</span>
+    </li>
+  </ul>
+  <ng-template #noIssues>
+    <div class="no-issues">
+      <span class="success-icon">✅</span>
+      <p>No health concerns detected!</p>
+      <p class="hint">Complete Physical and Mental examinations to track your health</p>
+    </div>
+  </ng-template>
+</div>

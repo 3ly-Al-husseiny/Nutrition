@@ -1,0 +1,169 @@
+<div class="settings-container">
+  <div class="settings-header">
+    <h1>Settings</h1>
+    <p>Manage your profile and preferences</p>
+  </div>
+
+  <div class="profile-settings-card card">
+    <h2>Profile Information</h2>
+    
+    <div class="profile-photo-section">
+      <div class="photo-wrapper">
+        <img [src]="userPhoto" alt="Profile Photo" class="profile-photo">
+        <div class="photo-overlay">
+          <label for="photoUpload" class="edit-photo-btn">
+            <span class="icon">📷</span>
+            <span>Change Photo</span>
+          </label>
+          <input 
+            type="file" 
+            id="photoUpload" 
+            accept="image/*" 
+            (change)="onPhotoChange($event)"
+            style="display: none;">
+        </div>
+      </div>
+    </div>
+
+    <form class="profile-form">
+      <div class="form-group">
+        <label for="userName">Name</label>
+        <input 
+          type="text" 
+          id="userName" 
+          [(ngModel)]="userName" 
+          name="userName"
+          placeholder="Enter your name"
+          class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="userEmail">Email</label>
+        <input 
+          type="email" 
+          id="userEmail" 
+          [(ngModel)]="userEmail" 
+          name="userEmail"
+          placeholder="Enter your email"
+          class="form-control">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="userAge">Age</label>
+          <input 
+            type="number" 
+            id="userAge" 
+            [(ngModel)]="userAge" 
+            name="userAge"
+            #ageInput="ngModel"
+            placeholder="Enter your age"
+            required
+            min="16"
+            max="90"
+            class="form-control">
+          <div *ngIf="ageInput.invalid && ageInput.touched" class="error-text">
+            <span *ngIf="ageInput.errors?.['required']">Age is required</span>
+            <span *ngIf="ageInput.errors?.['min']">Age must be at least 16</span>
+            <span *ngIf="ageInput.errors?.['max']">Age must be 90 or less</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="userGender">Gender</label>
+          <select 
+            id="userGender" 
+            [(ngModel)]="userGender" 
+            name="userGender"
+            #genderInput="ngModel"
+            required
+            class="form-control">
+            <option value="">Select gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+            <option value="prefer-not-to-say">Prefer not to say</option>
+          </select>
+          <div *ngIf="genderInput.invalid && genderInput.touched" class="error-text">
+            <span *ngIf="genderInput.errors?.['required']">Gender is required</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="userWeight">Weight (kg)</label>
+          <input 
+            type="number" 
+            id="userWeight" 
+            [(ngModel)]="userWeight" 
+            name="userWeight"
+            #weightInput="ngModel"
+            placeholder="Enter your weight"
+            required
+            min="35"
+            max="250"
+            class="form-control">
+          <div *ngIf="weightInput.invalid && weightInput.touched" class="error-text">
+            <span *ngIf="weightInput.errors?.['required']">Weight is required</span>
+            <span *ngIf="weightInput.errors?.['min']">Weight must be at least 35 kg</span>
+            <span *ngIf="weightInput.errors?.['max']">Weight must be 250 kg or less</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="userHeight">Height (cm)</label>
+          <input 
+            type="number" 
+            id="userHeight" 
+            [(ngModel)]="userHeight" 
+            name="userHeight"
+            #heightInput="ngModel"
+            placeholder="Enter your height"
+            required
+            min="90"
+            max="220"
+            class="form-control">
+          <div *ngIf="heightInput.invalid && heightInput.touched" class="error-text">
+            <span *ngIf="heightInput.errors?.['required']">Height is required</span>
+            <span *ngIf="heightInput.errors?.['min']">Height must be at least 90 cm</span>
+            <span *ngIf="heightInput.errors?.['max']">Height must be 220 cm or less</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" (click)="onSave()" class="btn btn-primary">
+          <span class="icon">💾</span>
+          Save Changes
+        </button>
+        <button type="button" (click)="onCancel()" class="btn btn-secondary">
+          <span class="icon">❌</span>
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Data Management Section -->
+  <div class="data-management-card card">
+    <h2>🔧 Data Management</h2>
+    <p class="section-description">Testing and development utilities</p>
+    
+    <div class="reset-section">
+      <div class="reset-info">
+        <h3>Reset Challenge Data</h3>
+        <p>Clear all challenge progress, points, and badges. Use this to start fresh or for testing purposes.</p>
+        <ul class="reset-list">
+          <li>❌ All points will be reset to 0</li>
+          <li>❌ All earned badges will be removed</li>
+          <li>❌ All active challenges will be cleared</li>
+        </ul>
+      </div>
+      <button type="button" (click)="resetChallengeData()" class="btn btn-danger">
+        <span class="icon">🔄</span>
+        Reset Challenge Data
+      </button>
+    </div>
+  </div>
+</div>

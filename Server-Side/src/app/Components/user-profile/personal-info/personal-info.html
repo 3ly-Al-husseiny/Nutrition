@@ -1,0 +1,36 @@
+<!-- src/app/components/personal-info/personal-info.component.html -->
+<div class="card personal-info-card">
+  <h2>Personal Info</h2>
+  
+  <!-- User Avatar Section -->
+  <div class="avatar-section">
+    <img [src]="userPhoto" alt="User Avatar" class="user-avatar">
+    <div class="user-details">
+      <h3>{{ userName }}</h3>
+      <p class="email">{{ userEmail }}</p>
+      <p class="points">{{ userPoints | number }} Points</p>
+    </div>
+  </div>
+
+  <!-- Personal Info Items -->
+  <div class="info-item">
+    <span>Gender</span>
+    <span>{{ userGender }}</span>
+  </div>
+  <div class="info-item">
+    <span>Age</span>
+    <span>{{ userAge }} years</span>
+  </div>
+  <div class="info-item">
+    <span>Weight</span>
+    <span>{{ userWeight }} kg</span>
+  </div>
+  <div class="info-item">
+    <span>Height</span>
+    <span>{{ userHeight }} cm</span>
+  </div>
+  <div class="info-item">
+    <span>BMI</span>
+    <span>{{ userBMI }} <span class="bmi-category">({{ bmiCategory }})</span></span>
+  </div>
+</div>

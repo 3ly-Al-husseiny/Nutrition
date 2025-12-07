@@ -1,0 +1,8 @@
+<!-- src/app/components/nutrient-card/nutrient-card.component.html -->
+<div class="goal-item">
+  <h3>{{ nutrient.name }}</h3>
+  <div class="progress-circle" [ngClass]="nutrient.progressClass">
+    <span>{{ nutrient.percentage }}%</span>
+  </div>
+  <p class="status">{{ nutrient.status }}</p>
+</div>

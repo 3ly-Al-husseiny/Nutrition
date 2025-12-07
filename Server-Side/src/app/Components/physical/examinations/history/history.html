@@ -1,0 +1,71 @@
+<div class="history-container">
+  <div class="history-header">
+    <h2>Weekly Check History</h2>
+    <button *ngIf="weeklyChecks.length > 0" class="btn btn-danger" (click)="clearAllHistory()">
+      Clear All History
+    </button>
+  </div>
+
+  <div *ngIf="weeklyChecks.length === 0" class="empty-state">
+    <div class="empty-icon">📋</div>
+    <h3>No History Yet</h3>
+    <p>Complete your first Weekly Check to see it here!</p>
+  </div>
+
+  <div *ngIf="weeklyChecks.length > 0" class="history-list">
+    <div *ngFor="let check of weeklyChecks" class="history-item">
+      <div class="item-header" (click)="toggleDetails(check.id)">
+        <div class="header-info">
+          <h3 class="check-date">{{ formatDate(check.date) }}</h3>
+          <div class="section-tags">
+            <span *ngFor="let sectionId of check.selectedSections" class="section-tag">
+              <span class="tag-icon">{{ getSectionIcon(sectionId) }}</span>
+              {{ getSectionDisplayName(sectionId) }}
+            </span>
+          </div>
+        </div>
+        <div class="header-score">
+          <span class="total-score" [ngClass]="getTotalScoreClass(check.totalScore)">
+            {{ check.totalScore }}%
+          </span>
+          <span class="expand-icon" [class.expanded]="isExpanded(check.id)"> ▼ </span>
+        </div>
+      </div>
+
+      <div *ngIf="isExpanded(check.id)" class="item-details">
+        <div class="overall-result">
+          <p>{{ check.overallResult }}</p>
+        </div>
+
+        <div class="section-results">
+          <h4>Section Results</h4>
+          <div class="results-grid">
+            <div
+              *ngFor="let result of check.sectionResults"
+              class="result-card"
+              [ngClass]="getResultClass(result.result)"
+            >
+              <h5>
+                <span class="section-icon-result">{{
+                  getSectionIcon(getSectionIdFromName(result.sectionName))
+                }}</span>
+                {{ result.sectionName }}
+              </h5>
+              <div class="score-info">
+                <p class="score">Score: {{ result.normalizedScore }}%</p>
+                <p class="points">Points: {{ result.score }}/{{ result.maxPoints }}</p>
+              </div>
+              <div class="result-badge">
+                {{ result.result }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="item-actions">
+          <button class="btn btn-delete" (click)="deleteCheck(check.id)">Delete Check</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

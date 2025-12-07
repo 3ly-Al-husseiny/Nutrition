@@ -1,0 +1,76 @@
+<div class="meal-history-container">
+  <div class="history-header">
+    <h2>📜 Meal History</h2>
+    @if (meals.length > 0) {
+    <button class="clear-btn" (click)="clearAllMeals()">
+      🗑️ Clear All
+    </button>
+    }
+  </div>
+
+  @if (meals.length === 0) {
+  <div class="no-meals-message">
+    <div class="message-icon">🍽️</div>
+    <h3>No Meals Logged</h3>
+    <p>Your meal history will appear here after you analyze and save meals.</p>
+  </div>
+  } @else {
+  <div class="meals-list">
+    @for (meal of meals; track meal.id) {
+    <div class="meal-card">
+      <div class="meal-header" (click)="toggleDetails(meal.id)">
+        <div class="meal-info">
+          <div class="meal-date-time">
+            <span class="date">📅 {{ formatDate(meal.date) }}</span>
+            <span class="time">🕐 {{ formatTime(meal.date) }}</span>
+          </div>
+          <h4 class="meal-description">{{ meal.description }}</h4>
+          <div class="meal-summary">
+            <span class="calories">🔥 {{ meal.analysis.calories }} kcal</span>
+            <span class="elements-count">
+              📊 {{ meal.analysis.elements.length }} nutrients
+            </span>
+          </div>
+        </div>
+        <div class="expand-icon">
+          {{ expandedMealId === meal.id ? '▼' : '▶' }}
+        </div>
+      </div>
+
+      @if (expandedMealId === meal.id) {
+      <div class="meal-details">
+        @if (meal.analysis.servingSize) {
+        <div class="serving-info">
+          <strong>Serving:</strong> {{ meal.analysis.servingSize }}
+        </div>
+        }
+
+        <div class="elements-breakdown">
+          <h5>Nutritional Elements:</h5>
+          <div class="elements-grid-small">
+            @for (element of meal.analysis.elements; track element.name) {
+            <div class="element-item">
+              <span class="element-name">{{ element.name }}</span>
+              <span class="element-value">
+                {{ element.amount }} {{ element.unit }}
+                @if (element.dailyValue) {
+                  <span class="dv">({{ element.dailyValue }}% DV)</span>
+                }
+              </span>
+            </div>
+            }
+          </div>
+        </div>
+
+        <div class="meal-actions">
+          <button class="delete-btn" (click)="deleteMeal(meal.id); $event.stopPropagation()">
+            🗑️ Delete
+          </button>
+        </div>
+      </div>
+      }
+    </div>
+    }
+  </div>
+  }
+</div>

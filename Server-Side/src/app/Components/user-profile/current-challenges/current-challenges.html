@@ -1,0 +1,31 @@
+<!-- src/app/components/current-challenges/current-challenges.component.html -->
+<div class="card current-challenges-card">
+  <h2>Current Challenges</h2>
+  <div class="challenges-list" *ngIf="activeChallenges.length > 0; else noChallenges">
+    <div class="challenge-item card" 
+         *ngFor="let challenge of activeChallenges"
+         (click)="viewChallenge(challenge.id)">
+      <div class="challenge-icon">
+        <span class="challenge-emoji">{{ challenge.icon }}</span>
+      </div>
+      <div class="challenge-details">
+        <h3>{{ challenge.title }}</h3>
+        <p>{{ challenge.description }}</p>
+        <div class="progress-bar">
+          <div class="progress" [style.width.%]="challenge.progress"></div>
+        </div>
+        <div class="challenge-stats">
+          <span class="progress-text">{{ challenge.completedDays }}/{{ challenge.totalDays }} days</span>
+          <span class="days-left">{{ challenge.daysLeft }} {{ challenge.daysLeft === 1 ? 'day' : 'days' }} left</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #noChallenges>
+    <div class="no-challenges">
+      <i class="fas fa-flag empty-icon"></i>
+      <p>No active challenges yet!</p>
+      <p class="hint">Visit the Challenges section to join a new challenge 🎯</p>
+    </div>
+  </ng-template>
+</div>

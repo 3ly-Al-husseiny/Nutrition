@@ -1,0 +1,689 @@
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Subscription } from 'rxjs';
+import { ExaminationsService } from '../../../services/examinations.service';
+
+interface Exercise {
+  duration: string;
+  title: string;
+  steps: string[];
+  benefits: string;
+  emoji: string;
+}
+
+interface OfficeTip {
+  title: string;
+  description: string;
+  icon: string;
+}
+
+interface QuickFix {
+  title: string;
+  description: string;
+}
+
+interface PostureReminder {
+  text: string;
+}
+
+interface Recommendation {
+  title: string;
+  description: string;
+  image: string;
+  type: string;
+  sectionScore?: number;
+}
+
+@Component({
+  selector: 'app-recommendations',
+  imports: [CommonModule],
+  templateUrl: './recommendations.html',
+  styleUrls: ['./recommendations.css'],
+  standalone: true,
+})
+export class Recommendations implements OnInit, OnDestroy {
+  showExerciseModal = false;
+  selectedRecommendation: string = '';
+  private dataSubscription?: Subscription;
+  showNoRecommendationsMessage = false;
+  showNoChecksMessage = false;
+
+  // Section to recommendation type mapping
+  private sectionToRecommendationMap: { [key: string]: string } = {
+    eyes: 'eye',
+    lower_back: 'lower-back',
+    shoulder: 'neck-shoulders',
+    energy_focus: 'headache-focus',
+  };
+
+  private allRecommendations: Recommendation[] = [
+    {
+      title: 'Eye Exercises for Screen Time',
+      description: 'Try the 20-20-20 rule to reduce digital eye strain.',
+      image: 'assets/images/Eye.png',
+      type: 'eye',
+    },
+    {
+      title: 'Lower-Back Health Tips',
+      description: 'Incorporate simple stretches into your daily routine.',
+      image: 'assets/images/Back.png',
+      type: 'lower-back',
+    },
+    {
+      title: 'Neck and Shoulders',
+      description: 'Gentle neck stretches can alleviate tension from sitting.',
+      image: 'assets/images/Posture.png',
+      type: 'neck-shoulders',
+    },
+    {
+      title: 'Headache & Focus',
+      description: 'Reduce tension headaches and boost mental clarity.',
+      image: 'assets/images/Eye.png',
+      type: 'headache-focus',
+    },
+  ];
+
+  recommendations: Recommendation[] = [];
+
+  constructor(private examinationsService: ExaminationsService) {}
+
+  ngOnInit(): void {
+    // Initial prioritization
+    this.prioritizeRecommendations();
+
+    // Subscribe to data changes
+    this.dataSubscription = this.examinationsService.dataUpdated$.subscribe(() => {
+      this.prioritizeRecommendations();
+    });
+  }
+
+  ngOnDestroy(): void {
+    // Clean up subscription to prevent memory leaks
+    if (this.dataSubscription) {
+      this.dataSubscription.unsubscribe();
+    }
+  }
+
+  private prioritizeRecommendations(): void {
+    const history = this.examinationsService.getHistory();
+
+    if (history.length === 0) {
+      // Show message to complete first check
+      this.showNoChecksMessage = true;
+      this.showNoRecommendationsMessage = false;
+      this.recommendations = [];
+      return;
+    }
+
+    this.showNoChecksMessage = false;
+
+    // Calculate average scores for each section across all examinations
+    const sectionScoreMap: { [key: string]: number[] } = {};
+
+    // Collect all scores for each section
+    history.forEach((check) => {
+      check.sectionResults.forEach((result) => {
+        if (!sectionScoreMap[result.sectionId]) {
+          sectionScoreMap[result.sectionId] = [];
+        }
+        sectionScoreMap[result.sectionId].push(result.normalizedScore);
+      });
+    });
+
+    // Calculate average scores
+    const averageSectionScores: { [key: string]: number } = {};
+    Object.keys(sectionScoreMap).forEach((sectionId) => {
+      const scores = sectionScoreMap[sectionId];
+      const average = scores.reduce((sum, score) => sum + score, 0) / scores.length;
+      averageSectionScores[sectionId] = Math.round(average * 100) / 100;
+    });
+
+    // Update recommendations with average scores (start from allRecommendations)
+    this.recommendations = this.allRecommendations.map((rec) => {
+      const matchingSectionId = Object.keys(this.sectionToRecommendationMap).find(
+        (sectionId) => this.sectionToRecommendationMap[sectionId] === rec.type
+      );
+
+      if (matchingSectionId && averageSectionScores[matchingSectionId] !== undefined) {
+        return {
+          ...rec,
+          sectionScore: averageSectionScores[matchingSectionId],
+        };
+      }
+
+      return rec;
+    });
+
+    // Sort all cards by average score: lowest score first (needs most attention)
+    this.recommendations.sort((a, b) => {
+      // Cards with scores come first
+      if (a.sectionScore !== undefined && b.sectionScore === undefined) {
+        return -1;
+      }
+      if (a.sectionScore === undefined && b.sectionScore !== undefined) {
+        return 1;
+      }
+
+      // Both have scores: sort by score (lower score first)
+      if (a.sectionScore !== undefined && b.sectionScore !== undefined) {
+        return a.sectionScore - b.sectionScore;
+      }
+
+      // Neither has scores: maintain original order
+      return 0;
+    });
+
+    // Filter cards with average score below 90
+    this.recommendations = this.recommendations.filter(
+      (rec) => rec.sectionScore !== undefined && rec.sectionScore < 90
+    );
+
+    // Check if there are no recommendations to show
+    if (this.recommendations.length === 0) {
+      this.showNoRecommendationsMessage = true;
+    } else {
+      this.showNoRecommendationsMessage = false;
+      // Keep only the top 3 cards
+      this.recommendations = this.recommendations.slice(0, 3);
+    }
+  }
+
+  eyeExercises: Exercise[] = [
+    {
+      emoji: '🟢',
+      title: '1-Minute Eye Relief',
+      duration: '60 seconds',
+      steps: [
+        'Blink rapidly for 10 seconds.',
+        'Warm your palms and gently cover your eyes (no pressure) for 20 seconds.',
+        'Move your eyes slowly left–right for 20 seconds.',
+        'Blink slowly 5 times.',
+      ],
+      benefits: 'Reduces dryness, resets focus, relaxes the optic muscles.',
+    },
+    {
+      emoji: '🟢',
+      title: '90-Second Focus Shift',
+      duration: '90 seconds',
+      steps: [
+        'Focus on your finger at ~20 cm for 10 seconds.',
+        'Switch focus to a distant object (5–10 meters) for 10 seconds.',
+        'Repeat this cycle 6 times.',
+        'Relax your gaze for 10 seconds.',
+      ],
+      benefits: 'Improves near–far focus, reduces blurry vision and eye fatigue.',
+    },
+    {
+      emoji: '🔴',
+      title: '2-Minute Eye Yoga',
+      duration: '2 minutes',
+      steps: [
+        'Look up for 5 seconds → down for 5 seconds.',
+        'Look right for 5 seconds → left for 5 seconds. (Repeat twice)',
+        'Rotate your eyes in a full circle: 10 clockwise + 10 counterclockwise.',
+        'Squeeze your eyes shut for 3 seconds, then relax (×5 cycles).',
+      ],
+      benefits: 'Relaxes extraocular muscles, boosts blood flow.',
+    },
+    {
+      emoji: '🟡',
+      title: '2-Minute Neck + Eyes Combo',
+      duration: '2 minutes',
+      steps: [
+        'Slowly rotate your neck right–left (10 seconds each).',
+        'Look up for 10 seconds → down for 10 seconds.',
+        'Perform 10 slow eye circles.',
+        'Stretch your neck to each side for 10 seconds.',
+      ],
+      benefits: 'Relieves screen-induced tension across neck, shoulders, and eyes.',
+    },
+    {
+      emoji: '🟣',
+      title: '3-Minute Anti-Fatigue Routine',
+      duration: '3 minutes',
+      steps: [
+        'Palm warm — 30 seconds.',
+        'Focus shifting — 30 seconds.',
+        'Eye circles — 30 seconds.',
+        'Slow blinking — 20 seconds.',
+        'Gentle eye massage — 20 seconds.',
+        'Deep breathing (4 seconds inhale + 4 seconds exhale) — 40 seconds.',
+      ],
+      benefits: 'Reduces headaches, improves eye hydration, restores energy.',
+    },
+  ];
+
+  lowerBackOfficeTips: OfficeTip[] = [
+    {
+      icon: '✔',
+      title: 'Keep Your Hips Slightly Higher Than Your Knees',
+      description: 'Sit with a slight forward hip angle; it stabilizes the lumbar curve.',
+    },
+    {
+      icon: '✔',
+      title: 'Support Your Lower Back',
+      description: 'Use a small lumbar cushion or rolled towel behind your lower spine.',
+    },
+    {
+      icon: '✔',
+      title: 'Avoid Slouching Forward',
+      description: 'Keep your chest open and shoulders relaxed down.',
+    },
+    {
+      icon: '✔',
+      title: 'Bring Your Chair Closer to the Desk',
+      description: 'Reduces leaning and flexing the lower spine.',
+    },
+    {
+      icon: '✔',
+      title: 'Place Your Screen at Eye Level',
+      description: 'Prevents forward head posture → reduces tension on the lower back.',
+    },
+    {
+      icon: '✔',
+      title: 'Keep Feet Flat on the Floor',
+      description: 'Avoid crossing legs — it rotates the pelvis and stresses the lumbar area.',
+    },
+    {
+      icon: '✔',
+      title: 'Stand Up Every 30–40 Minutes',
+      description: 'Even 10–20 seconds of standing reduces spine compression.',
+    },
+  ];
+
+  lowerBackExercises: Exercise[] = [
+    {
+      emoji: '🔵',
+      title: '1-Minute Lumbar Reset',
+      duration: '60 seconds',
+      steps: [
+        'Sit at the edge of your chair.',
+        'Arch your back gently (cow) for 5 seconds.',
+        'Round your back (cat) for 5 seconds.',
+        'Repeat 8–10 cycles.',
+      ],
+      benefits: 'Quickly resets lumbar mobility.',
+    },
+    {
+      emoji: '🔵',
+      title: '2-Minute Seated Lower Back Mobility',
+      duration: '2 minutes',
+      steps: [
+        'Seated torso twist to the right — hold 10 seconds.',
+        'Twist to the left — 10 seconds.',
+        'Side bend: right 10s → left 10s.',
+        'Pelvic tilts: 10 slow reps.',
+      ],
+      benefits: 'Reduces stiffness from long sitting.',
+    },
+    {
+      emoji: '🟡',
+      title: '90-Second Hip Flexor Release (Standing)',
+      duration: '90 seconds',
+      steps: [
+        'Step one foot back into a mini-lunge.',
+        'Lean forward slightly until you feel a gentle stretch in the front of the hip.',
+        'Hold 20 seconds per side.',
+        'Finish with 10 slow deep breaths.',
+      ],
+      benefits: 'Tight hips are one of the biggest reasons for lower-back pain.',
+    },
+    {
+      emoji: '🔵',
+      title: '2-Minute Back Extension Routine',
+      duration: '2 minutes',
+      steps: [
+        'Stand up straight, hands on lower back.',
+        'Gently lean backward — hold 5 seconds.',
+        'Repeat 10 times.',
+        'Finish with side stretches (10 seconds each side).',
+      ],
+      benefits: 'Excellent for countering long periods of sitting.',
+    },
+    {
+      emoji: '🔥',
+      title: '3-Minute Glute & Lower Back Activation',
+      duration: '3 minutes',
+      steps: [
+        'Sit upright, squeeze glutes for 10 seconds × 3.',
+        'Lift one knee up while sitting — hold 5 seconds.',
+        'Switch sides — 5 seconds.',
+        'Do 10 slow seated marches.',
+        'End with a seated forward fold — 20 seconds.',
+      ],
+      benefits: 'Activates muscles that support the spine.',
+    },
+  ];
+
+  lowerBackQuickFixes: QuickFix[] = [
+    {
+      title: 'Sit tall & tilt pelvis slightly forward',
+      description: 'Instantly restores lumbar curve.',
+    },
+    {
+      title: 'Relax your lower back',
+      description: 'Lean fully into your chair — stop hovering.',
+    },
+    {
+      title: 'Adjust your chair height',
+      description: 'Your knees should be slightly lower than your hips.',
+    },
+    {
+      title: 'Take one deep diaphragmatic breath',
+      description: 'Helps relax lumbar muscles via the core–breathing connection.',
+    },
+    {
+      title: 'Shift your weight every 20–30 minutes',
+      description: 'Little movements prevent lumbar stiffness.',
+    },
+  ];
+
+  lowerBackReminders: PostureReminder[] = [
+    { text: 'Keep your spine long — stop collapsing forward.' },
+    { text: 'Neutral pelvis = happier lower back.' },
+    { text: 'Uncross your legs for better lumbar alignment.' },
+    { text: 'Bring your chair closer to your desk — avoid leaning.' },
+    { text: 'Take a 30-second standing break.' },
+  ];
+
+  neckShouldersOfficeTips: OfficeTip[] = [
+    {
+      icon: '✔',
+      title: 'Keep Your Screen at Eye Level',
+      description: 'Avoid looking down at your laptop — reduces neck flexion and shoulder tension.',
+    },
+    {
+      icon: '✔',
+      title: 'Relax Your Shoulders',
+      description:
+        'Most people keep shoulders slightly raised while typing. Drop them down and back every few minutes.',
+    },
+    {
+      icon: '✔',
+      title: 'Keep Arms Close to Your Body',
+      description: 'Your elbows should stay around 90°–100° and close to your sides.',
+    },
+    {
+      icon: '✔',
+      title: 'Bring Keyboard & Mouse Closer',
+      description: 'Avoid reaching forward — it strains the neck & upper traps.',
+    },
+    {
+      icon: '✔',
+      title: 'Use a Chair With Proper Back Support',
+      description: 'Shoulders should rest naturally, without rounding forward.',
+    },
+    {
+      icon: '✔',
+      title: 'Avoid Cradling the Phone With Your Shoulder',
+      description: 'Use a headset or hold the phone properly.',
+    },
+    {
+      icon: '✔',
+      title: 'Keep Your Jaw Relaxed',
+      description: 'Clenching your jaw is strongly linked to neck tension.',
+    },
+  ];
+
+  neckShouldersExercises: Exercise[] = [
+    {
+      emoji: '🔹',
+      title: '1-Minute Shoulder Reset',
+      duration: '60 seconds',
+      steps: [
+        'Sit tall.',
+        'Shoulder rolls — 10 forward, 10 backward.',
+        'Pull shoulder blades back & down — hold 10 seconds.',
+      ],
+      benefits: 'Great for quick posture correction.',
+    },
+    {
+      emoji: '🔹',
+      title: '90-Second Neck Mobility',
+      duration: '90 seconds',
+      steps: [
+        'Drop right ear to right shoulder — 10 seconds.',
+        'Switch sides — 10 seconds.',
+        'Look up (5s) → down (5s).',
+        'Slow neck circles — 20 seconds.',
+        'Deep breath — 10 seconds.',
+      ],
+      benefits: 'Perfect for releasing tension from coding.',
+    },
+    {
+      emoji: '🔹',
+      title: '2-Minute Upper Trapezius Release',
+      duration: '2 minutes',
+      steps: [
+        'Sit tall.',
+        'Place right hand under chair for anchor.',
+        'Tilt head to left — hold 20 seconds.',
+        'Switch sides — 20 seconds.',
+        'Gentle chin tuck (look straight, pull head back) — 10 seconds × 3.',
+      ],
+      benefits: 'Reduces forward-head posture.',
+    },
+    {
+      emoji: '🔹',
+      title: '3-Minute Desk Shoulder Relief',
+      duration: '3 minutes',
+      steps: [
+        'Interlace fingers behind back — lift gently for 20 seconds.',
+        'Reach right arm across chest — hold 20 seconds.',
+        'Switch sides — 20 seconds.',
+        'Arm circles — 10 forward + 10 backward.',
+        'Wall or chair stretch: hands behind you on chair, open chest — 20 seconds.',
+      ],
+      benefits: 'Opens chest, reduces shoulder rounding.',
+    },
+    {
+      emoji: '🔹',
+      title: '2-Minute Scapular Activation',
+      duration: '2 minutes',
+      steps: [
+        'Sit upright.',
+        'Do 10 slow "scapular retractions" (pull shoulder blades together).',
+        'Shoulder shrugs — 10 reps.',
+        'Chin tuck — 10 seconds × 2.',
+      ],
+      benefits: 'Strengthens the muscles that maintain posture.',
+    },
+  ];
+
+  neckShouldersQuickFixes: QuickFix[] = [
+    {
+      title: 'Drop your shoulders',
+      description: 'Take a second and release any shrugging.',
+    },
+    {
+      title: 'Pull your head back slightly',
+      description: 'Counteracts "tech neck".',
+    },
+    {
+      title: 'Relax your jaw',
+      description: 'Instantly reduces neck tension.',
+    },
+    {
+      title: 'Slide your keyboard 5cm closer',
+      description: 'Prevents leaning.',
+    },
+    {
+      title: 'Look away from the screen',
+      description: 'Give the neck a visual break.',
+    },
+  ];
+
+  neckShouldersReminders: PostureReminder[] = [
+    { text: 'Keep your shoulders low and relaxed.' },
+    { text: "Don't collapse forward — keep chest open." },
+    { text: 'Check your head position — avoid leaning forward.' },
+    { text: 'Align your ears over your shoulders.' },
+    { text: 'Move your neck gently every 20–30 minutes.' },
+  ];
+
+  headacheFocusOfficeTips: OfficeTip[] = [
+    {
+      icon: '✔',
+      title: 'Keep Lighting Soft & Even',
+      description: 'Avoid harsh overhead lights or screen glare.',
+    },
+    {
+      icon: '✔',
+      title: 'Maintain a Balanced Screen Distance',
+      description: '50–70 cm from your eyes reduces visual strain → reduces headaches.',
+    },
+    {
+      icon: '✔',
+      title: 'Use Natural Light When Possible',
+      description: 'Position your desk sideways to windows, not facing them.',
+    },
+    {
+      icon: '✔',
+      title: 'Keep Your Workspace Clutter-Free',
+      description: 'A clean desk improves focus and reduces mental load.',
+    },
+    {
+      icon: '✔',
+      title: 'Stay Hydrated',
+      description: 'Mild dehydration = headaches + fatigue. Aim for small sips every hour.',
+    },
+    {
+      icon: '✔',
+      title: 'Limit Background Noise',
+      description: 'Use noise-cancelling headphones or ambient background sound.',
+    },
+    {
+      icon: '✔',
+      title: 'Avoid Constant Multitasking',
+      description: 'Switching tasks drains mental energy quickly.',
+    },
+  ];
+
+  headacheFocusExercises: Exercise[] = [
+    {
+      emoji: '🔹',
+      title: '1-Minute Headache Relief',
+      duration: '60 seconds',
+      steps: [
+        'Close your eyes for 10 seconds.',
+        'Massage your temples in slow circles for 20 seconds.',
+        'Massage the area above your eyebrows for 20 seconds.',
+        'Deep breath (4s inhale, 4s exhale) for 10 seconds.',
+      ],
+      benefits: 'Reduces tension headaches quickly.',
+    },
+    {
+      emoji: '🔹',
+      title: '90-Second Focus Reset',
+      duration: '90 seconds',
+      steps: [
+        'Sit tall.',
+        'Look away from the screen and soften your gaze — 10 seconds.',
+        'Focus on an object far away — 20 seconds.',
+        'Slow diaphragmatic breathing — 30 seconds.',
+        'Gentle neck stretch — 10 seconds each side.',
+      ],
+      benefits: 'Clears mental fog and resets concentration.',
+    },
+    {
+      emoji: '🔹',
+      title: '2-Minute Tension Release for Forehead & Eyes',
+      duration: '2 minutes',
+      steps: [
+        'Using your knuckles, gently massage your forehead from center to sides — 20s.',
+        'Light pressure around the eyes — 20s.',
+        'Press between the eyebrows (relax point) — hold 10s × 2.',
+        'Finish with slow breathing — 20s.',
+      ],
+      benefits: 'Perfect for screen-related headaches.',
+    },
+    {
+      emoji: '🔹',
+      title: '3-Minute "Mind & Body Recharge"',
+      duration: '3 minutes',
+      steps: [
+        'Sit tall and roll your shoulders — 10 forward, 10 backward.',
+        'Gentle neck tilt (right/left) — 15 seconds each side.',
+        'Palm warm over eyes — 20 seconds.',
+        'Deep breathing — 1 full minute (4s inhale, 4s hold, 6s exhale).',
+      ],
+      benefits: 'Recharges both mental and physical energy.',
+    },
+  ];
+
+  headacheFocusQuickFixes: QuickFix[] = [
+    {
+      title: 'Blink 10 times slowly',
+      description: 'Helps dry-eye–related headaches.',
+    },
+    {
+      title: 'Take one big deep breath',
+      description: 'Instant nervous-system reset.',
+    },
+    {
+      title: 'Close your eyes for 10 seconds',
+      description: 'A micro mental reset.',
+    },
+    {
+      title: 'Loosen your jaw',
+      description: 'Jaw tension = head tension.',
+    },
+    {
+      title: 'Drop your shoulders',
+      description: 'Reduces tension running up to the head.',
+    },
+  ];
+
+  headacheFocusBoosters: QuickFix[] = [
+    {
+      title: 'The 5-5-5 Breathing Technique (30 seconds)',
+      description:
+        '5 seconds inhale → 5 hold → 5 exhale (repeat twice). Improves clarity and reduces mental noise.',
+    },
+    {
+      title: 'Single-Task for 90 Seconds',
+      description: 'Working on one thing for 1–2 minutes recalibrates your attention.',
+    },
+    {
+      title: 'Visual Reset',
+      description: 'Look far away → bring focus back → repeat 3 times. Clears visual fatigue.',
+    },
+    {
+      title: 'Micro-Walk (20–40 seconds)',
+      description: 'Stand, walk a few steps, sit back. Boosts blood flow to the brain.',
+    },
+  ];
+
+  headacheFocusReminders: PostureReminder[] = [
+    { text: 'Relax your jaw — unclench.' },
+    { text: "Soft gaze, don't stare at the screen." },
+    { text: 'Take a slow breath — refresh your brain.' },
+    { text: 'Look 20 feet away for 20 seconds.' },
+    { text: 'Drop your shoulders — reduce tension.' },
+    { text: 'Small sips of water help with focus.' },
+    { text: 'Avoid multitasking — focus on one thing.' },
+  ];
+
+  openRecommendation(type: string): void {
+    if (
+      type === 'eye' ||
+      type === 'lower-back' ||
+      type === 'neck-shoulders' ||
+      type === 'headache-focus'
+    ) {
+      this.selectedRecommendation = type;
+      this.showExerciseModal = true;
+    }
+  }
+
+  getScoreClass(score: number): string {
+    if (score >= 75) return 'score-good';
+    if (score >= 50) return 'score-needs-exercises';
+    return 'score-see-doctor';
+  }
+
+  closeModal(): void {
+    this.showExerciseModal = false;
+    this.selectedRecommendation = '';
+  }
+}

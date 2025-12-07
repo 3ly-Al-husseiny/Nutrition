@@ -1,0 +1,159 @@
+<!-- Home Page Component -->
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">🌟 Your Health Journey Starts Here</div>
+    <h1 class="hero-title">
+      Take Control of Your
+      <span class="gradient-text">Complete Health</span>
+    </h1>
+    <p class="hero-subtitle">
+      Track your physical fitness, mental wellness, and nutrition all in one place. Join challenges,
+      earn rewards, and build lasting healthy habits.
+    </p>
+    <div class="hero-actions">
+      <a routerLink="/physical" class="btn-primary-lg">
+        <span>Get Started</span>
+        <span class="btn-icon">→</span>
+      </a>
+      <a routerLink="/challenging/list" class="btn-secondary-lg">
+        <span>🏆 View Challenges</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="floating-card card-1">
+      <span class="card-icon">💪</span>
+      <span class="card-label">Physical</span>
+    </div>
+    <div class="floating-card card-2">
+      <span class="card-icon">🧠</span>
+      <span class="card-label">Mental</span>
+    </div>
+    <div class="floating-card card-3">
+      <span class="card-icon">🥗</span>
+      <span class="card-label">Nutrition</span>
+    </div>
+    <div class="floating-card card-4">
+      <span class="card-icon">🏆</span>
+      <span class="card-label">Challenges</span>
+    </div>
+  </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item" *ngFor="let stat of stats">
+        <span class="stat-value">{{ stat.value }}</span>
+        <span class="stat-label">{{ stat.label }}</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Everything You Need for a Healthier Life</h2>
+      <p class="section-subtitle">
+        Our comprehensive health platform brings together all aspects of wellness in one intuitive
+        dashboard.
+      </p>
+    </div>
+
+    <div class="features-grid">
+      <a
+        *ngFor="let feature of features"
+        [routerLink]="feature.route"
+        class="feature-card"
+        [style.--accent-color]="feature.color"
+      >
+        <div class="feature-icon">{{ feature.icon }}</div>
+        <h3 class="feature-title">{{ feature.title }}</h3>
+        <p class="feature-description">{{ feature.description }}</p>
+        <div class="feature-arrow">
+          <span>Explore</span>
+          <span class="arrow">→</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="how-it-works">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-subtitle">Get started in three simple steps</p>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <div class="step-icon">📝</div>
+        <h3>Create Your Profile</h3>
+        <p>Sign up and set your health goals, preferences, and current fitness level.</p>
+      </div>
+
+      <div class="step-connector"></div>
+
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <div class="step-icon">📊</div>
+        <h3>Track Your Progress</h3>
+        <p>Log your activities, meals, and mental wellness check-ins daily.</p>
+      </div>
+
+      <div class="step-connector"></div>
+
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <div class="step-icon">🎯</div>
+        <h3>Achieve Your Goals</h3>
+        <p>Complete challenges, earn badges, and celebrate your health milestones.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-content">
+      <h2>Ready to Transform Your Health?</h2>
+      <p>Join thousands of users who are already living healthier lives with our platform.</p>
+      <div class="cta-actions">
+        <a routerLink="/register" class="btn-cta-primary"> Create Free Account </a>
+        <a routerLink="/login" class="btn-cta-secondary"> Sign In </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="home-footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>🌿 WellDev</h3>
+        <p>Your complete health companion</p>
+      </div>
+      <div class="footer-links">
+        <a routerLink="/physical">Physical</a>
+        <a routerLink="/mental">Mental</a>
+        <a routerLink="/nutrition">Nutrition</a>
+        <a routerLink="/challenging/list">Challenges</a>
+        <a routerLink="/library">Library</a>
+      </div>
+      <div class="footer-copyright">
+        <p>© 2025 WellDev. Built with ❤️ by DEPI Team</p>
+      </div>
+    </div>
+  </div>
+</footer>

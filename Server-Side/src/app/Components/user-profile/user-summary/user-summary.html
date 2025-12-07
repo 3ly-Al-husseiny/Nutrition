@@ -1,0 +1,11 @@
+<!-- src/app/components/user-summary/user-summary.component.html -->
+<div class="card user-summary-card">
+  <div class="avatar-section">
+    <img [src]="userPhoto" alt="User Avatar" class="user-avatar">
+    <div class="user-details">
+      <h3>{{ userName }}</h3>
+      <p class="email">{{ userEmail }}</p>
+      <p class="points">{{ userPoints | number }} Points</p>
+    </div>
+  </div>
+</div>

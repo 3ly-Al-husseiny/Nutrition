@@ -1,0 +1,205 @@
+<div class="examinations-container">
+  <h2>Mental Health Examinations</h2>
+  <p class="subtitle">Choose an option to manage your mental health assessments</p>
+
+  <!-- Quick Stats Section -->
+  @if (stats) {
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">📋</div>
+      <div class="stat-info">
+        <h4>Total Checks</h4>
+        <p class="stat-value">{{ stats.totalChecks }}</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">📈</div>
+      <div class="stat-info">
+        <h4>Average Score</h4>
+        <p class="stat-value" [ngClass]="getScoreClass(stats.averageScore)">
+          {{ stats.averageScore }}%
+        </p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">🏆</div>
+      <div class="stat-info">
+        <h4>Best Score</h4>
+        <p class="stat-value score-good">{{ stats.bestScore }}%</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">📉</div>
+      <div class="stat-info">
+        <h4>Improvement</h4>
+        <p class="stat-value" [ngClass]="getImprovementClass()">
+          {{ stats.improvementRate > 0 ? '+' : '' }}{{ stats.improvementRate }}%
+        </p>
+      </div>
+    </div>
+  </div>
+  }
+
+  <!-- Cards Container -->
+  <div class="cards-container">
+    <!-- Weekly Check Card -->
+    <div class="exam-card weekly-card" (click)="openWeeklyCheck()">
+      <div class="card-icon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+      </div>
+      <div class="card-content">
+        <h3>Start Weekly Check</h3>
+        <p>Complete your comprehensive weekly mental health assessment</p>
+        <ul class="card-features">
+          <li>
+            <span class="feature-icon">✓</span>
+            Select 3+ mental health sections
+          </li>
+          <li>
+            <span class="feature-icon">✓</span>
+            Answer 7 questions per section
+          </li>
+          <li>
+            <span class="feature-icon">✓</span>
+            Get personalized results
+          </li>
+        </ul>
+      </div>
+      <div class="card-action">
+        <span>Start Check</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </div>
+    </div>
+
+    <!-- History Card -->
+    <div class="exam-card history-card" (click)="openHistory()">
+      <div class="card-icon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M3 3h18v18H3z"></path>
+          <path d="M8 7h8M8 11h8M8 15h5"></path>
+        </svg>
+      </div>
+      <div class="card-content">
+        <h3>View History</h3>
+        <p>Review your past weekly check results and track progress</p>
+        <ul class="card-features">
+          <li>
+            <span class="feature-icon">✓</span>
+            View all past assessments
+          </li>
+          <li>
+            <span class="feature-icon">✓</span>
+            Track your mental health trends
+          </li>
+          <li>
+            <span class="feature-icon">✓</span>
+            Compare results over time
+          </li>
+        </ul>
+      </div>
+      <div class="card-action">
+        <span>View History</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Analysis Section (Direct Display) -->
+  <div class="analysis-section">
+    <app-mental-analysis></app-mental-analysis>
+  </div>
+</div>
+
+<!-- Weekly Check Modal -->
+@if (showWeeklyCheckModal) {
+<div class="modal-overlay" (click)="closeWeeklyCheck()">
+  <div class="modal-container" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="closeWeeklyCheck()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    <div class="modal-content">
+      <app-mental-weekly-check (checkCompleted)="onCheckCompleted()"></app-mental-weekly-check>
+    </div>
+  </div>
+</div>
+}
+
+<!-- History Modal -->
+@if (showHistoryModal) {
+<div class="modal-overlay" (click)="closeHistory()">
+  <div class="modal-container" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="closeHistory()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    <div class="modal-content">
+      <app-mental-history></app-mental-history>
+    </div>
+  </div>
+</div>
+}
