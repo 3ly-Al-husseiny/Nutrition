@@ -1,0 +1,526 @@
+/* Dashboard with statistics, badges, and charts */
+
+
+/* Hero Section */
+.hero {
+    margin-top: 80px;
+    padding: 3rem 0 2rem;
+    text-align: center;
+    background: linear-gradient(180deg, rgba(25, 71, 43, 0.3) 0%, transparent 100%);
+}
+
+.hero-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    animation: fadeInDown 0.8s ease;
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    animation: fadeInUp 0.8s ease 0.2s backwards;
+}
+
+/* Stats Overview Section */
+.stats-overview {
+    padding: 2rem 0;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, var(--dark-bg) 0%, var(--accent-green) 100%);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeIn 0.6s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(72, 187, 120, 0.2);
+}
+
+.stat-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.stat-value {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--warning-color);
+    margin: 0.5rem 0;
+}
+
+.stat-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* Badges Section */
+.badges-section {
+    padding: 3rem 0;
+}
+
+.badges-grid {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.badge-item {
+    background: linear-gradient(135deg, var(--dark-bg) 0%, var(--secondary-bg) 100%);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 2px solid var(--border-color);
+    text-align: center;
+    min-width: 150px;
+    transition: all 0.3s ease;
+    animation: scaleIn 0.5s ease;
+}
+
+.badge-item:hover {
+    transform: scale(1.05);
+    border-color: var(--warning-color);
+}
+
+.badge-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+}
+
+.badge-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--warning-color);
+}
+
+/* Start Charts Section */
+.charts-section {
+    padding: 3rem 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(25, 71, 43, 0.1) 100%);
+}
+
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.chart-card {
+    background: linear-gradient(135deg, var(--dark-bg) 0%, var(--secondary-bg) 100%);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    animation: fadeIn 0.8s ease;
+}
+
+.chart-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(25, 73, 44, 0.3);
+    border-color: var(--success-color);
+}
+
+.chart-card:nth-child(3) {
+    grid-column: 1 / -1;
+}
+
+.chart-header {
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.chart-title {
+    font-size: 1.3rem;
+    color: var(--text-primary);
+    margin-bottom: 0.3rem;
+}
+
+.chart-subtitle {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.chart-container {
+    position: relative;
+    height: 300px;
+    width: 100%;
+}
+
+.chart-container canvas {
+    max-height: 100%;
+    width: 100% !important;
+    height: auto !important;
+}
+/* End Charts Section */
+
+
+/* Active Challenges Details */
+.detailed-progress {
+    padding: 3rem 0;
+}
+
+.progress-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.progress-item {
+    background: linear-gradient(135deg, var(--dark-bg) 0%, var(--accent-green) 100%);
+    padding: 1.5rem;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.progress-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--success-color);
+    box-shadow: 0 8px 16px rgba(72, 187, 120, 0.2);
+}
+
+.progress-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    gap: 0.5rem;
+}
+
+.progress-item-title {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    word-break: break-word;
+}
+
+.progress-item-percentage {
+    color: var(--success-color);
+    font-weight: bold;
+    font-size: 1.1rem;
+    white-space: nowrap;
+}
+
+.progress-item-bar {
+    width: 100%;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.progress-item-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--success-color) 0%, #38a169 100%);
+    transition: width 0.5s ease;
+}
+
+.progress-item-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.progress-detail {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* Action Buttons */
+.action-section {
+    padding: 3rem 0;
+}
+
+.action-buttons-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.action-btn {
+    padding: 1rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.action-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.action-btn:active {
+    transform: translateY(-1px);
+}
+
+.primary-btn {
+    background: linear-gradient(135deg, var(--success-color) 0%, #38a169 100%);
+    color: white;
+}
+
+.tertiary-btn {
+    background: linear-gradient(135deg, var(--warning-color) 0%, #ed8936 100%);
+    color: white;
+}
+
+.danger-btn {
+    background: linear-gradient(135deg, var(--danger-color) 0%, #f56565 100%);
+    color: white;
+}
+
+/* ==================== RESPONSIVE STYLES ==================== */
+
+/* Tablets (768px and below) */
+@media (max-width: 768px) {
+    .hero {
+        padding: 2rem 0 1.5rem;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+        max-width: 350px;
+    }
+
+    .badges-grid {
+        gap: 1.5rem;
+    }
+
+    .badge-item {
+        min-width: 130px;
+        padding: 1.5rem;
+    }
+
+    .badge-icon {
+        font-size: 3rem;
+    }
+
+    .charts-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .chart-card.full-width {
+        grid-column: 1;
+    }
+
+    .chart-container {
+        height: 280px;
+    }
+
+    .progress-list {
+        grid-template-columns: 1fr;
+    }
+
+    .action-buttons-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
+/* Mobile (480px and below) */
+@media (max-width: 480px) {
+    .hero {
+        padding: 2rem 0 1.5rem;
+    }
+
+    .hero-title {
+        font-size: 1.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .stats-overview {
+        padding: 1.5rem 0;
+    }
+
+    .stat-card {
+        padding: 1.5rem;
+    }
+
+    .stat-icon {
+        font-size: 2rem;
+    }
+
+    .stat-value {
+        font-size: 2rem;
+    }
+
+    .stat-label {
+        font-size: 0.85rem;
+    }
+
+    .badges-section {
+        padding: 2rem 0;
+    }
+
+    .badge-item {
+        min-width: 120px;
+        padding: 1.5rem 1rem;
+    }
+
+    .badge-icon {
+        font-size: 2.5rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .badge-name {
+        font-size: 1rem;
+    }
+
+    .charts-section {
+        padding: 2rem 0;
+    }
+
+    .charts-grid {
+        gap: 1.5rem;
+    }
+
+    .chart-card {
+        padding: 1rem;
+    }
+
+    .chart-header {
+        margin-bottom: 1rem;
+    }
+
+    .chart-title {
+        font-size: 1.1rem;
+    }
+
+    .chart-subtitle {
+        font-size: 0.8rem;
+    }
+
+    .chart-container {
+        height: 240px;
+    }
+
+    .detailed-progress {
+        padding: 2rem 0;
+    }
+
+    .progress-item {
+        padding: 1.2rem;
+    }
+
+    .progress-item-title {
+        font-size: 1rem;
+    }
+
+    .progress-item-percentage {
+        font-size: 1rem;
+    }
+
+    .progress-item-bar {
+        height: 8px;
+    }
+
+    .progress-detail {
+        font-size: 0.85rem;
+    }
+
+    .action-section {
+        padding: 2rem 0;
+    }
+
+    .action-btn {
+        padding: 0.9rem 1.2rem;
+        font-size: 0.95rem;
+    }
+}
+
+/* Extra Small Mobile (360px and below) */
+@media (max-width: 360px) {
+    .hero-title {
+        font-size: 1.3rem;
+    }
+
+    .hero-subtitle {
+        font-size: 0.85rem;
+    }
+
+    .stat-card {
+        padding: 1.2rem;
+    }
+
+    .stat-icon {
+        font-size: 1.8rem;
+    }
+
+    .stat-value {
+        font-size: 1.8rem;
+    }
+
+    .badge-item {
+        min-width: 100px;
+        padding: 1.2rem 0.8rem;
+    }
+
+    .badge-icon {
+        font-size: 2.2rem;
+    }
+
+    .badge-name {
+        font-size: 0.9rem;
+    }
+
+    .chart-card {
+        padding: 0.8rem;
+    }
+
+    .chart-title {
+        font-size: 1rem;
+    }
+
+    .chart-container {
+        height: 220px;
+    }
+
+    .progress-item {
+        padding: 1rem;
+    }
+
+    .progress-item-title {
+        font-size: 0.95rem;
+    }
+
+    .action-btn {
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
+    }
+}
